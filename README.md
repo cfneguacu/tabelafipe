@@ -14,7 +14,7 @@ mvn spring-boot:run
 Após executar o comando acima, basta apenas abrir o seguinte endereço para visualizar o projeto pronto.
 
 ```
-http://localhost:8080//tabelafipe
+http://localhost:8080/tabelafipe
 ```
 
 São necessários os seguintes pré-requisitos para a execução do projeto:
