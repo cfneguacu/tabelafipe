@@ -23,11 +23,9 @@ public class Cadastro implements Serializable{
 	private Long codigo;
 	
 	private String nome;
-	
-	@NotBlank
+
 	private String email;
 	
-	@NotBlank
 	private String CPF;
 	
 	@JsonFormat(pattern="yyyy-MM-dd")
@@ -37,8 +35,8 @@ public class Cadastro implements Serializable{
 		
 	}
 	
-	public Cadastro(String nome, @NotBlank String email, 
-            @NotBlank String CPF) {
+	public Cadastro(String nome,  String email,
+             String CPF) {
 		
 	this.email = email;
     this.CPF = CPF;

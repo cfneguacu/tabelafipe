@@ -32,7 +32,6 @@ public class VeiculosController {
 	private VeiculosRepository veiculoRepository;
     /**
      *
-     * @param name the name to greet
      * @return greeting text
      */
     

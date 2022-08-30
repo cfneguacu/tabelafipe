@@ -32,7 +32,6 @@ public class CadastroController {
 	private CadastroRepository cadastroRepository;
     /**
      *
-     * @param name the name to greet
      * @return greeting text
      */
     
@@ -94,7 +93,7 @@ public class CadastroController {
    
    @PostMapping(value = "logadoadmin")
    @ResponseBody
-   public Status loginAdmin(@Valid @RequestBody Cadastro cadastro) {
+   public Status loginAdmin(@RequestBody Cadastro cadastro) {
        List<Cadastro> cadastros = cadastroRepository.findAll();
        for (Cadastro other : cadastros) {
            if (other.equals(cadastro) && cadastro.getCPF() != "" && cadastro.getEmail() != "") {

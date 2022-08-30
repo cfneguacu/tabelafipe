@@ -1,0 +1,8 @@
+/home/claudioneves/tabelafipe/src/main/java/br/com/springboot/tabelafipe/model/Cadastro.java
+/home/claudioneves/tabelafipe/src/main/java/br/com/springboot/tabelafipe/TabelafipeApplication.java
+/home/claudioneves/tabelafipe/src/main/java/br/com/springboot/tabelafipe/controller/VeiculosController.java
+/home/claudioneves/tabelafipe/src/main/java/br/com/springboot/tabelafipe/status/Status.java
+/home/claudioneves/tabelafipe/src/main/java/br/com/springboot/tabelafipe/repository/VeiculosRepository.java
+/home/claudioneves/tabelafipe/src/main/java/br/com/springboot/tabelafipe/repository/CadastroRepository.java
+/home/claudioneves/tabelafipe/src/main/java/br/com/springboot/tabelafipe/model/Veiculos.java
+/home/claudioneves/tabelafipe/src/main/java/br/com/springboot/tabelafipe/controller/CadastroController.java
