@@ -45,7 +45,7 @@ public class VeiculosController {
     
    @PostMapping(value = "veiculosalvar")
    @ResponseBody
-   public Status salvar(@Valid @RequestBody Veiculos veiculo) {
+   public Status salvar(@RequestBody Veiculos veiculo) {
        List<Veiculos> veiculos = veiculoRepository.findAll();
        for (Veiculos v : veiculos) {
 			if (v.equals(veiculo)) {
