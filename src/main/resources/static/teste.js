@@ -432,29 +432,7 @@ function selecionaModelo(url, marca){
  	    	}); 
      
    }
-     
-   function validaDuplicados(){
-   	
-   	var nome = $("#nome").val();
 
-   	  $.ajax({
-	    		method: "GET",
-	    		url: "validaDuplicados",
-	    		data : "name=" + nome ,
- 	 			success: function(response){
-	    		if(response > 0){
-		    		alert("Cadastro Duplicado");
-	    		}else{
-	    			salvarUsuario();
-	    		}
-	    		
-	    		}
-	    	}).fail(function(xhr,status,errorThrown){
-	    		alert("Erro ao validar cadastro:" + xhr.responseText);
-	    	}); 
- 	
-     }
-   
  function salvarUsuario(){
    	
    		var codigo= $("#codigo").val();

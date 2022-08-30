@@ -14,6 +14,6 @@ public interface CadastroRepository extends JpaRepository<Cadastro, Long> {
 	List<Cadastro> buscarPorNome(String name);
 	
 	@Query(value = "SELECT COUNT(c) FROM Cadastro c WHERE upper(trim(c.nome)) like %?1%")
-	List<Cadastro> validaDuplicados(String name);
+	Integer validaDuplicados(String name);
 
 }
