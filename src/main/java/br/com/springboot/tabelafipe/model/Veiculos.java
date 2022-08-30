@@ -6,8 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
-//import javax.validation.constraints.NotBlank;
-//import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 @Entity
 @SequenceGenerator(name = "seq_veiculos" , sequenceName = "seq_veiculos", allocationSize = 1, initialValue = 1)
