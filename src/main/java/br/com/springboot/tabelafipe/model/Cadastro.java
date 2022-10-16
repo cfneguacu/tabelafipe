@@ -3,11 +3,7 @@ package br.com.springboot.tabelafipe.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -20,13 +16,17 @@ public class Cadastro implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_cadastro")
 	private Long codigo;
-	
+
+	@Column(unique = true, nullable = false)
 	private String nome;
 
+	@Column(unique = true, nullable = false)
 	private String email;
-	
+
+	@Column(unique = true, nullable = false)
 	private String CPF;
-	
+
+	@Column(unique = true, nullable = false)
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date datanasc;
 	

@@ -37,7 +37,7 @@ public class CadastroController {
     @ResponseBody
     public ResponseEntity<List<Cadastro>> listaUsuario(){
     	List<Cadastro> cadastros = cadastroRepository.findAll();
-    	return new ResponseEntity<List<Cadastro>>(cadastros, HttpStatus.OK);
+    	return new ResponseEntity<>(cadastros, HttpStatus.OK);
     
     }
     
@@ -47,7 +47,7 @@ public class CadastroController {
         Cadastro prop = null;
         if(cadastroRepository.validaDuplicados(cadastro.getCPF()) == 0) {
             prop = cadastroRepository.save(cadastro);
-            return new ResponseEntity<Cadastro>(prop, HttpStatus.CREATED);
+            return new ResponseEntity<>(prop, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(prop, HttpStatus.NOT_FOUND);
     }
@@ -56,14 +56,14 @@ public class CadastroController {
    @ResponseBody
     public ResponseEntity<String> delete(@RequestParam Long iduser){
     	cadastroRepository.deleteById(iduser);
-    	return new ResponseEntity<String>("Usuario deletado com sucesso", HttpStatus.OK);
+    	return new ResponseEntity<>("Usuario deletado com sucesso", HttpStatus.OK);
     }
    
    @GetMapping(value = "cadastrobuscaruserId")
    @ResponseBody
     public ResponseEntity<Cadastro> buscaruserId(@RequestParam(name = "iduser") Long iduser){
     	Cadastro cadastro = cadastroRepository.findById(iduser).get();
-    	return new ResponseEntity<Cadastro>(cadastro, HttpStatus.OK);
+    	return new ResponseEntity<>(cadastro, HttpStatus.OK);
     }
    
    @PutMapping(value = "cadastroatualizar")
@@ -71,18 +71,18 @@ public class CadastroController {
     public ResponseEntity<?> buscaruserId(@RequestBody Cadastro cadastro){
     	
 	   if(cadastro.getCodigo() == null) {
-		   return new ResponseEntity<String>("Codigo de Cadastro não foi informado para atualização", HttpStatus.OK);
+		   return new ResponseEntity<>("Codigo de Cadastro não foi informado para atualização", HttpStatus.OK);
 	   }
 	   
 	   Cadastro user = cadastroRepository.saveAndFlush(cadastro);
-    	return new ResponseEntity<Cadastro>(user, HttpStatus.OK);
+    	return new ResponseEntity<>(user, HttpStatus.OK);
     }
    
    @GetMapping(value = "cadastrobuscarPorNome")
    @ResponseBody
     public ResponseEntity<List<Cadastro>> buscarPorNome(@RequestParam(name = "name") String name){
     	List<Cadastro> cadastro = cadastroRepository.buscarPorNome(name.trim().toUpperCase());
-    	return new ResponseEntity<List<Cadastro>>(cadastro, HttpStatus.OK);
+    	return new ResponseEntity<>(cadastro, HttpStatus.OK);
     }
    
    @PostMapping(value = "logadoadmin")
