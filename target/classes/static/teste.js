@@ -1,13 +1,14 @@
-var url = "https://parallelum.com.br/fipe/api/v1/carros/marcas";
+var url = "https://parallelum.com.br/fipe/api/v2/cars/brands";
  
 	   $.ajax({
 	  		method: "GET",
 	  		url: url,
 	  		success: function(response){
+	  		console.log(response);
 	  			$('#selecionarMarca > option').remove();
 	  			for (var i = 0; i < response.length; i++){
 					//marca = response[i].codigo
-	 				$('#selecionarMarca').append('<option value="'+response[i].codigo+'">'+response[i].nome+'</option>');
+	 				$('#selecionarMarca').append('<option value="'+response[i].code+'">'+response[i].name+'</option>');
 	 			}
 	  		}
 	  	}); 
@@ -137,13 +138,13 @@ function colocarEmEdicaoAdm(codigo){
   function novoVeiculo(){
 	document.getElementById('formVeiculo').reset()
 	$("#cadastrar").remove();
-	$("#novo").after('<button id="cadastrar" type="button" class="btn btn-secondary" onclick="validaDuplicadosVeiculo()">Cadastrar</button>');
+	$("#novo").after('<button id="cadastrar" type="button" class="btn btn-secondary" onclick="salvarVeiculo()">Cadastrar</button>');
   }
   
   function novoUsuario(){
 		document.getElementById('formCadastro').reset()
 		$("#salvar").remove();
-		$("#botoes").append('<button id="salvar" type="button" class="btn btn-primary" onclick="validaDuplicados()">Salvar</button>');
+		$("#botoes").append('<button id="salvar" type="button" class="btn btn-primary" onclick="salvarUsuario()">Salvar</button>');
 	  }
    
 function colocarEmEdicao(codigo){
@@ -175,18 +176,19 @@ function selecionaModelo(url, marca){
 	
 	
     //if(!url.includes("undefined") || url != undefined){
-	url = url +"/"+marca+"/modelos";
+	url = url +"/"+marca+"/models";
 	//}
 		$.ajax({
 	  				method: "GET",
 	  				url: url,
 	  				success: function(response){
+	  				console.log(response);
 	  				$('#selecionarModelo > option').remove();
 					var obj = response;
 					//console.log(Object.values(obj.modelos[1])[0]);
-	  				for (var i = 0; i < obj.modelos.length; i++){
+	  				for (var i = 0; i < obj.length; i++){
 					//console.log(Object.values(obj.modelos[0])[i]);
-	 				$('#selecionarModelo').append('<option value="'+Object.values(obj.modelos[i])[1]+'">'+Object.values(obj.modelos[i])[0]+'</option>');
+	 				$('#selecionarModelo').append('<option value="'+Object.values(obj[i])[1]+'">'+Object.values(obj[i])[0]+'</option>');
 	 				}
 	  			}
 	  			
@@ -215,7 +217,7 @@ function selecionaModelo(url, marca){
     
 	//modelo = $("#modelo option:selected").val();
    // if(!url.includes("undefined") || url != undefined){
-	url = url+"/"+modelo+"/anos";
+	url = url+"/"+modelo+"/years";
 	//}
 	
 	$.ajax({
@@ -225,7 +227,7 @@ function selecionaModelo(url, marca){
 	  			$('#selecionarAno > option').remove();
 	  			for (var i = 0; i < response.length; i++){
 					//marca = response[i].codigo
-	 				$('#selecionarAno').append('<option value="'+response[i].codigo+'">'+response[i].nome+'</option>');
+	 				$('#selecionarAno').append('<option value="'+response[i].code+'">'+response[i].name+'</option>');
 	 			}
 	  		}
 	  		//alert("Erro ao buscar cidade:" + xhr.responseText);
@@ -245,17 +247,15 @@ function selecionaModelo(url, marca){
 	
    }
 
-    function tabelafipemarca(marca, modelo, ano){
+    function tabelafipe(marca, modelo, ano, index){
 	
 	var valor;
 	
 	  $.ajax({
  	    		method: "GET",
- 	    		url: "https://parallelum.com.br/fipe/api/v1/carros/marcas/"+marca+"/modelos/"+modelo+"/anos/"+ano,
+ 	    		url: "https://parallelum.com.br/fipe/api/v2/cars/brands/"+marca+"/models/"+modelo+"/years/"+ano,
  	    		async: false,
  	    		success: function(response){
-	//console.log(response);
-					//if (response != null || response != undefined){
 					valor = response;
 					//}
 				}
@@ -267,104 +267,11 @@ function selecionaModelo(url, marca){
 	if (valor != null || valor != undefined){
 		
 	//return valor;
-
-	return Object.values(valor)[1];
+	return Object.values(valor)[index];
 	
 	} else {
 		
-	return valor = "indefinido/nulo";
-
-    }
-}
-
-   function tabelafipemodelo(marca, modelo, ano){
-	
-	var valor;
-	
-	  $.ajax({
- 	    		method: "GET",
- 	    		url: "https://parallelum.com.br/fipe/api/v1/carros/marcas/"+marca+"/modelos/"+modelo+"/anos/"+ano,
- 	    		async: false,
- 	    		success: function(response){
-	//console.log(response);
-					//if (response != null || response != undefined){
-					valor = response;
-					//}
-				}
-				
-				//}).fail(function(xhr,status,errorThrown){
- 	    		//alert("Erro ao buscar veiculo:" + xhr.responseText);
- 	    		}); 	
-
-	if (valor != null || valor != undefined){
-		
-	return Object.values(valor)[2];
-	
-	} else {
-		
-	return valor = "indefinido/nulo";
-
-    }
-}
-
-   function tabelafipeano(marca, modelo, ano){
-	
-	var valor;
-	
-	  $.ajax({
- 	    		method: "GET",
- 	    		url: "https://parallelum.com.br/fipe/api/v1/carros/marcas/"+marca+"/modelos/"+modelo+"/anos/"+ano,
- 	    		async: false,
- 	    		success: function(response){
-	//console.log(response);
-					//if (response != null || response != undefined){
-					valor = response;
-					//}
-				}
-				
-				//}).fail(function(xhr,status,errorThrown){
- 	    		//alert("Erro ao buscar veiculo:" + xhr.responseText);
- 	    		}); 	
-
-	if (valor != null || valor != undefined){
-		
-	//return valor;
-
-	return Object.values(valor)[3];
-	
-	} else {
-		
-	return valor = "indefinido/nulo";
-
-    }
-}
-
-   function tabelafipevalor(marca, modelo, ano){
-	
-	var valor;
-	
-	  $.ajax({
- 	    		method: "GET",
- 	    		url: "https://parallelum.com.br/fipe/api/v1/carros/marcas/"+marca+"/modelos/"+modelo+"/anos/"+ano,
- 	    		async: false,
- 	    		success: function(response){
-	//console.log(response);
-					//if (response != null || response != undefined){
-					valor = response;
-					//}
-				}
-				
-				//}).fail(function(xhr,status,errorThrown){
- 	    		//alert("Erro ao buscar veiculo:" + xhr.responseText);
- 	    		}); 	
-
-	if (valor != null || valor != undefined){
-
-	return Object.values(valor)[0];
-	
-	} else {
-		
-	return valor = "indefinido/nulo";
+	return "indefinido/nulo";
 
     }
 }
@@ -376,9 +283,7 @@ function selecionaModelo(url, marca){
  		  $.ajax({
  	    		method: "GET",
  	    		url: "veiculolistatodos",
- 	    		//data : "name=" + nome ,
  	    		success: function(response){
-				///console.log(response);
  	    			$('#tabelaveiculos > tbody > tr').remove();
 
 					var rodizioativotemp;
@@ -413,12 +318,12 @@ function selecionaModelo(url, marca){
 						
  	    				$('#tabelaveiculos > tbody').append('<tr id="'+response[i].codigo+'">'+
    	   						'<td>'+response[i].codigo+'</td>'+ 
-   	   						'<td>'+tabelafipemarca(response[i].marca,response[i].modelo,response[i].ano)+'</td>'+
-   	   						'<td>'+tabelafipemodelo(response[i].marca,response[i].modelo,response[i].ano)+'</td>'+
-   	   						'<td>'+tabelafipeano(response[i].marca,response[i].modelo,response[i].ano)+'</td>'+
+   	   						'<td>'+tabelafipe(response[i].marca,response[i].modelo,response[i].ano,1)+'</td>'+
+   	   						'<td>'+tabelafipe(response[i].marca,response[i].modelo,response[i].ano,2)+'</td>'+
+   	   						'<td>'+tabelafipe(response[i].marca,response[i].modelo,response[i].ano,3)+'</td>'+
    	   						'<td>'+rodizio[i]+'</td>'+
    	   						'<td>'+rodizioativo[i]+'</td>'+
-							'<td>'+tabelafipevalor(response[i].marca,response[i].modelo,response[i].ano)+'</td></tr>');
+							'<td>'+tabelafipe(response[i].marca,response[i].modelo,response[i].ano,0)+'</td></tr>');
    	    			}
 
  	    			$('#quantidade').remove();
