@@ -4,7 +4,6 @@ var url = "https://parallelum.com.br/fipe/api/v2/cars/brands";
 	  		method: "GET",
 	  		url: url,
 	  		success: function(response){
-	  		console.log(response);
 	  			$('#selecionarMarca > option').remove();
 	  			for (var i = 0; i < response.length; i++){
 					//marca = response[i].codigo
