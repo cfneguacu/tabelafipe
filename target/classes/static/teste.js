@@ -182,7 +182,6 @@ function selecionaModelo(url, marca){
 	  				method: "GET",
 	  				url: url,
 	  				success: function(response){
-	  				console.log(response);
 	  				$('#selecionarModelo > option').remove();
 					var obj = response;
 					//console.log(Object.values(obj.modelos[1])[0]);
