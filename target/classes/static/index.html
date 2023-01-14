@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 	<!-- Bootstrap CSS -->
@@ -47,9 +47,6 @@ label{
     <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="profile" aria-selected="false">Cadastro Veiculo</button>
   </li>
   <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="true">Cadastro Usuario</button>
-  </li>
-  <li class="nav-item" role="presentation">
     <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Consulta Veiculos</button>
   </li>
    <li class="nav-item" role="presentation">
@@ -63,30 +60,38 @@ label{
 	<form class="row g-3" id="formVeiculo">
 	<h3>Veículos</h3>
     <div class="col-md-6" style ="width: 650px;">
-    <label for="inputEmail4"  >ID</label>
-    <input type="text" class="form-control" id="idveiculo" style="width: 46px; ">
+    <label>ID</label>
+    <input type="text" class="form-control" id="idveiculo" style="width: 46px; "></div>
 	<div class="input-group mb-3">
   			<div class="input-group-prepend">
-    		<label class="input-group-text" for="inputGroupSelect01">Marca</label>
+    		<label class="input-group-text">Marca</label>
   			</div>
   			<select class="custom-select mr-sm-2" data-live-search="true"  id="selecionarMarca" style="width: 325px;">  			 
   			</select>
 	</div>  
 	<div class="input-group mb-3">
   			<div class="input-group-prepend">
-    		<label class="input-group-text" for="inputGroupSelect01">Modelo</label>
+    		<label class="input-group-text">Modelo</label>
   			</div>
   			<select class="custom-select mr-sm-2" data-live-search="true" id="selecionarModelo" style="width: 325px;">  			 
   			</select>
 	</div> 
 	<div class="input-group mb-3">
   			<div class="input-group-prepend">
-    		<label class="input-group-text" for="inputGroupSelect01">Ano</label>
+    		<label class="input-group-text">Ano</label>
   			</div>
   			<select class="custom-select mr-sm-2" data-live-search="true" id="selecionarAno" style="width: 325px;">  			 
   			</select>
-	</div>  	 		
 	</div>
+		<div class="col-md-6" style ="width: 650px;">
+			<label>Renavam</label>
+			<input type="text" class="form-control" id="renavam_text" style="width: 460px; "></div>
+		<div class="col-md-6" style ="width: 650px;">
+			<label>Placa</label>
+			<input type="text" class="form-control" id="placa_text" style="width: 460px; "></div>
+		<div class="col-md-6" style ="width: 650px;">
+			<label>Cor</label>
+			<input type="text" class="form-control" id="cor_text" style="width: 460px; "></div>
 	</form>
 	<div class="col-md-6" style="width : 700px;">
 	<button type="button" class="btn btn-primary" onclick="salvarVeiculo()">Salvar</button>
@@ -94,41 +99,12 @@ label{
   </div>
 
 	</div>
-  <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-	<br>
-	<form class="row g-3" id="formCadastro">
-	<h3>Dados Pessoais</h3>
-    <div class="col-md-6" style ="width: 650px;">
-    <label for="inputEmail4"  >ID</label>
-    <input type="text" class="form-control" id="codigo" style="width: 46px; ">
-    <label for="inputAddress"  >Nome </label><input type="text" class="form-control" id="nome"  style="width: 382px; ">
-  	<label for="inputAddress"  >Email </label><input type="text" class="form-control" id="email"  style="width: 382px; ">
-  	<label for="inputAddress"  >CPF </label><input type="text" class="form-control" id="cpf"  style="width: 382px; ">
-    </div>
-  	<label for="inputAddress"  >Data Nascimento </label>
-  	<div class="input-group date" data-provide="datepicker" style="width: 184px;">
-    <input type="date" class="form-control" id="datanasc">
-  	  	<div class="input-group-addon">
-        <span class="glyphicon glyphicon-th"></span>
-    	</div>
-	</div>
-	</form>
-	<div class="col-md-6" style="width : 700px;">
-	<button type="button" class="btn btn-primary" onclick="salvarUsuario()">Salvar</button>
-	<button type="button" class="btn btn-secondary" onclick="novoUsuario();">Novo</button>
-  </div>
-	</div>
   <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
   <form id = "formLogin"> 
-          <h3>Digite seu Cpf e Email cadastrado</h3> 
+          <h3>Digite o Renavam cadastrado</h3>
           <p> 
-            <label for="cpf_login">CPF</label>
-            <input id="cpf_login" class="form-control" name="nome" required="required" type="text" style="width: 246px;">
-          </p>
-           
-          <p> 
-            <label for="email_login">Email</label>
-            <input id="email_login" class="form-control" name="nome" required="required" type="email" style="width: 246px;"> 
+            <label for="renavam">Renavam</label>
+            <input id="renavam" class="form-control" name="nome" required="required" type="text" style="width: 246px;">
           </p>
           <button type="button" class="btn btn-secondary" onclick="listarVeiculos()">Listar Veiculos</button>
           <label id ="registrosencontrados">Veículos Encontrados: </label>
@@ -142,6 +118,10 @@ label{
     			<th scope="col">Dia do Rodizio</th>
     			<th scope="col">Rodizio Ativo </th>
     			<th scope="col">Valor</th>
+					<th scope="col">Renavam</th>
+					<th scope="col">Placa</th>
+					<th scope="col">Cor</th>
+					<th scope="col"></th>
    				 </tr>
   			</thead>
   <tbody>
