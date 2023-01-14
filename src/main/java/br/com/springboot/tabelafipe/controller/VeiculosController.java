@@ -6,14 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import br.com.springboot.tabelafipe.model.Veiculos;
 import br.com.springboot.tabelafipe.repository.VeiculosRepository;
 import br.com.springboot.tabelafipe.status.Status;
@@ -37,7 +30,7 @@ public class VeiculosController {
     @ResponseBody
     public ResponseEntity<List<Veiculos>> listaVeiculo(){
     	List<Veiculos> veiculos = veiculoRepository.findAll();
-    	return new ResponseEntity<List<Veiculos>>(veiculos, HttpStatus.OK);
+    	return new ResponseEntity<>(veiculos, HttpStatus.OK);
     
     }
     
@@ -66,6 +59,13 @@ public class VeiculosController {
     public ResponseEntity<Veiculos> buscaruserId(@RequestParam(name = "iduser") Long iduser){
     	Veiculos veiculo = veiculoRepository.findById(iduser).get();
     	return new ResponseEntity<Veiculos>(veiculo, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "veiculobuscarPorRenavam")
+    @ResponseBody
+    public ResponseEntity<Veiculos> buscarPorRenavam(@RequestParam(name = "renavam") String renavam){
+        Veiculos veiculo = veiculoRepository.buscarPorRenavan(renavam);
+        return new ResponseEntity<Veiculos>(veiculo, HttpStatus.OK);
     }
    
    @PutMapping(value = "veiculoatualizar")

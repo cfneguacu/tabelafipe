@@ -1,15 +1,17 @@
 package br.com.springboot.tabelafipe.model;
 
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import lombok.*;
 
+import java.io.Serializable;
+import javax.persistence.*;
 
 @Entity
-@SequenceGenerator(name = "seq_veiculos" , sequenceName = "seq_veiculos", allocationSize = 1, initialValue = 1)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@EqualsAndHashCode
+@SequenceGenerator(name = "seq_veiculos" , sequenceName = "seq_veiculos", allocationSize = 1)
 public class Veiculos implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -17,43 +19,19 @@ public class Veiculos implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_veiculos")
 	private Long codigo;
-	
+
 	private String marca;
 	private String modelo;
 	private String ano;
-	
-	
-	public Long getCodigo() {
-		return codigo;
-	}
 
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
-	}
+	@Column(unique = true)
+	private String renavam;
 
-	public String getMarca() {
-		return marca;
-	}
+	private String cor;
 
-	public void setMarca(String marca) {
-		this.marca = marca;
-	}
+	@Column(unique = true)
+	private String placa;
 
-	public String getModelo() {
-		return modelo;
-	}
-
-	public void setModelo(String modelo) {
-		this.modelo = modelo;
-	}
-
-	public String getAno() {
-		return ano;
-	}
-
-	public void setAno(String ano) {
-		this.ano = ano;
-	}
 }
 	
 
