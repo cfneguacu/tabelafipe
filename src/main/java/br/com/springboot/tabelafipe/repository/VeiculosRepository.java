@@ -29,7 +29,7 @@ Veiculos buscarPorRenavan(@Param("renavam") String renavam);
 
 @QueryHints({
         @QueryHint(
-                name = "javax.persistence.lock.timeout",value = "-2")
+                name = "javax.persistence.lock.timeout",value = "true")
 })
 @Lock(LockModeType.PESSIMISTIC_WRITE)
 List<Veiculos> findAllByStatus(Status status);
