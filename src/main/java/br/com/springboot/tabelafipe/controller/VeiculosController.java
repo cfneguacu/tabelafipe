@@ -33,18 +33,16 @@ public class VeiculosController {
     	return new ResponseEntity<>(veiculos, HttpStatus.OK);
     
     }
-    
+
    @PostMapping(value = "veiculosalvar")
    @ResponseBody
    public Status salvar(@RequestBody Veiculos veiculo) {
-       List<Veiculos> veiculos = veiculoRepository.findAll();
-       for (Veiculos v : veiculos) {
-			if (v.equals(veiculo)) {
-               return Status.USER_ALREADY_EXISTS;
-            }
-       }
+
+        veiculo.setStatus(Status.PENDING);
        veiculoRepository.save(veiculo);
-       return Status.SUCCESS;
+
+       return Status.PENDING;
+
    }
    
    @DeleteMapping(value = "veiculodelete")

@@ -26,39 +26,11 @@ var url = "https://parallelum.com.br/fipe/api/v2/cars/brands";
   	        });
   	   $("#selecionarMarca").find("option:selected").attr("selected", true);
   	})
-
-	function validarAcesso(){
-
-    	var renavam = $('#renavam').val();
-    	
-             
-    if(renavam == "") {
-		alert("O campo é Obrigatório");
-	}else{
-		$.ajax({
-			url: "veiculobuscarPorRenavam",
-			method: "POST",
-			data: JSON.stringify({renavam: renavam}),
-      		contentType: "application/json; charset=utf-8"
-		}).done(function(retorno){
-				if(retorno == "SUCCESS"){
-					alert("Bem vindo");
-				}else{
-					 alert("Renavam incorreto")
-				}
-		});
-	}
-	}
    
    function sair(){
    	sessionStorage.setItem("usuariologado", "");
    	window.location.href = "index.html";
    }
-   
-   	function coletaDados(){
-   	   var ids = document.getElementsByClassName('custom-control-input');
-   	   coletaIDs(ids);         
-   	}
    
    function botaoDeletarDaTelaVeiculo(){
    	var codigo= $('#idveiculo').val();

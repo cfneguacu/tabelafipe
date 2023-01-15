@@ -1,5 +1,6 @@
 package br.com.springboot.tabelafipe.model;
 
+import br.com.springboot.tabelafipe.status.Status;
 import lombok.*;
 
 import java.io.Serializable;
@@ -31,6 +32,8 @@ public class Veiculos implements Serializable{
 
 	@Column(unique = true)
 	private String placa;
+
+	private Status status;
 
 }
 	
