@@ -3,6 +3,7 @@ package br.com.springboot.tabelafipe.controller;
 import java.util.List;
 
 //import javax.validation.Valid;
+import br.com.springboot.tabelafipe.utils.VeiculosUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,8 +39,10 @@ public class VeiculosController {
    @ResponseBody
    public Status salvar(@RequestBody Veiculos veiculo) {
 
+        VeiculosUtils veiculosUtils = new VeiculosUtils();
+        veiculosUtils.validacaoDigitosRenavam(veiculo.getRenavam());
         veiculo.setStatus(Status.PENDING);
-       veiculoRepository.save(veiculo);
+        veiculoRepository.save(veiculo);
 
        return Status.PENDING;
 
