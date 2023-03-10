@@ -83,6 +83,13 @@ label{
   			<select class="custom-select mr-sm-2" data-live-search="true" id="selecionarAno" style="width: 325px;">  			 
   			</select>
 	</div>
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<label class="input-group-text">Combustível</label>
+			</div>
+			<select class="custom-select mr-sm-2" data-live-search="true" id="selecionarCombustivel" style="width: 325px;">
+			</select>
+		</div>
 		<div class="col-md-6" style ="width: 650px;">
 			<label>Renavam</label>
 			<input type="text" class="form-control" id="renavam_text" style="width: 460px; "></div>
@@ -95,7 +102,7 @@ label{
 	</form>
 	<div class="col-md-6" style="width : 700px;">
 	<button type="button" class="btn btn-primary" onclick="salvarVeiculo()">Salvar</button>
-	<button type="button" class="btn btn-secondary" onclick="novoVeiculo();">Novo</button>
+	<button type="button" class="btn btn-secondary" onclick="novoVeiculo()">Novo</button>
   </div>
 
 	</div>
@@ -112,6 +119,7 @@ label{
   			<thead>
     			<tr>
     			<th scope="col">ID</th>
+					<th>Data Cadastro</th>
     			<th scope="col">Marca</th>
     			<th scope="col">Modelo</th>
     			<th scope="col">Ano</th>
@@ -121,6 +129,7 @@ label{
 					<th scope="col">Renavam</th>
 					<th scope="col">Placa</th>
 					<th scope="col">Cor</th>
+					<th scope="col">Combustível</th>
 					<th scope="col"></th>
    				 </tr>
   			</thead>

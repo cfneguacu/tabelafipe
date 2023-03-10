@@ -4,10 +4,8 @@ var url = "https://parallelum.com.br/fipe/api/v2/cars/brands";
  	  		method: "GET",
  	  		url: url,
  	  		success: function(response){
- 	  		console.log(response)
  	  			$('#selecionarMarca > option').remove();
  	  			for (var i = 0; i < response.length; i++){
- 					//marca = response[i].codigo
  	 				$('#selecionarMarca').append('<option value="'+response[i].code+'">'+response[i].name+'</option>');
  	 			}
  	  		}
@@ -17,8 +15,7 @@ var url = "https://parallelum.com.br/fipe/api/v2/cars/brands";
   	        $("#selecionarMarca").each(function () {
   	          $(this).find("option").each(function () {
   	            if ($(this).attr("selected")) {
- 					//var comboMarca = document.getElementById("selecionarMarca");
- 				     marca = $("#selecionarMarca option:selected").val()
+ 				    var marca = $(this).val()
  					selecionaModelo(url, marca);
   	             $(this).removeAttr("selected");
   	            }
@@ -67,20 +64,15 @@ var url = "https://parallelum.com.br/fipe/api/v2/cars/brands";
 
 function selecionaModelo(url, marca){
 
+ 	var url = url+"/"+marca+"/models";
 
-     //if(!url.includes("undefined") || url != undefined){
- 	url = url +"/"+marca+"/models";
- 	//}
  		$.ajax({
  	  				method: "GET",
  	  				url: url,
  	  				success: function(response){
  	  				$('#selecionarModelo > option').remove();
- 					var obj = response;
- 					//console.log(Object.values(obj.modelos[1])[0]);
- 	  				for (var i = 0; i < obj.length; i++){
- 					//console.log(Object.values(obj.modelos[0])[i]);
- 	 				$('#selecionarModelo').append('<option value="'+Object.values(obj[i])[1]+'">'+Object.values(obj[i])[0]+'</option>');
+ 	  				for (var i = 0; i < response.length; i++){
+ 	 				$('#selecionarModelo').append('<option value="'+response[i].code+'">'+response[i].name+'</option>');
  	 				}
  	  			}
 
@@ -90,11 +82,8 @@ function selecionaModelo(url, marca){
   	        		$("#selecionarModelo").each(function () {
   	         			 $(this).find("option").each(function () {
   	            			if ($(this).attr("selected")) {
- 								//var comboModelo = document.getElementById("selecionarModelo");
  								var modelo = $(this).val();
- 								//if (modelo!=0){
- 								selecionaAno(url, modelo)
- 								//}
+ 								selecionaAno(url, modelo);
   	            	 $(this).removeAttr("selected");
   	            }
   	          });
@@ -106,10 +95,7 @@ function selecionaModelo(url, marca){
 
  	function selecionaAno(url, modelo){
 
-
- 	//modelo = $("#modelo option:selected").val();
-    // if(!url.includes("undefined") || url != undefined){
- 	url = url+"/"+modelo+"/years";
+ 	var url = url+"/"+modelo+"/years";
  	//}
 
  	$.ajax({
@@ -118,18 +104,18 @@ function selecionaModelo(url, marca){
  	  		success: function(response){
  	  			$('#selecionarAno > option').remove();
  	  			for (var i = 0; i < response.length; i++){
- 					//marca = response[i].codigo
- 	 				$('#selecionarAno').append('<option value="'+response[i].code+'">'+response[i].name+'</option>');
+ 	 				$('#selecionarAno').append('<option value="'+response[i].code+'">'+response[i].code+'</option>');
+
  	 			}
  	  		}
- 	  		//alert("Erro ao buscar cidade:" + xhr.responseText);
  	  	});
 
  	$("#selecionarAno").click(function () {
   	        $("#selecionarAno").each(function () {
   	          $(this).find("option").each(function () {
   	           if ($(this).attr("selected")) {
-
+  	           var ano = $(this).val();  								//if (modelo!=0){
+               selecionaCombustivel(url, ano);
   	            $(this).removeAttr("selected");
   	            }
   	          });
@@ -139,34 +125,32 @@ function selecionaModelo(url, marca){
 
     }
 
-     function tabelafipe(marca, modelo, ano, index){
+    function selecionaCombustivel(url, ano){
 
- 	var valor;
+     	var url = url+"/"+ano;
 
- 	  $.ajax({
-  	    		method: "GET",
-  	    		url: "https://parallelum.com.br/fipe/api/v2/cars/brands/"+marca+"/models/"+modelo+"/years/"+ano,
-  	    		async: false,
-  	    		success: function(response){
- 					valor = response;
- 					//}
- 				}
+     	$.ajax({
+     	  		method: "GET",
+     	  		url: url,
+     	  		success: function(response){
+     	  			$('#selecionarCombustivel > option').remove();
+     	 				$('#selecionarCombustivel').append('<option value="'+response.fuel+'">'+response.fuel+'</option>');
+     	  		}
+     	  	});
 
- 				//}).fail(function(xhr,status,errorThrown){
-  	    		//alert("Erro ao buscar veiculo:" + xhr.responseText);
-  	    		});
+     	$("#selecionarCombustivel").click(function () {
+      	        $("#selecionarCombustivel").each(function () {
+      	          $(this).find("option").each(function () {
+      	           if ($(this).attr("selected")) {
 
- 	if (valor != null || valor != undefined){
+      	            $(this).removeAttr("selected");
+      	            }
+      	          });
+      	        });
+      	      $("#selecionarCombustivel").find("option:selected").attr("selected", true);
+      	})
 
- 	//return valor;
- 	return Object.values(valor)[index];
-
- 	} else {
-
- 	return "indefinido/nulo";
-
-     }
- }
+        }
 
    function listarVeiculos(){
 
@@ -209,18 +193,20 @@ function selecionaModelo(url, marca){
 					   }
 		
 						
- 	    				$('#tabelaveiculos > tbody').append('<tr id="'+response.codigo+'">'+
-   	   						'<td>'+response.codigo+'</td>'+
-   	   						'<td>'+tabelafipe(response.marca,response.modelo,response.ano,1)+'</td>'+
-   	   						'<td>'+tabelafipe(response.marca,response.modelo,response.ano,2)+'</td>'+
-   	   						'<td>'+tabelafipe(response.marca,response.modelo,response.ano,3)+'</td>'+
+ 	    				$('#tabelaveiculos > tbody').append('<tr id="'+response.id+'">'+
+   	   						'<td>'+response.id+'</td>'+
+   	   						'<td>'+response.data+'</td>'+
+   	   						'<td>'+response.modelo_id.marca_id.nome_marca+'</td>'+
+   	   						'<td>'+response.modelo_id.nome+'</td>'+
+   	   						'<td>'+response.ano+'</td>'+
    	   						'<td>'+rodizio+'</td>'+
    	   						'<td>'+rodizioativo+'</td>'+
-							'<td>'+tabelafipe(response.marca,response.modelo,response.ano,0)+'</td>'+
+							'<td>'+response.modelo_id.valor_fipe+'</td>'+
 							'<td>'+response.renavam+'</td>'+
 							'<td>'+response.placa+'</td>'+
 							'<td>'+response.cor+'</td>'+
-							'<td><button type="button" class="btn btn-secondary" onclick="deleteVeiculo('+response.codigo+')">Deletar Veiculo</button></td></tr>');
+							'<td>'+response.combustivel+'</td>'+
+							'<td><button type="button" class="btn btn-secondary" onclick="deleteVeiculo('+response.id+')">Deletar Veiculo</button></td></tr>');
    	    			//}
 
 					}
@@ -232,24 +218,43 @@ function selecionaModelo(url, marca){
  	    	}); 
      
    }
+
+   function valor(id_marca, id_modelo, ano){
+
+            $.ajax({
+                             	  		method: "GET",
+                             	  		url: "https://parallelum.com.br/fipe/api/v2/cars/brands/"+id_marca+"/models/"+id_modelo+"/years/"+ano,
+                             	  		success: function(response){
+                             	  		//console.log(response);
+                             	  		teste = response;
+                             	  		console.log(teste);
+                             	  		}
+                             	  		});
+         return teste;
+   }
  
  function salvarVeiculo(){
  	
- 	var codigo= $("#idveiculo").val();
- 	var marca = $("#selecionarMarca option:selected").val();
-	var modelo = $("#selecionarModelo option:selected").val();
+ 	var id = $("#idveiculo").val();
+ 	var id_marca = $("#selecionarMarca option:selected").val();
+	var id_modelo = $("#selecionarModelo option:selected").val();
 	var ano = $("#selecionarAno option:selected").val();
+	var combustivel = $("#selecionarCombustivel option:selected").val();
 	var renavam = $("#renavam_text").val();
 	var placa = $("#placa_text").val();
 	var cor = $("#cor_text").val();
+	var valor_teste = valor(id_marca, id_modelo, ano);
+	var valor_fipe = valor_teste.price;
+	var nome_marca = valor_teste.brand;
+	var nome = valor_teste.model;
 
-		if(marca == null || marca != null && marca.trim()==''){
+		if(id_marca == null || id_marca != null && id_marca.trim()==''){
  		$("#selecionarMarca").focus();
  		alert('informe a marca');
  		return;
  	}
  	
- 	if(modelo == null){
+ 	if(id_modelo == null){
  		$("#selecionarModelo").focus();
  		alert('informe o modelo');
  		return;
@@ -257,20 +262,44 @@ function selecionaModelo(url, marca){
  	
  	if(ano == null){
  		$("#selecionarAno").focus();
- 		alert('informe a ano');
+ 		alert('informe o Ano');
  		return;
  	}
+
+ 	if(combustivel == null){
+     		$("#selecionarCombustivel").focus();
+     		alert('informe o Combustivel');
+     		return;
+    }
  	
  	$.ajax({
  		method: "POST",
  		url: "veiculosalvar",
- 		data : JSON.stringify({codigo: codigo, marca : marca, modelo : modelo, ano : ano, renavam : renavam, placa : placa, cor: cor}),
+ 		data : JSON.stringify(
+ 		{
+ 		 id: id,
+ 		 modelo_id : {
+ 		               marca_id : {
+ 		                            id_marca : id_marca,
+ 		                            nome_marca : nome_marca
+ 		                            },
+ 		               id_modelo : id_modelo,
+ 		               nome: nome,
+ 		               valor_fipe : valor_fipe
+ 		             },
+ 		 ano : ano,
+ 		 renavam : renavam,
+ 		 placa : placa,
+ 		 cor: cor,
+ 		 combustivel: combustivel
+ 		 }
+ 		 ),
  		contentType: "application/json; charset=utf-8",
- 		success: function(response){    		
+ 		success: function(response){
  
  		var resposta = confirm("Você Deseja cadastrar esse registro?");
  			if (resposta == true){
- 			$("#idveiculo").val(response.codigo);
+ 			$("#idveiculo").val(response.id);
  			alert("Salvo com Sucesso!")
  			}else{
  			alert("Registro Cancelado com Sucesso")

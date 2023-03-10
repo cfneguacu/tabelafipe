@@ -1,5 +1,6 @@
 package br.com.springboot.tabelafipe.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 //import javax.validation.Valid;
@@ -18,6 +19,7 @@ import br.com.springboot.tabelafipe.status.Status;
  * A sample greetings controller to return greeting text
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:8080")
 public class VeiculosController {
 	
 	@Autowired
@@ -42,6 +44,7 @@ public class VeiculosController {
         VeiculosUtils veiculosUtils = new VeiculosUtils();
         veiculosUtils.validacaoDigitosRenavam(veiculo.getRenavam());
         veiculo.setStatus(Status.PENDING);
+        veiculo.setData(LocalDate.now());
         veiculoRepository.save(veiculo);
 
        return Status.PENDING;
@@ -73,7 +76,7 @@ public class VeiculosController {
    @ResponseBody
     public ResponseEntity<?> buscaruserId(@RequestBody Veiculos veiculo){
     	
-	   if(veiculo.getCodigo() == null) {
+	   if(veiculo.getId() == null) {
 		   return new ResponseEntity<String>("Codigo de Veiculo não foi informado para atualização", HttpStatus.OK);
 	   }
 	   
