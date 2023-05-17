@@ -23,8 +23,8 @@ public class Marca implements Serializable {
     @Column(name = "MARCA_ID")
     private Long id;
 
-    private String id_marca;
+    private String code;
 
-    private String nome_marca;
+    private String name;
 
 }

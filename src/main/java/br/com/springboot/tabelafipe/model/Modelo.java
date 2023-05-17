@@ -23,7 +23,9 @@ public class Modelo implements Serializable {
     @Column(name = "MODELO_ID")
     private Long id;
 
-    private String id_modelo;
+    private String code;
+
+    private String name;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
         @JoinTable(name="TB_MARCA_MODELO",joinColumns =
@@ -31,7 +33,5 @@ public class Modelo implements Serializable {
                 inverseJoinColumns = @JoinColumn(name = "MARCA_ID",referencedColumnName="MARCA_ID"))
     private Marca marca_id;
 
-    private String nome;
 
-    private String valor_fipe;
 }

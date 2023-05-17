@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Builder
 @EqualsAndHashCode
 @SequenceGenerator(name = "seq_veiculos" , sequenceName = "seq_veiculos", allocationSize = 1)
-public class Veiculos implements Serializable{
+public class Veiculo implements Serializable{
 
 	@Serial
 	private static final long serialVersionUID = 1L;
@@ -33,7 +33,11 @@ public class Veiculos implements Serializable{
 			inverseJoinColumns = @JoinColumn(name = "MODELO_ID",referencedColumnName="MODELO_ID"))
 	private Modelo modelo_id;
 
-	private String ano;
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
+	@JoinTable(name="TB_VEICULO_ANO",joinColumns =
+	@JoinColumn( name = "VEICULO_ID",referencedColumnName="VEICULO_ID"),
+			inverseJoinColumns = @JoinColumn(name = "ANO_ID",referencedColumnName="ANO_ID"))
+	private Ano ano_id;
 
 	@Column(unique = true)
 	private String renavam;
@@ -46,6 +50,13 @@ public class Veiculos implements Serializable{
 	private String placa;
 
 	private Status status;
+
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
+	@JoinTable(name="TB_VEICULO_CARACTERISTICA",joinColumns =
+	@JoinColumn( name = "VEICULO_ID",referencedColumnName="VEICULO_ID"),
+			inverseJoinColumns = @JoinColumn(name = "CARACTERISTICA_ID",referencedColumnName="CARACTERISTICA_ID"))
+	private Caracteristica caracteristica_id;
+
 
 }
 	

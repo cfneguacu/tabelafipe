@@ -1,8 +1,8 @@
-var url = "https://parallelum.com.br/fipe/api/v2/cars/brands";
+
 
  	   $.ajax({
  	  		method: "GET",
- 	  		url: url,
+ 	  		url: "brands",
  	  		success: function(response){
  	  			$('#selecionarMarca > option').remove();
  	  			for (var i = 0; i < response.length; i++){
@@ -16,7 +16,7 @@ var url = "https://parallelum.com.br/fipe/api/v2/cars/brands";
   	          $(this).find("option").each(function () {
   	            if ($(this).attr("selected")) {
  				    var marca = $(this).val()
- 					selecionaModelo(url, marca);
+ 					selecionaModelo("brands", marca);
   	             $(this).removeAttr("selected");
   	            }
   	          });
@@ -90,7 +90,6 @@ function selecionaModelo(url, marca){
   	        });
   	       $("#selecionarModelo").find("option:selected").attr("selected", true);
   		})
-
  	}
 
  	function selecionaAno(url, modelo){
@@ -105,7 +104,6 @@ function selecionaModelo(url, marca){
  	  			$('#selecionarAno > option').remove();
  	  			for (var i = 0; i < response.length; i++){
  	 				$('#selecionarAno').append('<option value="'+response[i].code+'">'+response[i].code+'</option>');
-
  	 			}
  	  		}
  	  	});
@@ -114,8 +112,8 @@ function selecionaModelo(url, marca){
   	        $("#selecionarAno").each(function () {
   	          $(this).find("option").each(function () {
   	           if ($(this).attr("selected")) {
-  	           var ano = $(this).val();  								//if (modelo!=0){
-               selecionaCombustivel(url, ano);
+  	             var ano = $(this).val();  								//if (modelo!=0){
+                selecionaCombustivel(url, ano);
   	            $(this).removeAttr("selected");
   	            }
   	          });
@@ -196,16 +194,16 @@ function selecionaModelo(url, marca){
  	    				$('#tabelaveiculos > tbody').append('<tr id="'+response.id+'">'+
    	   						'<td>'+response.id+'</td>'+
    	   						'<td>'+response.data+'</td>'+
-   	   						'<td>'+response.modelo_id.marca_id.nome_marca+'</td>'+
-   	   						'<td>'+response.modelo_id.nome+'</td>'+
-   	   						'<td>'+response.ano+'</td>'+
+   	   						'<td>'+response.caracteristica_id.brand+'</td>'+
+   	   						'<td>'+response.caracteristica_id.model+'</td>'+
+   	   						'<td>'+response.caracteristica_id.modelYear+'</td>'+
    	   						'<td>'+rodizio+'</td>'+
    	   						'<td>'+rodizioativo+'</td>'+
-							'<td>'+response.modelo_id.valor_fipe+'</td>'+
+							'<td>'+response.caracteristica_id.price+'</td>'+
 							'<td>'+response.renavam+'</td>'+
 							'<td>'+response.placa+'</td>'+
 							'<td>'+response.cor+'</td>'+
-							'<td>'+response.combustivel+'</td>'+
+							'<td>'+response.caracteristica_id.fuel+'</td>'+
 							'<td><button type="button" class="btn btn-secondary" onclick="deleteVeiculo('+response.id+')">Deletar Veiculo</button></td></tr>');
    	    			//}
 
@@ -218,20 +216,6 @@ function selecionaModelo(url, marca){
  	    	}); 
      
    }
-
-   function valor(id_marca, id_modelo, ano){
-
-            $.ajax({
-                             	  		method: "GET",
-                             	  		url: "https://parallelum.com.br/fipe/api/v2/cars/brands/"+id_marca+"/models/"+id_modelo+"/years/"+ano,
-                             	  		success: function(response){
-                             	  		//console.log(response);
-                             	  		teste = response;
-                             	  		console.log(teste);
-                             	  		}
-                             	  		});
-         return teste;
-   }
  
  function salvarVeiculo(){
  	
@@ -243,10 +227,7 @@ function selecionaModelo(url, marca){
 	var renavam = $("#renavam_text").val();
 	var placa = $("#placa_text").val();
 	var cor = $("#cor_text").val();
-	var valor_teste = valor(id_marca, id_modelo, ano);
-	var valor_fipe = valor_teste.price;
-	var nome_marca = valor_teste.brand;
-	var nome = valor_teste.model;
+
 
 		if(id_marca == null || id_marca != null && id_marca.trim()==''){
  		$("#selecionarMarca").focus();
@@ -279,21 +260,22 @@ function selecionaModelo(url, marca){
  		{
  		 id: id,
  		 modelo_id : {
- 		               marca_id : {
- 		                            id_marca : id_marca,
- 		                            nome_marca : nome_marca
- 		                            },
- 		               id_modelo : id_modelo,
- 		               nome: nome,
- 		               valor_fipe : valor_fipe
- 		             },
- 		 ano : ano,
+ 		     code : id_modelo
+ 		     marca_id : {
+                 code : id_marca
+             },
+ 		 },
+ 		 ano_id : {
+ 		    code : ano
+ 		 },
+
  		 renavam : renavam,
  		 placa : placa,
  		 cor: cor,
- 		 combustivel: combustivel
+ 		 caracteristica_id: {
+ 		    fuel : combustivel
  		 }
- 		 ),
+ 		 }),
  		contentType: "application/json; charset=utf-8",
  		success: function(response){
  
