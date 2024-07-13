@@ -29,7 +29,7 @@ public class VeiculoServiceImpl implements VeiculoService {
 
     @Override
     public Veiculo buscarPorId(Long id) {
-        return veiculosRepository.findById(id).get();
+        return veiculosRepository.buscarPorId(id);
     }
 
     @Override

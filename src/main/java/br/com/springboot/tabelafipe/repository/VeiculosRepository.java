@@ -25,6 +25,10 @@ public interface VeiculosRepository extends JpaRepository<Veiculo, Long> {
         "where v.renavam =:renavam")
 Veiculo buscarPorRenavan(@Param("renavam") String renavam);
 
+@Query(value = "select v from Veiculo v " +
+            "where v.usuario_id.id =:id")
+Veiculo buscarPorId(@Param("id") Long id);
+
 
 @QueryHints({
         @QueryHint(

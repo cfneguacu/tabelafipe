@@ -21,7 +21,6 @@ import br.com.springboot.tabelafipe.status.Status;
  * A sample greetings controller to return greeting text
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
 public class VeiculosController {
 	
 	@Autowired

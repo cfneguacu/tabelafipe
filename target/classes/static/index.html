@@ -43,6 +43,9 @@ label{
    <div id = "usuariologado" class="nav-link">
    </div>
    </li>
+	<li class="nav-item" role="presentation">
+		<button class="nav-link" id="user-tab" data-bs-toggle="tab" data-bs-target="#usuario" type="button" role="tab" aria-controls="profile" aria-selected="false">Cadastro Usuario</button>
+	</li>
   <li class="nav-item" role="presentation">
     <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="profile" aria-selected="false">Cadastro Veiculo</button>
   </li>
@@ -54,15 +57,55 @@ label{
    </li>
 </ul>
 <div class="tab-content" id="myTabContent" >
-  <div class="tab-pane fade" id="usuario" role="tabpanel" aria-labelledby="usuario-tab">...</div>
+  <div class="tab-pane fade" id="usuario" role="tabpanel" aria-labelledby="user-tab">
+	  <br>
+	  <form class="row g-3" id="formUsuario">
+		  <h3>Usuario</h3>
+		  <div class="col-md-6" style ="width: 650px;">
+			  <label>ID</label>
+			  <input type="text" class="form-control" id="idusuario" style="width: 46px; "></div>
+		  <div class="col-md-6" style ="width: 650px;">
+			  <label>Renavam</label>
+			  <input type="text" class="form-control" id="nome_text" style="width: 460px; "></div>
+		  <div class="col-md-6" style ="width: 650px;">
+			  <label>Placa</label>
+			  <input type="text" class="form-control" id="email_text" style="width: 460px; "></div>
+		  <div class="col-md-6" style ="width: 650px;">
+			  <label>Cor</label>
+			  <input type="text" class="form-control" id="cpf_text" style="width: 460px; "></div>
+		  <div class="col-md-6" style ="width: 650px;">
+			  <label>Cor</label>
+			  <input type="text" class="form-control" id="data_text" style="width: 460px; "></div>
+	  </form>
+	  <div class="col-md-6" style="width : 700px;">
+		  <button type="button" class="btn btn-primary" onclick="salvarUsuario()">Salvar</button>
+		  <button type="button" class="btn btn-secondary" onclick="novoUsuario()">Novo</button>
+	  </div>
+  </div>
   <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
 	<br>
 	<form class="row g-3" id="formVeiculo">
 	<h3>Veículos</h3>
     <div class="col-md-6" style ="width: 650px;">
-    <label>ID</label>
-    <input type="text" class="form-control" id="idveiculo" style="width: 46px; "></div>
-	<div class="input-group mb-3">
+		<h3>Digite o ID do Usuario</h3>
+		<p>
+			<label for="id_usuario">id</label>
+			<input id="id_usuario" class="form-control" name="nome" required="required" type="text" style="width: 246px;">
+			<button type="button" class="btn btn-secondary" onclick="listarUsuario()">Listar Usuario</button>
+		<table class="table table-bordered" id="tabelausuario">
+			<thead>
+			<tr>
+				<th scope="col">Nome</th>
+				<th scope="col">Email</th>
+				<th scope="col">Cpf</th>
+				<th scope="col">Data Nascimento</th>
+			</tr>
+			</thead>
+			<tbody>
+			</tbody>
+	   </table>
+		</p>
+      <div class="input-group mb-3">
   			<div class="input-group-prepend">
     		<label class="input-group-text">Marca</label>
   			</div>
@@ -99,26 +142,27 @@ label{
 		<div class="col-md-6" style ="width: 650px;">
 			<label>Cor</label>
 			<input type="text" class="form-control" id="cor_text" style="width: 460px; "></div>
+	</div>
 	</form>
 	<div class="col-md-6" style="width : 700px;">
 	<button type="button" class="btn btn-primary" onclick="salvarVeiculo()">Salvar</button>
 	<button type="button" class="btn btn-secondary" onclick="novoVeiculo()">Novo</button>
-  </div>
+  	</div>
 
-	</div>
+  </div>
   <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
   <form id = "formLogin"> 
-          <h3>Digite o Renavam cadastrado</h3>
+          <h3>Digite o ID Cadastrado</h3>
           <p> 
-            <label for="renavam">Renavam</label>
-            <input id="renavam" class="form-control" name="nome" required="required" type="text" style="width: 246px;">
+            <label for="id_usuario">Id</label>
+            <input id="user" class="form-control" name="nome" required="required" type="text" style="width: 246px;">
           </p>
           <button type="button" class="btn btn-secondary" onclick="listarVeiculos()">Listar Veiculos</button>
           <label id ="registrosencontrados">Veículos Encontrados: </label>
           <table class="table table-bordered" id="tabelaveiculos">
   			<thead>
     			<tr>
-    			<th scope="col">ID</th>
+    			<th scope="col">ID USUARIO</th>
 					<th>Data Cadastro</th>
     			<th scope="col">Marca</th>
     			<th scope="col">Modelo</th>

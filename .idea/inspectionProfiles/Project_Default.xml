@@ -1,0 +1,80 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="VulnerableLibrariesLocal" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="isIgnoringEnabled" value="true" />
+      <option name="ignoredModules">
+        <list>
+          <option value="tabelafipe" />
+          <option value="tabelafipe" />
+          <option value="tabelafipe" />
+          <option value="tabelafipe" />
+          <option value="tabelafipe" />
+          <option value="tabelafipe" />
+          <option value="tabelafipe" />
+          <option value="tabelafipe" />
+          <option value="tabelafipe" />
+          <option value="tabelafipe" />
+          <option value="tabelafipe" />
+          <option value="tabelafipe" />
+          <option value="tabelafipe" />
+          <option value="tabelafipe" />
+          <option value="tabelafipe" />
+          <option value="tabelafipe" />
+          <option value="tabelafipe" />
+          <option value="tabelafipe" />
+          <option value="tabelafipe" />
+          <option value="tabelafipe" />
+        </list>
+      </option>
+      <option name="ignoredPackages">
+        <list>
+          <option value="org.springframework:spring-beans:5.3.9" />
+          <option value="org.springframework:spring-context:5.3.9" />
+          <option value="org.springframework:spring-core:5.3.9" />
+          <option value="org.springframework:spring-expression:5.3.9" />
+          <option value="ch.qos.logback:logback-classic:1.2.5" />
+          <option value="ch.qos.logback:logback-core:1.2.5" />
+          <option value="com.fasterxml.jackson.core:jackson-databind:2.12.4" />
+          <option value="org.apache.tomcat.embed:tomcat-embed-core:9.0.52" />
+          <option value="org.apache.tomcat.embed:tomcat-embed-websocket:9.0.52" />
+          <option value="org.springframework.boot:spring-boot-autoconfigure:2.5.4" />
+          <option value="org.springframework.boot:spring-boot:2.5.4" />
+          <option value="org.springframework:spring-web:5.3.9" />
+          <option value="org.springframework:spring-webmvc:5.3.9" />
+          <option value="org.yaml:snakeyaml:1.28" />
+          <option value="org.jdom:jdom:1.1" />
+          <option value="org.thymeleaf:thymeleaf-spring5:3.0.12.RELEASE" />
+          <option value="commons-fileupload:commons-fileupload:1.4" />
+          <option value="commons-io:commons-io:2.2" />
+          <option value="org.bouncycastle:bcprov-jdk15on:1.68" />
+          <option value="org.springframework.security:spring-security-crypto:5.5.2" />
+        </list>
+      </option>
+      <option name="ignoredReasons">
+        <list>
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
