@@ -1,5 +1,4 @@
 
-
  	   $.ajax({
  	  		method: "GET",
  	  		url: "brands",
@@ -43,13 +42,13 @@
       	deleteUsuario(codigo);
       	}
       	document.getElementById('formUsuario').reset();
-      }
+    }
    
-   function deleteVeiculo(codigo){
+  function deleteVeiculo(codigo){
 	
 	if(confirm('Deseja realmente deletar?')){
    	
-   	$.ajax({
+   	        $.ajax({
 	    		method: "DELETE",
 	    		url: "veiculodelete",
 	    		data : "iduser=" + codigo,
@@ -60,14 +59,14 @@
 	    	}).fail(function(xhr,status,errorThrown){
 	    		alert("Erro ao deletar usuario por id:" + xhr.responseText);
 	    	}); 
-		}
    }
+ }
 
-    function deleteUsuario(codigo){
+  function deleteUsuario(codigo){
 
    	if(confirm('Deseja realmente deletar?')){
 
-      	$.ajax({
+      	    $.ajax({
    	    		method: "DELETE",
    	    		url: "usuariodelete",
    	    		data : "iduser=" + codigo,
@@ -78,8 +77,8 @@
    	    	}).fail(function(xhr,status,errorThrown){
    	    		alert("Erro ao deletar usuario por id:" + xhr.responseText);
    	    	});
-   		}
-      }
+    }
+  }
 
 
   function novoVeiculo(){
@@ -88,15 +87,15 @@
 	$("#novo").after('<button id="cadastrar" type="button" class="btn btn-secondary" onclick="salvarVeiculo()">Cadastrar</button>');
   }
 
-   function novoUsuario(){
+  function novoUsuario(){
   	document.getElementById('formUsuario').reset()
   	$("#cadastrar").remove();
   	$("#novo").after('<button id="cadastrar" type="button" class="btn btn-secondary" onclick="salvarUsuario()">Cadastrar</button>');
-    }
+  }
 
-function selecionaModelo(url, marca){
+ function selecionaModelo(url, marca){
 
- 	var url = url+"/"+marca+"/models";
+ 	 var url = url+"/"+marca+"/models";
 
  		$.ajax({
  	  				method: "GET",
@@ -122,9 +121,9 @@ function selecionaModelo(url, marca){
   	        });
   	       $("#selecionarModelo").find("option:selected").attr("selected", true);
   		})
- 	}
+ }
 
- 	function selecionaAno(url, modelo){
+ function selecionaAno(url, modelo){
 
  	var url = url+"/"+modelo+"/years";
  	//}
@@ -153,7 +152,7 @@ function selecionaModelo(url, marca){
   	      $("#selecionarAno").find("option:selected").attr("selected", true);
   	})
 
-    }
+}
 
     function selecionaCombustivel(url, ano){
 
@@ -180,15 +179,15 @@ function selecionaModelo(url, marca){
       	      $("#selecionarCombustivel").find("option:selected").attr("selected", true);
       	})
 
-        }
+   }
 
    function listarVeiculos(){
 
-   var id = $('#user').val()
+      var id = $('#user').val()
 
  		  $.ajax({
  	    		method: "GET",
- 	    		url: "veiculoBuscaruserid",
+ 	    		url: "veiculobuscaruserId",
  	    		data: "id=" + id,
  	    		success: function(response){
  	    			$('#tabelaveiculos > tbody > tr').remove();
@@ -224,7 +223,7 @@ function selecionaModelo(url, marca){
 		
 						
  	    				$('#tabelaveiculos > tbody').append('<tr id="'+response.usuario_id+'">'+
-   	   						'<td>'+response.usuario_id.nome+'</td>'+
+   	   						'<td>'+exibirUsuarioPeloId(usuario_id)+'</td>'+
    	   						'<td>'+response.data+'</td>'+
    	   						'<td>'+response.caracteristica_id.brand+'</td>'+
    	   						'<td>'+response.caracteristica_id.model+'</td>'+
@@ -247,7 +246,7 @@ function selecionaModelo(url, marca){
  	    		alert("Erro ao buscar usuario:" + xhr.responseText);
  	    	}); 
      
-   }
+  }
 
    function listarUsuario(){
 
@@ -281,16 +280,14 @@ function selecionaModelo(url, marca){
     	    		alert("Erro ao buscar usuario:" + xhr.responseText);
     	    	});
 
-      }
+  }
+
+
  
  function salvarVeiculo(){
 
  	var id = $("#idveiculo").val();
- 	var id_usuario = $('#idusuario').val();
- 	var nome = $(this).closest('tr').find('td[id]').data("tb_nome");
- 	var email = $(this).closest('tr').find('td[id]').data("tb_email");
- 	var cpf = $(this).closest('tr').find('td[id]').data("tb_cpf");
- 	var data = $(this).closest('tr').find('td[id]').data("tb_data");
+ 	var id_usuario = $('#id_usuario').val();
  	var id_marca = $("#selecionarMarca option:selected").val();
 	var id_modelo = $("#selecionarModelo option:selected").val();
 	var ano = $("#selecionarAno option:selected").val();
@@ -329,12 +326,7 @@ function selecionaModelo(url, marca){
  		url: "veiculosalvar",
  		data : JSON.stringify(
  		{
- 		 usuario_id: {
- 		    nome: nome,
- 		    email: email,
- 		    cpf: cpf,
- 		    data: data
- 		 },
+ 		 usuario_id: id_usuario,
  		 id: id,
  		 modelo_id : {
  		     code : id_modelo,
@@ -370,7 +362,7 @@ function selecionaModelo(url, marca){
  		alert("Erro ao Salvar:" + xhr.responseText);
  	});
  	
- }
+}
 
  function salvarUsuario(){
 
@@ -408,3 +400,19 @@ function selecionaModelo(url, marca){
   	});
 
   	}
+
+  		function exibirUsuarioPeloId(id){
+
+                  		  $.ajax({
+                  	    		method: "GET",
+                  	    		url: "usuariobuscaruserId",
+                  	    		data: "iduser=" + id,
+                  	    		success: function(response){
+                  	    			return response.nome
+                  	    			}
+                  	    	}).fail(function(xhr,status,errorThrown){
+                  	    		alert("Erro ao buscar usuario:" + xhr.responseText);
+                  	    	});
+
+       }
+

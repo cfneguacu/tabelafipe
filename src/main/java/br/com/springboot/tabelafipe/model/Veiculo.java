@@ -39,11 +39,7 @@ public class Veiculo implements Serializable{
 			inverseJoinColumns = @JoinColumn(name = "ANO_ID",referencedColumnName="ANO_ID"))
 	private Ano ano_id;
 
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
-	@JoinTable(name="TB_VEICULO_USUARIO",joinColumns =
-	@JoinColumn( name = "VEICULO_ID",referencedColumnName="VEICULO_ID"),
-			inverseJoinColumns = @JoinColumn(name = "USUARIO_ID",referencedColumnName="USUARIO_ID"))
-	private Usuario usuario_id;
+	private Long usuario_id;
 
 	@Column(unique = true)
 	private String renavam;
