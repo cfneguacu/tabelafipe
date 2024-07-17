@@ -12,4 +12,6 @@ public interface UsuarioService {
     void atualizar(Long id, Usuario usuario);
 
     void deletar(Long id);
+
+    String buscarUsuario(Long id);
 }

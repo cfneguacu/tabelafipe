@@ -188,7 +188,7 @@
  		  $.ajax({
  	    		method: "GET",
  	    		url: "veiculobuscaruserId",
- 	    		data: "id=" + id,
+ 	    		data: "iduser=" + id,
  	    		success: function(response){
  	    			$('#tabelaveiculos > tbody > tr').remove();
 
@@ -196,18 +196,18 @@
  	    			var rodizio;
 					var rodizioativo;
 					
- 	    			//for (var i = 0; i < response.length; i++){
+ 	    		 for (var i = 0; i < response.length; i++){
 	
- 	    			  if(response.placa.charAt(response.placa.length-1) == 0  || response.placa.charAt(response.placa.length-1) ==1){
+ 	    			  if(response[i].placa.charAt(response[i].placa.length-1) == 0  || response[i].placa.charAt(response[i].placa.length-1) ==1){
  	    			  rodizio = "Segunda Feira";
  	    			  rodizioativotemp = 1;
- 	    			  }else if(response.placa.charAt(response.placa.length-1) == 2|| response.placa.charAt(response.placa.length-1) == 3){
+ 	    			  }else if(response[i].placa.charAt(response[i].placa.length-1) == 2|| response[i].placa.charAt(response[i].placa.length-1) == 3){
 					  rodizio  = "Terça Feira";
 					  rodizioativotemp = 2;
-					  }else if(response.placa.charAt(response.placa.length-1) == 4 || response.placa.charAt(response.placa.length-1)== 5){
+					  }else if(response[i].placa.charAt(response[i].placa.length-1) == 4 || response[i].placa.charAt(response[i].placa.length-1)== 5){
 					  rodizio = "Quarta Feira";
 					  rodizioativotemp = 3;
-					  }else if(response.placa.charAt(response.placa.length-1) ==  6 || response.placa.charAt(response.placa.length-1) == 7){
+					  }else if(response[i].placa.charAt(response[i].placa.length-1) ==  6 || response[i].placa.charAt(response[i].placa.length-1) == 7){
 					  rodizio = "Quinta Feira";
 					  rodizioativotemp = 4;
 					  }else{
@@ -222,21 +222,21 @@
 					   }
 		
 						
- 	    				$('#tabelaveiculos > tbody').append('<tr id="'+response.usuario_id+'">'+
-   	   						'<td>'+exibirUsuarioPeloId(usuario_id)+'</td>'+
-   	   						'<td>'+response.data+'</td>'+
-   	   						'<td>'+response.caracteristica_id.brand+'</td>'+
-   	   						'<td>'+response.caracteristica_id.model+'</td>'+
-   	   						'<td>'+response.caracteristica_id.modelYear+'</td>'+
+ 	    				$('#tabelaveiculos > tbody').append('<tr id="'+response[i].usuario_id+'">'+
+   	   						'<td>'+response[i].usuario_id+'</td>'+
+   	   						'<td>'+response[i].data+'</td>'+
+   	   						'<td>'+response[i].caracteristica_id.brand+'</td>'+
+   	   						'<td>'+response[i].caracteristica_id.model+'</td>'+
+   	   						'<td>'+response[i].caracteristica_id.modelYear+'</td>'+
    	   						'<td>'+rodizio+'</td>'+
    	   						'<td>'+rodizioativo+'</td>'+
-							'<td>'+response.caracteristica_id.price+'</td>'+
-							'<td>'+response.renavam+'</td>'+
-							'<td>'+response.placa+'</td>'+
-							'<td>'+response.cor+'</td>'+
-							'<td>'+response.caracteristica_id.fuel+'</td>'+
+							'<td>'+response[i].caracteristica_id.price+'</td>'+
+							'<td>'+response[i].renavam+'</td>'+
+							'<td>'+response[i].placa+'</td>'+
+							'<td>'+response[i].cor+'</td>'+
+							'<td>'+response[i].caracteristica_id.fuel+'</td>'+
 							'<td><button type="button" class="btn btn-secondary" onclick="deleteVeiculo('+response.id+')">Deletar Veiculo</button></td></tr>');
-   	    			//}
+   	    		}
 
 					}
 					
@@ -265,7 +265,7 @@
 
 
     	    				$('#tabelausuario > tbody').append('<tr id="'+response.id+'">'+
-      	   						'<td id = "tb_nome">'+response.nome+'</td>'+
+      	   						'<td data-nome = "'+response.nome+'">'+response.nome+'</td>'+
       	   						'<td id = "tb_email">'+response.email+'</td>'+
       	   						'<td id = "tb_cpf">'+response.cpf+'</td>'+
       	   						'<td id = "tb_data">'+response.data+'</td>'+
@@ -282,8 +282,6 @@
 
   }
 
-
- 
  function salvarVeiculo(){
 
  	var id = $("#idveiculo").val();

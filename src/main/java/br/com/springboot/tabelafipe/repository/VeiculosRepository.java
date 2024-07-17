@@ -27,7 +27,7 @@ Veiculo buscarPorRenavan(@Param("renavam") String renavam);
 
 @Query(value = "select v from Veiculo v " +
             "where v.usuario_id =:id")
-Veiculo buscarPorId(@Param("id") Long id);
+List<Veiculo> buscarPorId(@Param("id") Long id);
 
 
 @QueryHints({

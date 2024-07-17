@@ -38,4 +38,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     public void deletar(Long id) {
             usuarioRepository.deleteById(id);
     }
+
+    @Override
+    public String buscarUsuario(Long id){
+        return usuarioRepository.buscarUsuario(id);
+    }
 }

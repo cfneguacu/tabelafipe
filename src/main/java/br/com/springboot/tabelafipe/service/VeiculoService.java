@@ -2,11 +2,13 @@ package br.com.springboot.tabelafipe.service;
 
 import br.com.springboot.tabelafipe.model.Veiculo;
 
+import java.util.List;
+
 public interface VeiculoService {
 
     Iterable<Veiculo> buscarTodos();
 
-    Veiculo buscarPorId(Long id);
+    List<Veiculo> buscarPorId(Long id);
 
     void inserir(Veiculo veiculo);
 

@@ -48,4 +48,11 @@ public class UsuarioController {
         usuarioService.atualizar(id, usuario);
         return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
     }
+
+    @GetMapping(value = "usuariobuscar")
+    @ResponseBody
+    public ResponseEntity<String> buscarUsuario(@RequestParam(name = "iduser") Long iduser){
+        String nome = usuarioService.buscarUsuario(iduser);
+        return new ResponseEntity<String>(nome, HttpStatus.OK);
+    }
 }

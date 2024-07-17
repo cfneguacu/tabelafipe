@@ -56,9 +56,9 @@ public class VeiculosController {
    
    @GetMapping(value = "veiculobuscaruserId")
    @ResponseBody
-    public ResponseEntity<Veiculo> buscaruserId(@RequestParam(name = "iduser") Long iduser){
-    	Veiculo veiculo = veiculoService.buscarPorId(iduser);
-    	return new ResponseEntity<Veiculo>(veiculo, HttpStatus.OK);
+    public ResponseEntity<List<Veiculo>> buscaruserId(@RequestParam(name = "iduser") Long iduser){
+    	List<Veiculo> veiculo = veiculoService.buscarPorId(iduser);
+    	return new ResponseEntity<List<Veiculo>>(veiculo, HttpStatus.OK);
     }
 
     @GetMapping(value = "veiculobuscarPorRenavam")
