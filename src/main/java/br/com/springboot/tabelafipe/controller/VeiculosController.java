@@ -4,33 +4,48 @@ import java.time.LocalDate;
 import java.util.List;
 
 //import javax.validation.Valid;
+import br.com.springboot.tabelafipe.model.Usuario;
 import br.com.springboot.tabelafipe.model.Veiculo;
 import br.com.springboot.tabelafipe.service.TabelaFipeService;
+import br.com.springboot.tabelafipe.service.UsuarioService;
 import br.com.springboot.tabelafipe.service.VeiculoService;
+import br.com.springboot.tabelafipe.service.impl.UsuarioServiceImpl;
 import br.com.springboot.tabelafipe.utils.VeiculosUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import br.com.springboot.tabelafipe.repository.VeiculosRepository;
 import br.com.springboot.tabelafipe.status.Status;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 /**
  *
  * A sample greetings controller to return greeting text
  */
-@RestController
+@Controller("/")
 public class VeiculosController {
 	
 	@Autowired
 	private VeiculoService veiculoService;
 
-    /**
-     *
-     * @return greeting text
-     */
-    
+    @Autowired
+    private UsuarioService usuarioService;
+
+    private static String USUARIO_CPF = "";
+
+    @GetMapping("/find-user/{cpf}")
+    public ModelAndView findUser(@PathVariable("cpf") String cpf, RedirectAttributes redirectAttributes){
+        Usuario usuario = usuarioService.buscarUsuario(cpf);
+        USUARIO_CPF = cpf;
+        redirectAttributes.addFlashAttribute("cpf", usuario);
+        return new ModelAndView("redirect:/find-user");
+    }
+
     @GetMapping(value = "veiculolistatodos")
     @ResponseBody
     public ResponseEntity<Iterable<Veiculo>> listaVeiculo(){
@@ -40,11 +55,11 @@ public class VeiculosController {
     }
 
    @PostMapping(value = "veiculosalvar")
-   @ResponseBody
    public Status salvar(@RequestBody Veiculo veiculo) {
+        Usuario usuario = usuarioService.buscarUsuario(USUARIO_CPF);
+        veiculo.setUsuario_id(usuario.getId());
         veiculoService.inserir(veiculo);
         return Status.PENDING;
-
    }
    
    @DeleteMapping(value = "veiculodelete")
@@ -78,6 +93,17 @@ public class VeiculosController {
 	   
 	    veiculoService.atualizar(id, veiculo);
     	return new ResponseEntity<Veiculo>(veiculo, HttpStatus.OK);
+    }
+
+    public ModelAndView modelAndViewListAux(int selectedPage, ModelAndView mv){
+
+        Page<Veiculo> page = usuarioService.getTaskListPaginated(selectedPage, PAGE_SIZE, globalStatus);
+        List<Veiculo> veiculoList = page.getContent();
+        mv.addObject("veiculoList", veiculoList);
+        mv.addObject("currentPage", selectedPage);
+        mv.addObject("totalPages", page.getTotalPages());
+        mv.addObject("totalItens", page.getTotalElements());
+        return mv;
     }
 
 }

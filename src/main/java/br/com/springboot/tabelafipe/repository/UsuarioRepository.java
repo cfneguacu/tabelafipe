@@ -9,8 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
-    @Query(value = "select nome from Usuario u " +
-            "where u.id =:id")
-    String buscarUsuario(Long id);
+    @Query(value = "select u from Usuario u " +
+            "where u.cpf =:cpf")
+    Usuario buscarUsuario(String cpf);
 
 }

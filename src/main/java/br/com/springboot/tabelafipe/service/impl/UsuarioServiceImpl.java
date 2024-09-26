@@ -1,10 +1,10 @@
 package br.com.springboot.tabelafipe.service.impl;
 
 import br.com.springboot.tabelafipe.model.Usuario;
-import br.com.springboot.tabelafipe.model.Veiculo;
 import br.com.springboot.tabelafipe.repository.UsuarioRepository;
 import br.com.springboot.tabelafipe.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -27,11 +27,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public void atualizar(Long id, Usuario usuario) {
-        Optional<Usuario> clienteBd = usuarioRepository.findById(id);
-        if(clienteBd.isPresent()) {
-            usuarioRepository.save(usuario);
-        }
+    public void atualizar(Usuario usuario) {
+       // Optional<Usuario> clienteBd = usuarioRepository.findById(id);
+       // if(clienteBd.isPresent()) {
+      //      usuarioRepository.save(usuario);
+      //  }
     }
 
     @Override
@@ -40,7 +40,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public String buscarUsuario(Long id){
-        return usuarioRepository.buscarUsuario(id);
+    public Usuario buscarUsuario(String cpf){
+        return usuarioRepository.buscarUsuario(cpf);
+    }
+
+    @Override
+    public Page<Usuario> getTaskListPaginated(int selectedPage, int pageSize, String globalStatus) {
+        return null;
     }
 }

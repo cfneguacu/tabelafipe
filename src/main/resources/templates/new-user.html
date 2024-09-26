@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>My To do List</title>
+</head>
+<section layout:fragment="content" style="min-height: 90vh; background-color: lightgray; margin-top:5%">
+    <div th:if="${alertMessage != null and alertMessage != ''}" class="panel-heading" th:replace="~{components/alert.html}"></div>
+    <div id="taskGet-container" class="card container"
+         style="margin-top:1%; margin-bottom:1%; width: 50%; height:60%; border: none; padding-bottom:2%">
+        <form action="#" th:action="@{/add-or-update-user}" method="post" th:object="${usuario}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-26 mt-5">
+                        <div class="card">
+                            <article class="card-body">
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <div class="col-md-12 mt-2">
+                                            <label>Nome</label>
+                                            <input type="text" class="form-control" name="nome" placeholder="Nome"
+                                                   th:field="*{nome}"
+                                                   th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid' : ''">
+                                            <input type="hidden" name="id" th:value="${id}" th:field="*{id}"/>
+                                            <div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"
+                                                 class="invalid-feedback"></div>
+                                        </div>
+
+                                        <div class="col-md-12 mt-2">
+                                            <label>Email</label>
+                                            <input type="text" class="form-control" name="email" placeholder="Email"
+                                                   th:field="*{title}"
+                                                   th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''">
+                                            <input type="hidden" name="id" th:value="${id}" th:field="*{id}"/>
+                                            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                                 class="invalid-feedback"></div>
+                                        </div>
+
+                                        <div class="col-md-12 mt-2">
+                                            <label>CPF</label>
+                                            <input type="text" class="form-control" name="cpf" placeholder="CPF"
+                                                   th:field="*{cpf}"
+                                                   th:classappend="${#fields.hasErrors('cpf')} ? 'is-invalid' : ''">
+                                            <input type="hidden" name="id" th:value="${id}" th:field="*{id}"/>
+                                            <div th:if="${#fields.hasErrors('cpf')}" th:errors="*{title}"
+                                                 class="invalid-feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3" style="padding-top: 2%">
+                        <div class="col mt-3">
+                            <a class="btn btn-primary" href="/" style="width: 48%;">Cancel</a>
+                        </div>
+                        <div class="col mt-3 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary" style="width: 48%;">Save</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+</html>
