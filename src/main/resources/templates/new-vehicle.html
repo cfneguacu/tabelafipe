@@ -10,7 +10,7 @@
     <div th:if="${alertMessage != null and alertMessage != ''}" class="panel-heading" th:replace="~{components/alert.html}"></div>
     <div id="taskGet-container" class="card container"
          style="margin-top:1%; margin-bottom:1%; width: 50%; height:60%; border: none; padding-bottom:2%">
-        <form action="#" th:action="@{/add-or-update-vehicle}" method="post" th:object="${veiculos}">
+        <form action="#" th:action="@{/add-or-update-vehicle}" method="post" th:object="${vehicleEntity}">
             <div class="container">
                 <div class="row">
                     <div class="col-md-26 mt-5">
@@ -42,7 +42,7 @@
                                         <div class="col-md-4 mb-3 mt-2">
                                             <label>Marca</label>
                                             <!--select class="form-control" name="priority" th:field="*{priority}"-->
-                                            <select class="form-control" name="selecionarMarca"  id="selecionarMarca">
+                                            <select class="form-control" name="brand"  th:field="*{brand}">
 
                                                 <!--option th:each="priority : ${priorities}"
                                                         th:value="${priority}"
@@ -53,7 +53,7 @@
                                         <div class="col-md-4 mb-3 mt-2">
                                             <label>Modelo</label>
                                             <!--select class="form-control" name="priority" th:field="*{priority}"-->
-                                            <select class="form-control" name="selecionarModelo"  id="selecionarModelo">
+                                            <select class="form-control" name="models"  th:field="*{models}">
 
                                                 <!--option th:each="priority : ${priorities}"
                                                         th:value="${priority}"
@@ -64,7 +64,7 @@
                                         <div class="col-md-4 mb-3 mt-2">
                                             <label>Ano</label>
                                             <!--select class="form-control" name="priority" th:field="*{priority}"-->
-                                            <select class="form-control" name="selecionarAno"  id="selecionarAno">
+                                            <select class="form-control" name="years"  th:field="*{years}">
 
                                                 <!--option th:each="priority : ${priorities}"
                                                         th:value="${priority}"
@@ -75,7 +75,7 @@
                                         <div class="col-md-4 mb-3 mt-2">
                                             <label>Combustível</label>
                                             <!--select class="form-control" name="priority" th:field="*{priority}"-->
-                                            <select class="form-control" name="selecionarCombustivel"  id="selecionarCombustivel">
+                                            <select class="form-control" name="fuel"  th:field="*{fuel}">
 
                                                 <!--option th:each="priority : ${priorities}"
                                                         th:value="${priority}"

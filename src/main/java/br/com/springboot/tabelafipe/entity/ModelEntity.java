@@ -1,4 +1,4 @@
-package br.com.springboot.tabelafipe.model;
+package br.com.springboot.tabelafipe.entity;
 
 import lombok.*;
 
@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Builder
 @EqualsAndHashCode
 @SequenceGenerator(name = "seq_modelos" , sequenceName = "seq_modelos", allocationSize = 1)
-public class Modelo implements Serializable {
+public class ModelEntity implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -31,7 +31,7 @@ public class Modelo implements Serializable {
         @JoinTable(name="TB_MARCA_MODELO",joinColumns =
             @JoinColumn( name = "MODELO_ID",referencedColumnName="MODELO_ID"),
                 inverseJoinColumns = @JoinColumn(name = "MARCA_ID",referencedColumnName="MARCA_ID"))
-    private Marca marca_id;
+    private BrandEntity brandEntityId;
 
 
 }

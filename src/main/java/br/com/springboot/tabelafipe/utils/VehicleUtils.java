@@ -1,8 +1,8 @@
 package br.com.springboot.tabelafipe.utils;
 
-public class VeiculosUtils {
+public class VehicleUtils {
 
-    public void validacaoDigitosRenavam(String renavam) {
+    public void digitValidationRenavam(String renavam) {
         if (renavam.length() != 11)
             throw new IllegalArgumentException("RENAVAM inválido: precisa ter 11 digitos!");
     }

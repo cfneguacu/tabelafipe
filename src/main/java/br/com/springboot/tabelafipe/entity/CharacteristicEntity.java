@@ -1,4 +1,4 @@
-package br.com.springboot.tabelafipe.model;
+package br.com.springboot.tabelafipe.entity;
 
 import lombok.*;
 
@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Builder
 @EqualsAndHashCode
 @SequenceGenerator(name = "seq_caracteristica" , sequenceName = "seq_caracteristica", allocationSize = 1)
-public class Caracteristica {
+public class CharacteristicEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_caracteristica")

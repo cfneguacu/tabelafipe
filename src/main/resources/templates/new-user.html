@@ -10,7 +10,7 @@
     <div th:if="${alertMessage != null and alertMessage != ''}" class="panel-heading" th:replace="~{components/alert.html}"></div>
     <div id="taskGet-container" class="card container"
          style="margin-top:1%; margin-bottom:1%; width: 50%; height:60%; border: none; padding-bottom:2%">
-        <form action="#" th:action="@{/add-or-update-user}" method="post" th:object="${usuario}">
+        <form action="#" th:action="@{/add-or-update-user}" method="post" th:object="${userEntity}">
             <div class="container">
                 <div class="row">
                     <div class="col-md-26 mt-5">

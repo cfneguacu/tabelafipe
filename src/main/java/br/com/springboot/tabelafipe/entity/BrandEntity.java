@@ -1,4 +1,4 @@
-package br.com.springboot.tabelafipe.model;
+package br.com.springboot.tabelafipe.entity;
 
 import lombok.*;
 
@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Builder
 @EqualsAndHashCode
 @SequenceGenerator(name = "seq_marcas" , sequenceName = "seq_marcas", allocationSize = 1)
-public class Marca implements Serializable {
+public class BrandEntity implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
