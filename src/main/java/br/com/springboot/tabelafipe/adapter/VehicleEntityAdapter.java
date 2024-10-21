@@ -1,29 +1,37 @@
 package br.com.springboot.tabelafipe.adapter;
 
-import br.com.springboot.tabelafipe.dto.UserDTO;
 import br.com.springboot.tabelafipe.dto.VehicleDTO;
 import br.com.springboot.tabelafipe.entity.*;
+import br.com.springboot.tabelafipe.status.Status;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Date;
+
+import static br.com.springboot.tabelafipe.utils.VehicleUtils.getActiveRelayTemp;
 
 public class VehicleEntityAdapter {
 
     public VehicleEntity toModel(VehicleDTO vehicleDTO) {
 
+        int activeRelayTemp = getActiveRelayTemp(vehicleDTO.getLicensePlate());
+
+
+
         return VehicleEntity.builder()
                 .date(convertStringToInstant(vehicleDTO.getDate()))
-                .modelEntityId(ModelEntity.builder()
+                .modelEntity(ModelEntity.builder()
                         .brandEntityId(BrandEntity.builder()
                                 .code(vehicleDTO.getModelDTO().getBrandDTO().getCode())
                                 .build())
                         .build())
-                .yearEntityId(YearEntity.builder()
+                .yearEntity(YearEntity.builder()
                         .code(vehicleDTO.getYearDTO().getCode())
                         .build())
-                .characteristicEntityId(CharacteristicEntity.builder()
+                .characteristicEntity(CharacteristicEntity.builder()
                         .model(vehicleDTO.getCharacteristicDTO().getModel())
                         .brand(vehicleDTO.getCharacteristicDTO().getBrand())
                         .fuel(vehicleDTO.getCharacteristicDTO().getFuel())
@@ -33,6 +41,9 @@ public class VehicleEntityAdapter {
                         .build())
                 .color(vehicleDTO.getColor())
                 .fuel(vehicleDTO.getFuel())
+                .status(Status.PENDING)
+                .activeRelay(activeRelayTemp == LocalDate.now().getDayOfWeek().getValue())
+                .relay(DayOfWeek.of(activeRelayTemp).name())
                 .build();
     }
 
@@ -45,4 +56,5 @@ public class VehicleEntityAdapter {
             throw new IllegalArgumentException("Error during date parse "+ pe.getMessage());
         }
     }
+
 }

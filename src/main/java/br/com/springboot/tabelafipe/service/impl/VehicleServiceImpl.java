@@ -49,16 +49,11 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public void saveVehicle(VehicleDTO vehicle) {
         try {
-           // final VehicleEntity taskEntity = vehicleEntityAdapter.toModel(vehicle);
-            saveVehicleWithCharacteristic(vehicle);
+            final VehicleEntity vehicleEntity = vehicleEntityAdapter.toModel(vehicle);
+            vehicleRepository.save(vehicleEntity);
         } catch(RuntimeException re){
             throw re;
         }
-    }
-
-    @Override
-    public void updateVehicle(VehicleEntity vehicle) {
-
     }
 
     @Override
@@ -82,8 +77,8 @@ public class VehicleServiceImpl implements VehicleService {
             return getVehicleList();
         }
 
-        List<VehicleEntity> taskEntityList = vehicleRepository.findAllByStatusOrderByDateDesc(status);
-        return taskEntityList.stream()
+        List<VehicleEntity> vehicleEntityList = vehicleRepository.findAllByStatusOrderByDateDesc(status);
+        return vehicleEntityList.stream()
                 .map(vehicleDTOAdapter::toDTO)
                 .collect(Collectors.toList());
     }
@@ -168,67 +163,5 @@ public class VehicleServiceImpl implements VehicleService {
         return characteristic.getFuel();
     }
 
-
-    private void saveVehicleWithCharacteristic(VehicleDTO vehicle){
-        //try {
-
-            String brand = vehicle.getModelDTO().getBrandDTO().getCode();
-            String model = vehicle.getModelDTO().getCode();
-            String year = vehicle.getYearDTO().getCode();
-            String renavam = vehicle.getRenavam();
-            String licensePlate = vehicle.getLicensePlate();
-            String relay;
-            boolean activeRelay;
-            int activeRelayTemp = getActiveRelayTemp(licensePlate);
-
-            if (activeRelayTemp == LocalDate.now().getDayOfWeek().getValue()) {
-                relay = DayOfWeek.of(activeRelayTemp).name();
-                activeRelay = true;
-
-            } else {
-                relay = DayOfWeek.of(activeRelayTemp).name();
-                activeRelay = false;
-            }
-
-
-            VehicleUtils vehicleUtils = new VehicleUtils();
-            vehicleUtils.digitValidationRenavam(renavam);
-            CharacteristicEntity characteristicEntity = fipeService.consultCharacteristic(brand, model, year);
-            VehicleEntity vehicleEntity = new VehicleEntity();
-            vehicleEntity.setCharacteristicEntity(characteristicEntity);
-            vehicleEntity.setDate(Instant.now());
-            vehicleEntity.setRelay(relay);
-            vehicleEntity.setActiveRelay(activeRelay);
-            vehicleEntity.setStatus(Status.PENDING);
-
-        vehicleRepository.save(vehicleEntity);
-    }
-
-    private static int getActiveRelayTemp(String licensePlate) {
-        int activeRelayTemp;
-
-        if(licensePlate.charAt(licensePlate.length()-1)==0|| licensePlate.charAt(licensePlate.length()-1)==1)
-
-        {
-            activeRelayTemp = 1;
-        }else if(licensePlate.charAt(licensePlate.length()-1)==2|| licensePlate.charAt(licensePlate.length()-1)==3)
-
-        {
-            activeRelayTemp = 2;
-        }else if(licensePlate.charAt(licensePlate.length()-1)==4|| licensePlate.charAt(licensePlate.length()-1)==5)
-
-        {
-            activeRelayTemp = 3;
-        }else if(licensePlate.charAt(licensePlate.length()-1)==6|| licensePlate.charAt(licensePlate.length()-1)==7)
-
-        {
-            activeRelayTemp = 4;
-        }else
-
-        {
-            activeRelayTemp = 5;
-        }
-        return activeRelayTemp;
-    }
 
 }

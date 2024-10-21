@@ -9,18 +9,25 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class UserDTOAdapter {
 
     private InstantConvert instantConvert;
 
+    private VehicleDTOAdapter vehicleDTOAdapter;
+    
     public UserDTO toDTO(UserEntity userEntity) {
 
         List<VehicleDTO> vehicleDTOList = new ArrayList<>();
         List<VehicleEntity> vehicleEntityList = userEntity.getVehicles();
 
-        for (VehicleEntity vehicle : vehicleEntityList){
+        vehicleDTOList = vehicleEntityList.stream()
+                .map(vehicleDTOAdapter::toDTO)
+                .collect(Collectors.toList());
+
+        /*for (VehicleEntity vehicle : vehicleEntityList){
             VehicleDTO vehicleDTO = VehicleDTO.builder()
                     .yearDTO(YearDTO.builder()
                             .name(vehicle.getYearEntity().getName())
@@ -49,10 +56,7 @@ public class UserDTOAdapter {
                             .build())
                     .build();
             vehicleDTOList.add(vehicleDTO);
-        }
-
-
-
+        }*/
 
         return UserDTO.builder()
                 .name(userEntity.getName())

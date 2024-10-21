@@ -2,11 +2,15 @@ package br.com.springboot.tabelafipe.adapter;
 
 import br.com.springboot.tabelafipe.convert.InstantConvert;
 import br.com.springboot.tabelafipe.dto.*;
+import br.com.springboot.tabelafipe.entity.CharacteristicEntity;
 import br.com.springboot.tabelafipe.entity.VehicleEntity;
 import br.com.springboot.tabelafipe.status.Status;
+import br.com.springboot.tabelafipe.utils.VehicleUtils;
 
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class VehicleDTOAdapter {
@@ -36,11 +40,11 @@ public class VehicleDTOAdapter {
                         .build())
                 .renavam(vehicle.getRenavam())
                 .characteristicDTO(CharacteristicDTO.builder()
-                        .brand(vehicle.getCharacteristicEntityId().getBrand())
-                        .model(vehicle.getCharacteristicEntityId().getModel())
-                        .price(vehicle.getCharacteristicEntityId().getPrice())
-                        .modelYear(vehicle.getCharacteristicEntityId().getModelYear())
-                        .fuel(vehicle.getCharacteristicEntityId().getFuel())
+                        .brand(vehicle.getCharacteristicEntity().getBrand())
+                        .model(vehicle.getCharacteristicEntity().getModel())
+                        .price(vehicle.getCharacteristicEntity().getPrice())
+                        .modelYear(vehicle.getCharacteristicEntity().getModelYear())
+                        .fuel(vehicle.getCharacteristicEntity().getFuel())
                         .build())
                 .build();
 
@@ -56,5 +60,8 @@ public class VehicleDTOAdapter {
             default -> "badge badge-secondary";
         };
     }
+
+
+
 
 }

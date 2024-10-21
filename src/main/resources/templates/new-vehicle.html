@@ -10,7 +10,7 @@
     <div th:if="${alertMessage != null and alertMessage != ''}" class="panel-heading" th:replace="~{components/alert.html}"></div>
     <div id="taskGet-container" class="card container"
          style="margin-top:1%; margin-bottom:1%; width: 50%; height:60%; border: none; padding-bottom:2%">
-        <form action="#" th:action="@{/add-or-update-vehicle}" method="post" th:object="${vehicleEntity}">
+        <form action="#" th:action="@{/add-or-update-vehicle}" method="post" th:object="${vehicleDTO}">
             <div class="container">
                 <div class="row">
                     <div class="col-md-26 mt-5">
@@ -44,31 +44,31 @@
                                             <!--select class="form-control" name="priority" th:field="*{priority}"-->
                                             <select class="form-control" name="brand"  th:field="*{brand}">
 
-                                                <!--option th:each="priority : ${priorities}"
-                                                        th:value="${priority}"
-                                                        th:text="${priority}"></option-->
+                                                <option th:each="brand : ${brands}"
+                                                        th:value="${brand}"
+                                                        th:text="${brand}"></option>
                                             </select>
                                         </div>
 
                                         <div class="col-md-4 mb-3 mt-2">
                                             <label>Modelo</label>
                                             <!--select class="form-control" name="priority" th:field="*{priority}"-->
-                                            <select class="form-control" name="models"  th:field="*{models}">
+                                            <select class="form-control" name="model"  th:field="*{model}">
 
-                                                <!--option th:each="priority : ${priorities}"
+                                                <option th:each="model : ${priorities}"
                                                         th:value="${priority}"
-                                                        th:text="${priority}"></option-->
+                                                        th:text="${priority}"></option>
                                             </select>
                                         </div>
 
                                         <div class="col-md-4 mb-3 mt-2">
                                             <label>Ano</label>
                                             <!--select class="form-control" name="priority" th:field="*{priority}"-->
-                                            <select class="form-control" name="years"  th:field="*{years}">
+                                            <select class="form-control" name="year"  th:field="*{year}">
 
-                                                <!--option th:each="priority : ${priorities}"
-                                                        th:value="${priority}"
-                                                        th:text="${priority}"></option-->
+                                                <option th:each="year : ${years}"
+                                                        th:value="${year}"
+                                                        th:text="${year}"></option>
                                             </select>
                                         </div>
 
@@ -77,16 +77,16 @@
                                             <!--select class="form-control" name="priority" th:field="*{priority}"-->
                                             <select class="form-control" name="fuel"  th:field="*{fuel}">
 
-                                                <!--option th:each="priority : ${priorities}"
-                                                        th:value="${priority}"
-                                                        th:text="${priority}"></option-->
+                                                <option th:each="fuel : ${fuels}"
+                                                        th:value="${fuel}"
+                                                        th:text="${fuel}"></option>
                                             </select>
                                         </div>
 
                                         <div class="col-md-4 mb-3 mt-2">
                                             <label>Cadastrado em</label>
                                             <input type="date" class="form-control" name="data"
-                                                   th:field="*{data}" placeholder="Data de Cadastro"
+                                                   th:field="*{date}" placeholder="Data de Cadastro"
                                                    id="expireDatePicker"
                                                    th:classappend="${#fields.hasErrors('data')} ? 'is-invalid' : ''">
                                             <script>
@@ -94,7 +94,7 @@
                                                 document.getElementById('expireDatePicker').min = today;
 
                                             </script>
-                                            <div th:if="${#fields.hasErrors('expireOn')}" th:errors="*{data}"
+                                            <div th:if="${#fields.hasErrors('expireOn')}" th:errors="*{date}"
                                                  class="invalid-feedback"></div>
                                         </div>
                                     </div>

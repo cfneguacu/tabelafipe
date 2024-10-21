@@ -2,6 +2,7 @@ package br.com.springboot.tabelafipe.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 //import javax.validation.Valid;
 import br.com.springboot.tabelafipe.adapter.UserDTOAdapter;
@@ -26,7 +27,7 @@ import javax.validation.Valid;
  *
  * A sample greetings controller to return greeting text
  */
-@Controller("/")
+@Controller("/find-user/{cpf}")
 public class VehicleController {
 	
 	@Autowired
@@ -53,7 +54,7 @@ public class VehicleController {
         mvaux.addObject("alertMessage", alertMessage);
         SELECTED_PAGE = null;
         USER_CPF = cpf;
-       // redirectAttributes.addFlashAttribute("cpf", usuario);
+        //redirectAttributes.addFlashAttribute("cpf", usuario);
         return mvaux;
     }
 
@@ -72,7 +73,7 @@ public class VehicleController {
         String message = "Error, please fill the form correctly";
 
         List<VehicleDTO> vehicles = new ArrayList<>();
-        UserDTO userDTO = new UserDTO();
+        UserDTO userDTO = userService.getUserByCpf(USER_CPF);
 
         if(bindResult.hasErrors()){
             ModelAndView mv = new ModelAndView("new-vehicle");
@@ -82,7 +83,6 @@ public class VehicleController {
         if(vehicle.getId() != null){
 
             vehicles.add(vehicle);
-            userDTO.setCpf(USER_CPF);
             userDTO.setVehicles(vehicles);
             userService.updateUser(userDTO);
             redirectAttributes.addFlashAttribute("alertMessage","New Task was been successfully saved");
@@ -111,6 +111,29 @@ public class VehicleController {
         mv.addObject("statusList", vehicleService.getStatus());
         mv.addObject("alertMessage", message);
         return mv;
+    }
+
+    @DeleteMapping("delete-vehicle/{id}")
+    public ModelAndView deleteTask(@PathVariable Long id){
+        vehicleService.deleteVehicle(id);
+        ModelAndView mv = new ModelAndView("components/task-vehicle");
+        return modelAndViewListAux(SELECTED_PAGE != null ? SELECTED_PAGE : 1, mv);
+    }
+
+    @GetMapping("vehicle-by-status")
+    public ModelAndView getTaskListByStatus(@RequestParam(name = "status", required = false) String status){
+        ModelAndView mv = new ModelAndView("redirect:/");
+        globalStatus = status;
+        return mv;
+    }
+
+    @GetMapping("/page/{pageNo}")
+    public ModelAndView findPaginated(@PathVariable(value = "pageNo") int pageNo){
+
+        ModelAndView mv = new ModelAndView("components/task-card");
+        SELECTED_PAGE = pageNo;
+        return modelAndViewListAux(pageNo, mv);
+
     }
 
 }

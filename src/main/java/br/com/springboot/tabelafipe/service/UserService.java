@@ -14,7 +14,7 @@ public interface UserService {
 
     void deleteUser(Long id);
 
-    UserEntity findUser(String cpf);
+    UserDTO getUserByCpf(String cpf);
 
-    Page<UserEntity> getUserListPaginated(int selectedPage, int pageSize, String globalStatus);
+    Page<UserDTO> getUserListPaginated(int selectedPage, int pageSize);
 }

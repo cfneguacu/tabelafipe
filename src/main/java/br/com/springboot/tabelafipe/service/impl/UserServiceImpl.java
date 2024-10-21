@@ -1,17 +1,21 @@
 package br.com.springboot.tabelafipe.service.impl;
 
+import br.com.springboot.tabelafipe.adapter.*;
 import br.com.springboot.tabelafipe.adapter.UserDTOAdapter;
 import br.com.springboot.tabelafipe.adapter.UserEntityAdapter;
-import br.com.springboot.tabelafipe.adapter.VehicleDTOAdapter;
-import br.com.springboot.tabelafipe.adapter.VehicleEntityAdapter;
 import br.com.springboot.tabelafipe.convert.StatusConvert;
 import br.com.springboot.tabelafipe.dto.UserDTO;
+import br.com.springboot.tabelafipe.dto.UserDTO;
+import br.com.springboot.tabelafipe.entity.UserEntity;
 import br.com.springboot.tabelafipe.entity.UserEntity;
 import br.com.springboot.tabelafipe.entity.VehicleEntity;
 import br.com.springboot.tabelafipe.exceptions.UserNotFoundException;
 import br.com.springboot.tabelafipe.repository.UserRepository;
 import br.com.springboot.tabelafipe.service.UserService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,13 +26,13 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
     
     private final UserRepository userRepository;
-    private final StatusConvert statusConvert;
     private final UserDTOAdapter userDTOAdapter;
     private final UserEntityAdapter userEntityAdapter;
+    private final VehicleEntityAdapter vehicleEntityAdapter;
 
-    public UserServiceImpl(final UserRepository userRepository, final StatusConvert statusConvert, final UserDTOAdapter userDtoAdapter, final UserEntityAdapter userEntityAdapter){
+    public UserServiceImpl(final UserRepository userRepository, final StatusConvert statusConvert, final UserDTOAdapter userDTOAdapter, final UserEntityAdapter userEntityAdapter, final VehicleEntityAdapter vehicleEntityAdapter){
         this.userRepository = userRepository;
-        this.statusConvert = statusConvert;
+        this.vehicleEntityAdapter = vehicleEntityAdapter;
         this.userDTOAdapter = userDTOAdapter;
         this.userEntityAdapter = userEntityAdapter;
     }
@@ -50,9 +54,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(UserDTO userDTO) {
-
-        VehicleEntityAdapter vehicleEntityAdapter = new VehicleEntityAdapter();
-
+        
         try {
             final UserEntity optionalUserEntity = userRepository.findByCpf(userDTO.getCpf());
             if (optionalUserEntity != null) {
@@ -79,12 +81,46 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity findUser(String cpf){
-        return userRepository.findByCpf(cpf);
+    public UserDTO getUserByCpf(String cpf){
+        UserEntity userEntity = userRepository.findByCpf(cpf);
+        if(userEntity != null){
+            return userDTOAdapter.toDTO(userEntity);
+        }else{
+            throw new UserNotFoundException("User with id "+ cpf +" not found");
+        }
+        
+        
+    }
+
+    public List<UserDTO> getUserList(){
+        return userRepository.findAll()
+                .stream()
+                .map(userDTOAdapter::toDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Page<UserEntity> getUserListPaginated(int selectedPage, int pageSize, String globalStatus) {
-        return null;
+    public Page<UserDTO> getUserListPaginated(int pageNo, int pageSize) {
+        List<UserDTO> userDTOList;
+        Page<UserDTO> page;
+        userDTOList = getUserList();
+        pageNo = 1;
+
+
+
+        if(!userDTOList.isEmpty()){
+            if(userDTOList.size() < pageSize){
+                pageSize = userDTOList.size();
+            }
+            Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+            int start = (int)pageable.getOffset();
+            int end = Math.min((start + pageable.getPageSize()), userDTOList.size());
+            List<UserDTO> subList = userDTOList.subList(start, end);
+            page = new PageImpl<>(subList, pageable, userDTOList.size());
+        }else{
+            page = Page.empty();
+        }
+
+        return page;
     }
 }
