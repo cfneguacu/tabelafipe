@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>My To do List</title>
+    <title>Tabela Fipe</title>
 </head>
 <section layout:fragment="content" style="min-height: 90vh; background-color: lightgray; margin-top:5%">
     <div th:if="${alertMessage != null and alertMessage != ''}" class="panel-heading" th:replace="~{components/alert.html}"></div>
@@ -20,21 +20,30 @@
                                     <div class="row">
 
                                         <div class="col-md-12 mt-2">
-                                            <label>Title</label>
-                                            <input type="text" class="form-control" name="title" placeholder="Title"
-                                                   th:field="*{title}"
-                                                   th:classappend="${#fields.hasErrors('title')} ? 'is-invalid' : ''">
-                                            <input type="hidden" name="id" th:value="${id}" th:field="*{id}"/>
-                                            <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"
+                                            <label>Renavam</label>
+                                            <input type="text" class="form-control" name="renavam" placeholder="Renavam"
+                                                   th:field="*{renavam}"
+                                                   th:classappend="${#fields.hasErrors('renavam')} ? 'is-invalid' : ''">
+                                            <!--input type="hidden" name="id" th:value="${id}" th:field="*{id}"/-->
+                                            <div th:if="${#fields.hasErrors('renavam')}" th:errors="*{renavam}"
                                                  class="invalid-feedback"></div>
                                         </div>
 
                                         <div class="col-md-12 mt-2">
-                                            <label>Description</label>
-                                            <textarea class="form-control" rows="4" name="description"
-                                                      placeholder="Description" th:field="*{description}"
-                                                      th:classappend="${#fields.hasErrors('description')} ? 'is-invalid' : ''"></textarea>
-                                            <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+                                            <label>Placa</label>
+                                            <input type ="text" class="form-control" name="licensePlate"
+                                                      placeholder="Placa" th:field="*{licensePlate}"
+                                                      th:classappend="${#fields.hasErrors('licensePlate')} ? 'is-invalid' : ''">
+                                            <div th:if="${#fields.hasErrors('licensePlate')}" th:errors="*{licensePlate}"
+                                                 class="invalid-feedback"></div>
+                                        </div>
+
+                                        <div class="col-md-12 mt-2">
+                                            <label>Cor</label>
+                                            <input type ="text" class="form-control" name="color"
+                                                   placeholder="Cor" th:field="*{color}"
+                                                   th:classappend="${#fields.hasErrors('color')} ? 'is-invalid' : ''">
+                                            <div th:if="${#fields.hasErrors('color')}" th:errors="*{color}"
                                                  class="invalid-feedback"></div>
                                         </div>
 
@@ -42,42 +51,42 @@
                                         <div class="col-md-4 mb-3 mt-2">
                                             <label>Marca</label>
                                             <!--select class="form-control" name="priority" th:field="*{priority}"-->
-                                            <select class="form-control" name="brand"  th:field="*{brand}">
+                                            <select class="form-control" name="brand"  th:field="*{modelDTO.brandDTO}">
 
                                                 <option th:each="brand : ${brands}"
-                                                        th:value="${brand}"
-                                                        th:text="${brand}"></option>
+                                                        th:value="${brand.code}"
+                                                        th:text="${brand.name}"></option>
                                             </select>
                                         </div>
 
                                         <div class="col-md-4 mb-3 mt-2">
                                             <label>Modelo</label>
                                             <!--select class="form-control" name="priority" th:field="*{priority}"-->
-                                            <select class="form-control" name="model"  th:field="*{model}">
+                                            <select class="form-control" name="model"  th:field="*{modelDTO}">
 
-                                                <option th:each="model : ${priorities}"
-                                                        th:value="${priority}"
-                                                        th:text="${priority}"></option>
+                                                <option th:each="model : ${models}"
+                                                        th:value="${model.code}"
+                                                        th:text="${model.name}"></option>
                                             </select>
                                         </div>
 
                                         <div class="col-md-4 mb-3 mt-2">
                                             <label>Ano</label>
                                             <!--select class="form-control" name="priority" th:field="*{priority}"-->
-                                            <select class="form-control" name="year"  th:field="*{year}">
+                                            <select class="form-control" name="year"  th:field="*{yearDTO}">
 
                                                 <option th:each="year : ${years}"
-                                                        th:value="${year}"
-                                                        th:text="${year}"></option>
+                                                        th:value="${year.code}"
+                                                        th:text="${year.name}"></option>
                                             </select>
                                         </div>
 
                                         <div class="col-md-4 mb-3 mt-2">
                                             <label>Combustível</label>
                                             <!--select class="form-control" name="priority" th:field="*{priority}"-->
-                                            <select class="form-control" name="fuel"  th:field="*{fuel}">
+                                            <select class="form-control" name="fuel"  th:field="*{charcaterisicDTO}">
 
-                                                <option th:each="fuel : ${fuels}"
+                                                <option th:each="fuel : ${fuel}"
                                                         th:value="${fuel}"
                                                         th:text="${fuel}"></option>
                                             </select>
@@ -88,13 +97,13 @@
                                             <input type="date" class="form-control" name="data"
                                                    th:field="*{date}" placeholder="Data de Cadastro"
                                                    id="expireDatePicker"
-                                                   th:classappend="${#fields.hasErrors('data')} ? 'is-invalid' : ''">
+                                                   th:classappend="${#fields.hasErrors('date')} ? 'is-invalid' : ''">
                                             <script>
                                                 var today = new Date().toISOString().split('T')[0];
-                                                document.getElementById('expireDatePicker').min = today;
+                                                //document.getElementById('expireDatePicker').min = today;
 
                                             </script>
-                                            <div th:if="${#fields.hasErrors('expireOn')}" th:errors="*{date}"
+                                            <div th:if="${#fields.hasErrors('date')}" th:errors="*{date}"
                                                  class="invalid-feedback"></div>
                                         </div>
                                     </div>

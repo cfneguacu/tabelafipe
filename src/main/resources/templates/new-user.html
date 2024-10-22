@@ -10,7 +10,7 @@
     <div th:if="${alertMessage != null and alertMessage != ''}" class="panel-heading" th:replace="~{components/alert.html}"></div>
     <div id="taskGet-container" class="card container"
          style="margin-top:1%; margin-bottom:1%; width: 50%; height:60%; border: none; padding-bottom:2%">
-        <form action="#" th:action="@{/add-or-update-user}" method="post" th:object="${userEntity}">
+        <form action="#" th:action="@{/add-or-update-user}" method="post" th:object="${userDTO}">
             <div class="container">
                 <div class="row">
                     <div class="col-md-26 mt-5">
@@ -18,23 +18,21 @@
                             <article class="card-body">
                                 <div class="form-group">
                                     <div class="row">
-
                                         <div class="col-md-12 mt-2">
                                             <label>Nome</label>
-                                            <input type="text" class="form-control" name="nome" placeholder="Nome"
-                                                   th:field="*{nome}"
-                                                   th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid' : ''">
+                                            <input type="text" class="form-control" name="name" placeholder="Nome"
+                                                   th:field="*{name}"
+                                                   th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''">
                                             <input type="hidden" name="id" th:value="${id}" th:field="*{id}"/>
-                                            <div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"
+                                            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
                                                  class="invalid-feedback"></div>
                                         </div>
 
                                         <div class="col-md-12 mt-2">
                                             <label>Email</label>
                                             <input type="text" class="form-control" name="email" placeholder="Email"
-                                                   th:field="*{title}"
+                                                   th:field="*{email}"
                                                    th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''">
-                                            <input type="hidden" name="id" th:value="${id}" th:field="*{id}"/>
                                             <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
                                                  class="invalid-feedback"></div>
                                         </div>
@@ -44,8 +42,7 @@
                                             <input type="text" class="form-control" name="cpf" placeholder="CPF"
                                                    th:field="*{cpf}"
                                                    th:classappend="${#fields.hasErrors('cpf')} ? 'is-invalid' : ''">
-                                            <input type="hidden" name="id" th:value="${id}" th:field="*{id}"/>
-                                            <div th:if="${#fields.hasErrors('cpf')}" th:errors="*{title}"
+                                            <div th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"
                                                  class="invalid-feedback"></div>
                                         </div>
                                     </div>

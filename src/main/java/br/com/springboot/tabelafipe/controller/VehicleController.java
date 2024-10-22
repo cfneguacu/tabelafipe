@@ -72,8 +72,9 @@ public class VehicleController {
 
         String message = "Error, please fill the form correctly";
 
-        List<VehicleDTO> vehicles = new ArrayList<>();
+
         UserDTO userDTO = userService.getUserByCpf(USER_CPF);
+        List<VehicleDTO> vehicles = userDTO.getVehicles();
 
         if(bindResult.hasErrors()){
             ModelAndView mv = new ModelAndView("new-vehicle");

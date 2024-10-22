@@ -61,10 +61,6 @@ public class VehicleServiceImpl implements VehicleService {
         vehicleRepository.deleteById(id);
     }
 
-    @Override
-    public VehicleEntity findByRenavam(String renavam) {
-        return vehicleRepository.findByRenavan(renavam);
-    }
 
     @Override
     public List<String> getStatus(){

@@ -12,11 +12,7 @@ public interface VehicleService {
 
     void saveVehicle(VehicleDTO vehicle);
 
-    void updateVehicle(VehicleEntity vehicle);
-
     void deleteVehicle(Long id);
-
-    VehicleEntity findByRenavam(String renavam);
 
     Page<VehicleDTO> getVehicleListPaginated(int selectedPage, int pageSize, String globalStatus);
 
