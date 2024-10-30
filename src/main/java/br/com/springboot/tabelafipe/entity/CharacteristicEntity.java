@@ -10,12 +10,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @EqualsAndHashCode
-@SequenceGenerator(name = "seq_caracteristica" , sequenceName = "seq_caracteristica", allocationSize = 1)
+@SequenceGenerator(name = "seq_characteristic" , sequenceName = "seq_characteristic", allocationSize = 1)
 public class CharacteristicEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_caracteristica")
-    @Column(name = "CARACTERISTICA_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_characteristic")
+    @Column(name = "CHARACTERISTIC_ID")
     private Long id;
 
     private String price;

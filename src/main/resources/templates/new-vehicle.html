@@ -10,7 +10,7 @@
     <div th:if="${alertMessage != null and alertMessage != ''}" class="panel-heading" th:replace="~{components/alert.html}"></div>
     <div id="taskGet-container" class="card container"
          style="margin-top:1%; margin-bottom:1%; width: 50%; height:60%; border: none; padding-bottom:2%">
-        <form action="#" th:action="@{/add-or-update-vehicle}" method="post" th:object="${vehicleDTO}">
+        <form action="#" th:action="@{/vehicle/add-or-update-vehicle}" method="post" th:object="${vehicleDTO}">
             <div class="container">
                 <div class="row">
                     <div class="col-md-26 mt-5">
@@ -114,7 +114,7 @@
 
                     <div class="row mt-3" style="padding-top: 2%">
                         <div class="col mt-3">
-                            <a class="btn btn-primary" href="/" style="width: 48%;">Cancel</a>
+                            <a class="btn btn-primary" href="/vehicle" style="width: 48%;">Cancel</a>
                         </div>
                         <div class="col mt-3 d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary" style="width: 48%;">Save</button>

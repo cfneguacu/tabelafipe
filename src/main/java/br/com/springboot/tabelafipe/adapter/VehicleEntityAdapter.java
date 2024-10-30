@@ -3,6 +3,7 @@ package br.com.springboot.tabelafipe.adapter;
 import br.com.springboot.tabelafipe.dto.VehicleDTO;
 import br.com.springboot.tabelafipe.entity.*;
 import br.com.springboot.tabelafipe.status.Status;
+import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,18 +14,17 @@ import java.util.Date;
 
 import static br.com.springboot.tabelafipe.utils.VehicleUtils.getActiveRelayTemp;
 
+@Component
 public class VehicleEntityAdapter {
 
     public VehicleEntity toModel(VehicleDTO vehicleDTO) {
 
         int activeRelayTemp = getActiveRelayTemp(vehicleDTO.getLicensePlate());
 
-
-
         return VehicleEntity.builder()
                 .date(convertStringToInstant(vehicleDTO.getDate()))
                 .modelEntity(ModelEntity.builder()
-                        .brandEntityId(BrandEntity.builder()
+                        .brandEntity(BrandEntity.builder()
                                 .code(vehicleDTO.getModelDTO().getBrandDTO().getCode())
                                 .build())
                         .build())

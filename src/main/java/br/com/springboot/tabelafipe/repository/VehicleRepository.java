@@ -23,7 +23,7 @@ public interface VehicleRepository extends JpaRepository<VehicleEntity, Long> {
 //@Query(value = "select * from Veiculo")
 //List<Veiculo> buscarPorVeiculo(String name);
 
-@Query(value = "select v from Veiculo v " +
+@Query(value = "select v from VehicleEntity v " +
         "where v.renavam =:renavam")
 VehicleEntity findByRenavan(@Param("renavam") String renavam);
 

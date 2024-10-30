@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    @Query(value = "select u from Usuario u " +
+    @Query(value = "select u from UserEntity u " +
             "where u.cpf =:cpf")
     UserEntity findByCpf(String cpf);
 

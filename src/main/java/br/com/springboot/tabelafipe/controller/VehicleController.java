@@ -27,7 +27,7 @@ import javax.validation.Valid;
  *
  * A sample greetings controller to return greeting text
  */
-@Controller("/find-user/{cpf}")
+@Controller("vehicle")
 public class VehicleController {
 	
 	@Autowired
@@ -43,7 +43,7 @@ public class VehicleController {
     private static final int PAGE_NO = 1;
     private Integer SELECTED_PAGE;
 
-    @GetMapping("/find-user/{cpf}")
+    @GetMapping("vehicle/find-user/{cpf}")
     public ModelAndView findUser(@ModelAttribute("alertMessage") @Nullable String alertMessage , @PathVariable("cpf") String cpf, RedirectAttributes redirectAttributes){
         //UserEntity userEntity = userService.findUser(cpf);
         ModelAndView mv = new ModelAndView("task-vehicle");
@@ -58,14 +58,14 @@ public class VehicleController {
         return mvaux;
     }
 
-    @GetMapping("add-new-vehicle")
+    @GetMapping("vehicle/add-new-vehicle")
     public ModelAndView pageNewVehicle(){
         ModelAndView mv = new ModelAndView("new-vehicle");
         String message = "";
         return modelAndViewAux(mv, new VehicleDTO(), message);
     }
 
-    @PostMapping("/add-or-update-vehicle")
+    @PostMapping("vehicle/add-or-update-vehicle")
     public ModelAndView addOrUpdateTask(final @Valid VehicleDTO vehicle,
                                         final BindingResult bindResult,
                                         final RedirectAttributes redirectAttributes){
@@ -89,7 +89,7 @@ public class VehicleController {
             redirectAttributes.addFlashAttribute("alertMessage","New Task was been successfully saved");
         }
 
-        return new ModelAndView("redirect:/task-vehicle");
+        return new ModelAndView("redirect:/vehicle");
     }
 
     public ModelAndView modelAndViewListAux(int selectedPage, ModelAndView mv){
@@ -114,24 +114,24 @@ public class VehicleController {
         return mv;
     }
 
-    @DeleteMapping("delete-vehicle/{id}")
+    @DeleteMapping("vehicle/delete-vehicle/{id}")
     public ModelAndView deleteTask(@PathVariable Long id){
         vehicleService.deleteVehicle(id);
         ModelAndView mv = new ModelAndView("components/task-vehicle");
         return modelAndViewListAux(SELECTED_PAGE != null ? SELECTED_PAGE : 1, mv);
     }
 
-    @GetMapping("vehicle-by-status")
+    @GetMapping("vehicle/vehicle-by-status")
     public ModelAndView getTaskListByStatus(@RequestParam(name = "status", required = false) String status){
-        ModelAndView mv = new ModelAndView("redirect:/");
+        ModelAndView mv = new ModelAndView("redirect:/vehicle");
         globalStatus = status;
         return mv;
     }
 
-    @GetMapping("/page/{pageNo}")
+    @GetMapping("vehicle/page/{pageNo}")
     public ModelAndView findPaginated(@PathVariable(value = "pageNo") int pageNo){
 
-        ModelAndView mv = new ModelAndView("components/task-card");
+        ModelAndView mv = new ModelAndView("components/task-vehicle");
         SELECTED_PAGE = pageNo;
         return modelAndViewListAux(pageNo, mv);
 

@@ -12,15 +12,15 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 @EqualsAndHashCode
-@SequenceGenerator(name = "seq_marcas" , sequenceName = "seq_marcas", allocationSize = 1)
+@SequenceGenerator(name = "seq_brands" , sequenceName = "seq_brands", allocationSize = 1)
 public class BrandEntity implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_marcas")
-    @Column(name = "MARCA_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_brands")
+    @Column(name = "BRAND_ID")
     private Long id;
 
     private String code;

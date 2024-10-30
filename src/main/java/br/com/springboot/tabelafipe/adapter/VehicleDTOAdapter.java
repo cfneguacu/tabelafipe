@@ -6,6 +6,7 @@ import br.com.springboot.tabelafipe.entity.CharacteristicEntity;
 import br.com.springboot.tabelafipe.entity.VehicleEntity;
 import br.com.springboot.tabelafipe.status.Status;
 import br.com.springboot.tabelafipe.utils.VehicleUtils;
+import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
@@ -13,8 +14,8 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Date;
 
+@Component
 public class VehicleDTOAdapter {
-
 
     private InstantConvert instantConvert;
 
@@ -34,8 +35,8 @@ public class VehicleDTOAdapter {
                         .name(vehicle.getModelEntity().getName())
                         .code(vehicle.getModelEntity().getCode())
                         .brandDTO(BrandDTO.builder()
-                                .code(vehicle.getModelEntity().getBrandEntityId().getCode())
-                                .name(vehicle.getModelEntity().getBrandEntityId().getName())
+                                .code(vehicle.getModelEntity().getBrandEntity().getCode())
+                                .name(vehicle.getModelEntity().getBrandEntity().getName())
                                 .build())
                         .build())
                 .renavam(vehicle.getRenavam())

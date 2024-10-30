@@ -1,4 +1,4 @@
-<<!-- start table-->
+<!-- start table-->
 <div th:if="${not #lists.isEmpty(userDTOList)}">
     <div id="task-container" class="card container"
          style="margin-top:1%; margin-bottom:1%; width: 60%; height:60%; border: none; padding-bottom:2%">
@@ -10,9 +10,9 @@
                              style="display: flex; justify-content: space-between; text-align: left;">
                             <div class="col-sm">
                                 <h5 class="mb-0">
-                                    <form th:action="@{/find-user/{cpf}(cpf=${userDTO.cpf})}" method="get" style="display:inline;">
+                                    <form th:action="@{/vehicle/find-user/{cpf}(cpf=${userDTO.cpf})}" method="get" style="display:inline;">
                                     <button class="btn btn-link">
-                                        <span th:text="${userDTO.nome}"></span>
+                                        <span th:text="${userDTO.name}"></span>
                                     </button>
                                     </form>
                                 </h5>

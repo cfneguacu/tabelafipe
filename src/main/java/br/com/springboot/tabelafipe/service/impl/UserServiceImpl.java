@@ -12,6 +12,7 @@ import br.com.springboot.tabelafipe.entity.VehicleEntity;
 import br.com.springboot.tabelafipe.exceptions.UserNotFoundException;
 import br.com.springboot.tabelafipe.repository.UserRepository;
 import br.com.springboot.tabelafipe.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -25,12 +26,17 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
     
+
     private final UserRepository userRepository;
+
+
     private final UserDTOAdapter userDTOAdapter;
+
     private final UserEntityAdapter userEntityAdapter;
+
     private final VehicleEntityAdapter vehicleEntityAdapter;
 
-    public UserServiceImpl(final UserRepository userRepository, final StatusConvert statusConvert, final UserDTOAdapter userDTOAdapter, final UserEntityAdapter userEntityAdapter, final VehicleEntityAdapter vehicleEntityAdapter){
+    public UserServiceImpl(final UserRepository userRepository, final UserDTOAdapter userDTOAdapter, final UserEntityAdapter userEntityAdapter, final VehicleEntityAdapter vehicleEntityAdapter){
         this.userRepository = userRepository;
         this.vehicleEntityAdapter = vehicleEntityAdapter;
         this.userDTOAdapter = userDTOAdapter;
