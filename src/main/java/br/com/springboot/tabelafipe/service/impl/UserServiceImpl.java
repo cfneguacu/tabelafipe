@@ -25,10 +25,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
-    
 
     private final UserRepository userRepository;
-
 
     private final UserDTOAdapter userDTOAdapter;
 
@@ -67,14 +65,14 @@ public class UserServiceImpl implements UserService {
                 optionalUserEntity.setName(userDTO.getName());
                 optionalUserEntity.setCpf(userDTO.getCpf());
                 optionalUserEntity.setEmail(userDTO.getEmail());
-                List<VehicleEntity> vehicleEntityList = userDTO.getVehicles()
+                List<VehicleEntity> vehicleEntityList = userDTO.getVehicleDTOList()
                         .stream()
                         .map(vehicleEntityAdapter::toModel)
                         .collect(Collectors.toList());
                 optionalUserEntity.setVehicles(vehicleEntityList);
                 userRepository.save(optionalUserEntity);
             } else {
-                throw new UserNotFoundException("Task with id " + userDTO.getId() + " not found");
+                throw new UserNotFoundException("User with id " + userDTO.getId() + " not found");
             }
         }catch(final RuntimeException re) {
             throw re;

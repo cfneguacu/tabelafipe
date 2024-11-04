@@ -36,16 +36,13 @@ public class VehicleController {
     @Autowired
     private UserService userService;
     
-
-    private static String USER_CPF = "";
     private String globalStatus;
     private static final int PAGE_SIZE = 10;
     private static final int PAGE_NO = 1;
     private Integer SELECTED_PAGE;
 
-    @GetMapping("vehicle/find-user/{cpf}")
+    @GetMapping("vehicle")
     public ModelAndView findUser(@ModelAttribute("alertMessage") @Nullable String alertMessage , @PathVariable("cpf") String cpf, RedirectAttributes redirectAttributes){
-        //UserEntity userEntity = userService.findUser(cpf);
         ModelAndView mv = new ModelAndView("task-vehicle");
         if(SELECTED_PAGE == null){
             SELECTED_PAGE = PAGE_NO;
@@ -53,7 +50,6 @@ public class VehicleController {
         ModelAndView mvaux = modelAndViewListAux(SELECTED_PAGE, mv);
         mvaux.addObject("alertMessage", alertMessage);
         SELECTED_PAGE = null;
-        USER_CPF = cpf;
         //redirectAttributes.addFlashAttribute("cpf", usuario);
         return mvaux;
     }
@@ -65,16 +61,17 @@ public class VehicleController {
         return modelAndViewAux(mv, new VehicleDTO(), message);
     }
 
-    @PostMapping("vehicle/add-or-update-vehicle")
-    public ModelAndView addOrUpdateTask(final @Valid VehicleDTO vehicle,
+    @PostMapping("vehicle/add-or-update-vehicle/{cpf}")
+    public ModelAndView addOrUpdateTask(final @Valid @RequestBody VehicleDTO vehicle,
                                         final BindingResult bindResult,
-                                        final RedirectAttributes redirectAttributes){
+                                        final RedirectAttributes redirectAttributes,
+                                        @PathVariable String cpf){
 
         String message = "Error, please fill the form correctly";
 
 
-        UserDTO userDTO = userService.getUserByCpf(USER_CPF);
-        List<VehicleDTO> vehicles = userDTO.getVehicles();
+        UserDTO userDTO = userService.getUserByCpf(cpf);
+        List<VehicleDTO> vehicles = userDTO.getVehicleDTOList();
 
         if(bindResult.hasErrors()){
             ModelAndView mv = new ModelAndView("new-vehicle");
@@ -84,7 +81,7 @@ public class VehicleController {
         if(vehicle.getId() != null){
 
             vehicles.add(vehicle);
-            userDTO.setVehicles(vehicles);
+            userDTO.setVehicleDTOList(vehicles);
             userService.updateUser(userDTO);
             redirectAttributes.addFlashAttribute("alertMessage","New Task was been successfully saved");
         }
@@ -96,18 +93,18 @@ public class VehicleController {
 
         Page<VehicleDTO> page = vehicleService.getVehicleListPaginated(selectedPage, PAGE_SIZE, globalStatus);
         List<VehicleDTO> vehicleList = page.getContent();
-        mv.addObject("vehicleList", vehicleList);
+        mv.addObject("vehicleDTOList", vehicleList);
         mv.addObject("currentPage", selectedPage);
         mv.addObject("totalPages", page.getTotalPages());
         mv.addObject("totalItens", page.getTotalElements());
         return mv;
     }
 
-    public ModelAndView modelAndViewAux(ModelAndView mv, VehicleDTO vehicle, String message){
-        mv.addObject("vehicle", vehicle);
-        mv.addObject("models",vehicleService.getModels(vehicle));
-        mv.addObject("years",vehicleService.getYears(vehicle));
-        mv.addObject("fuel",vehicleService.getFuel(vehicle));
+    public ModelAndView modelAndViewAux(ModelAndView mv, VehicleDTO vehicleDTO, String message){
+        mv.addObject("vehicleDTO", vehicleDTO);
+        mv.addObject("models",vehicleService.getModels(vehicleDTO));
+        mv.addObject("years",vehicleService.getYears(vehicleDTO));
+        mv.addObject("fuel",vehicleService.getFuel(vehicleDTO));
         mv.addObject("brands",vehicleService.getBrands());
         mv.addObject("statusList", vehicleService.getStatus());
         mv.addObject("alertMessage", message);

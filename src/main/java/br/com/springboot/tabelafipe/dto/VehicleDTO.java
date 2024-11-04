@@ -3,6 +3,7 @@ package br.com.springboot.tabelafipe.dto;
 import br.com.springboot.tabelafipe.entity.YearEntity;
 import br.com.springboot.tabelafipe.entity.CharacteristicEntity;
 import br.com.springboot.tabelafipe.entity.ModelEntity;
+import br.com.springboot.tabelafipe.status.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -39,5 +40,9 @@ public class VehicleDTO {
     @NotEmpty(message = "Renavam is mandatory")
     @Size(min = 11, max = 11, message = "Renavam contains 11 digits")
     private String renavam;
+
+    private String statusClass;
+
+    private Status status;
 
 }

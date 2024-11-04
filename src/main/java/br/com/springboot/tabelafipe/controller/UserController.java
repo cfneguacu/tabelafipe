@@ -47,7 +47,7 @@ public class UserController {
     }
 
     @PostMapping("/add-or-update-user")
-    public ModelAndView addOrUpdateTask(final @Valid UserDTO userDTO,
+    public ModelAndView addOrUpdateTask(final @Valid @RequestBody UserDTO userDTO,
                                         final BindingResult bindResult,
                                         final RedirectAttributes redirectAttributes){
 
@@ -71,7 +71,7 @@ public class UserController {
     }
 
     public ModelAndView modelAndViewAux(ModelAndView mv, UserDTO userDTO, String message){
-        mv.addObject("user", userDTO);
+        mv.addObject("userDTO", userDTO);
         mv.addObject("alertMessage", message);
         return mv;
     }
@@ -80,7 +80,7 @@ public class UserController {
 
         Page<UserDTO> page = userService.getUserListPaginated(selectedPage, PAGE_SIZE);
         List<UserDTO> vehicleList = page.getContent();
-        mv.addObject("userList", vehicleList);
+        mv.addObject("userDTOList", vehicleList);
         mv.addObject("currentPage", selectedPage);
         mv.addObject("totalPages", page.getTotalPages());
         mv.addObject("totalItens", page.getTotalElements());

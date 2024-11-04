@@ -62,7 +62,7 @@ public class UserDTOAdapter {
                 .name(userEntity.getName())
                 .cpf(userEntity.getCpf())
                 .email(userEntity.getEmail())
-                .vehicles(vehicleDTOList)
+                .vehicleDTOList(vehicleDTOList)
                 .build();
     }
 

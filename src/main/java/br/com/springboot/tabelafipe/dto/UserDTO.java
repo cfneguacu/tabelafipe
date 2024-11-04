@@ -19,6 +19,6 @@ public class UserDTO {
 
     private String name;
 
-    private List<VehicleDTO> vehicles;
+    private List<VehicleDTO> vehicleDTOList;
 
 }

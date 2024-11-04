@@ -29,9 +29,9 @@ public class UserEntityAdapter {
 
     public UserEntity toModel(UserDTO userDTO) {
 
-
-        List<VehicleEntity> vehicleEntityList = new ArrayList<>();
-        List<VehicleDTO> vehicleDTOList = userDTO.getVehicles();
+        List<VehicleEntity> vehicleEntityList;
+        List<VehicleDTO> vehicleDTOList = userDTO.getVehicleDTOList();
+       // System.out.println(vehicleDTOList);
 
         vehicleEntityList = vehicleDTOList.stream()
                 .map(vehicleEntityAdapter::toModel)

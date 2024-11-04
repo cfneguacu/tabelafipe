@@ -50,6 +50,7 @@ public class VehicleEntity implements Serializable{
 	@Column(unique = true)
 	private String licensePlate;
 
+	@Enumerated(EnumType.STRING)
 	private Status status;
 
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
@@ -61,7 +62,6 @@ public class VehicleEntity implements Serializable{
 	private String relay;
 
 	private boolean activeRelay;
-
 
 }
 	
