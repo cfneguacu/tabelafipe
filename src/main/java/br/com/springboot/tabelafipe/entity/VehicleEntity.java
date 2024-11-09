@@ -63,6 +63,10 @@ public class VehicleEntity implements Serializable{
 
 	private boolean activeRelay;
 
+	@ManyToOne
+	@JoinColumn(name = "USER_ID")
+	private UserEntity userEntity;
+
 }
 	
 

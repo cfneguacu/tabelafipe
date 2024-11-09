@@ -29,20 +29,31 @@ public class UserEntityAdapter {
 
     public UserEntity toModel(UserDTO userDTO) {
 
-        List<VehicleEntity> vehicleEntityList;
+        List<VehicleEntity> vehicleEntityList = new ArrayList<>();
         List<VehicleDTO> vehicleDTOList = userDTO.getVehicleDTOList();
-       // System.out.println(vehicleDTOList);
+       // System.out.println(vehicleDTOList)
+        if(vehicleEntityAdapter != null) {
 
-        vehicleEntityList = vehicleDTOList.stream()
-                .map(vehicleEntityAdapter::toModel)
-                .collect(Collectors.toList());
+            vehicleEntityList = vehicleDTOList.stream()
+                    .map(vehicleEntityAdapter::toModel)
+                    .collect(Collectors.toList());
 
-        return UserEntity.builder()
-                .name(userDTO.getName())
-                .cpf(userDTO.getCpf())
-                .email(userDTO.getEmail())
-                .vehicles(vehicleEntityList)
-                .build();
+            return UserEntity.builder()
+                    .name(userDTO.getName())
+                    .cpf(userDTO.getCpf())
+                    .email(userDTO.getEmail())
+                    .vehicles(vehicleEntityList)
+                    .build();
+
+        }else {
+
+
+            return UserEntity.builder()
+                    .name(userDTO.getName())
+                    .cpf(userDTO.getCpf())
+                    .email(userDTO.getEmail())
+                    .build();
+        }
     }
 
 }

@@ -23,9 +23,27 @@ public class UserDTOAdapter {
         List<VehicleDTO> vehicleDTOList = new ArrayList<>();
         List<VehicleEntity> vehicleEntityList = userEntity.getVehicles();
 
-        vehicleDTOList = vehicleEntityList.stream()
-                .map(vehicleDTOAdapter::toDTO)
-                .collect(Collectors.toList());
+        if(vehicleDTOAdapter != null) {
+
+            vehicleDTOList = vehicleEntityList.stream()
+                    .map(vehicleDTOAdapter::toDTO)
+                    .collect(Collectors.toList());
+
+            return UserDTO.builder()
+                    .name(userEntity.getName())
+                    .cpf(userEntity.getCpf())
+                    .email(userEntity.getEmail())
+                    .vehicleDTOList(vehicleDTOList)
+                    .build();
+
+        }else{
+
+            return UserDTO.builder()
+                    .name(userEntity.getName())
+                    .cpf(userEntity.getCpf())
+                    .email(userEntity.getEmail())
+                    .build();
+        }
 
         /*for (VehicleEntity vehicle : vehicleEntityList){
             VehicleDTO vehicleDTO = VehicleDTO.builder()
@@ -58,12 +76,7 @@ public class UserDTOAdapter {
             vehicleDTOList.add(vehicleDTO);
         }*/
 
-        return UserDTO.builder()
-                .name(userEntity.getName())
-                .cpf(userEntity.getCpf())
-                .email(userEntity.getEmail())
-                .vehicleDTOList(vehicleDTOList)
-                .build();
+
     }
 
 }

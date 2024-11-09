@@ -27,7 +27,8 @@ import javax.validation.Valid;
  *
  * A sample greetings controller to return greeting text
  */
-@Controller("vehicle")
+@Controller
+@RequestMapping("vehicle")
 public class VehicleController {
 	
 	@Autowired
@@ -61,11 +62,12 @@ public class VehicleController {
         return modelAndViewAux(mv, new VehicleDTO(), message);
     }
 
+    @ResponseBody
     @PostMapping("vehicle/add-or-update-vehicle/{cpf}")
     public ModelAndView addOrUpdateTask(final @Valid @RequestBody VehicleDTO vehicle,
                                         final BindingResult bindResult,
                                         final RedirectAttributes redirectAttributes,
-                                        @PathVariable String cpf){
+                                        final @Valid @PathVariable(value = "cpf") String cpf){
 
         String message = "Error, please fill the form correctly";
 

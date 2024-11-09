@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@FeignClient(name = "tabelafipe", url = "https://parallelum.com.br/fipe/api/v2/cars")
+@FeignClient(name = "tabelafipe", url = "https://fipe.parallelum.com.br/api/v2/cars")
 public interface FipeService {
 
     @RequestMapping(method = RequestMethod.GET, value = "/brands")
