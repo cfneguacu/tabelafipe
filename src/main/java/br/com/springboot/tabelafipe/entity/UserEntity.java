@@ -32,7 +32,6 @@ public class UserEntity implements Serializable {
     @Column(unique = true)
     private String email;
 
-    @Column(unique = true)
     private String cpf;
 
     @OneToMany(cascade=CascadeType.ALL)

@@ -27,8 +27,7 @@ import javax.validation.Valid;
  *
  * A sample greetings controller to return greeting text
  */
-@Controller
-@RequestMapping("vehicle")
+@Controller("/vehicle")
 public class VehicleController {
 	
 	@Autowired
@@ -42,7 +41,7 @@ public class VehicleController {
     private static final int PAGE_NO = 1;
     private Integer SELECTED_PAGE;
 
-    @GetMapping("vehicle")
+    @GetMapping("/vehicle")
     public ModelAndView findUser(@ModelAttribute("alertMessage") @Nullable String alertMessage , @PathVariable("cpf") String cpf, RedirectAttributes redirectAttributes){
         ModelAndView mv = new ModelAndView("task-vehicle");
         if(SELECTED_PAGE == null){
@@ -55,19 +54,18 @@ public class VehicleController {
         return mvaux;
     }
 
-    @GetMapping("vehicle/add-new-vehicle")
+    @GetMapping("/vehicle/add-new-vehicle")
     public ModelAndView pageNewVehicle(){
         ModelAndView mv = new ModelAndView("new-vehicle");
         String message = "";
         return modelAndViewAux(mv, new VehicleDTO(), message);
     }
 
-    @ResponseBody
-    @PostMapping("vehicle/add-or-update-vehicle/{cpf}")
+    @PostMapping(value = "/vehicle/add-or-update-vehicle/{cpf}")
     public ModelAndView addOrUpdateTask(final @Valid @RequestBody VehicleDTO vehicle,
                                         final BindingResult bindResult,
                                         final RedirectAttributes redirectAttributes,
-                                        final @Valid @PathVariable(value = "cpf") String cpf){
+                                        @PathVariable(value = "cpf") String cpf){
 
         String message = "Error, please fill the form correctly";
 
@@ -75,12 +73,16 @@ public class VehicleController {
         UserDTO userDTO = userService.getUserByCpf(cpf);
         List<VehicleDTO> vehicles = userDTO.getVehicleDTOList();
 
+        if(vehicles == null){
+            vehicles = new ArrayList<>();
+        }
+
         if(bindResult.hasErrors()){
             ModelAndView mv = new ModelAndView("new-vehicle");
             return modelAndViewAux(mv, vehicle, message);
         }
 
-        if(vehicle.getId() != null){
+        if(userDTO.getCpf() != null){
 
             vehicles.add(vehicle);
             userDTO.setVehicleDTOList(vehicles);
@@ -113,7 +115,7 @@ public class VehicleController {
         return mv;
     }
 
-    @DeleteMapping("vehicle/delete-vehicle/{id}")
+    @DeleteMapping("/vehicle/delete-vehicle/{id}")
     public ModelAndView deleteTask(@PathVariable Long id){
         vehicleService.deleteVehicle(id);
         ModelAndView mv = new ModelAndView("components/task-vehicle");
