@@ -39,6 +39,7 @@ public class UserEntityAdapter {
                     .collect(Collectors.toList());
 
             return UserEntity.builder()
+                    .id(userDTO.getId())
                     .name(userDTO.getName())
                     .cpf(userDTO.getCpf())
                     .email(userDTO.getEmail())
@@ -49,6 +50,7 @@ public class UserEntityAdapter {
 
 
             return UserEntity.builder()
+                    .id(userDTO.getId())
                     .name(userDTO.getName())
                     .cpf(userDTO.getCpf())
                     .email(userDTO.getEmail())

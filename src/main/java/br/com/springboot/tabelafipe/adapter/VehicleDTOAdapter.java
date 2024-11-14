@@ -30,7 +30,7 @@ public class VehicleDTOAdapter {
                 .color(vehicle.getColor())
                 .licensePlate(vehicle.getLicensePlate())
                 .fuel(vehicle.getFuel())
-                .date(instantConvert.convertInstantToString(vehicle.getDate()))
+                .subscriptionDate(instantConvert.convertInstantToString(vehicle.getSubscriptionDate()))
                 .modelDTO(ModelDTO.builder()
                         .id(vehicle.getModelEntity().getId())
                         .name(vehicle.getModelEntity().getName())
@@ -42,14 +42,6 @@ public class VehicleDTOAdapter {
                                 .build())
                         .build())
                 .renavam(vehicle.getRenavam())
-                .characteristicDTO(CharacteristicDTO.builder()
-                        .id(vehicle.getCharacteristicEntity().getId())
-                        .brand(vehicle.getCharacteristicEntity().getBrand())
-                        .model(vehicle.getCharacteristicEntity().getModel())
-                        .price(vehicle.getCharacteristicEntity().getPrice())
-                        .modelYear(vehicle.getCharacteristicEntity().getModelYear())
-                        .fuel(vehicle.getCharacteristicEntity().getFuel())
-                        .build())
                 .statusClass(getStatusClass(vehicle.getStatus()))
                 .build();
 

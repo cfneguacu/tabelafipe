@@ -60,17 +60,18 @@ public class UserServiceImpl implements UserService {
     public void updateUser(UserDTO userDTO) {
         
         try {
-            final UserEntity optionalUserEntity = userRepository.findByCpf(userDTO.getCpf());
-            if (optionalUserEntity != null) {
-                optionalUserEntity.setName(userDTO.getName());
-                optionalUserEntity.setCpf(userDTO.getCpf());
-                optionalUserEntity.setEmail(userDTO.getEmail());
+            final Optional<UserEntity> optionalUserEntity = userRepository.findById(userDTO.getId());
+            if (optionalUserEntity.isPresent()) {
+                UserEntity userEntity = optionalUserEntity.get();
+                userEntity.setName(userDTO.getName());
+                userEntity.setCpf(userDTO.getCpf());
+                userEntity.setEmail(userDTO.getEmail());
                 List<VehicleEntity> vehicleEntityList = userDTO.getVehicleDTOList()
                         .stream()
                         .map(vehicleEntityAdapter::toModel)
                         .collect(Collectors.toList());
-                optionalUserEntity.setVehicles(vehicleEntityList);
-                userRepository.save(optionalUserEntity);
+                userEntity.setVehicles(vehicleEntityList);
+                userRepository.save(userEntity);
             } else {
                 throw new UserNotFoundException("User with id " + userDTO.getId() + " not found");
             }

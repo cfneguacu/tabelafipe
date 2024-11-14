@@ -9,7 +9,6 @@ import br.com.springboot.tabelafipe.repository.VehicleRepository;
 import br.com.springboot.tabelafipe.service.FipeService;
 import br.com.springboot.tabelafipe.service.VehicleService;
 import br.com.springboot.tabelafipe.status.Status;
-import br.com.springboot.tabelafipe.utils.VehicleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -17,13 +16,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.DayOfWeek;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -73,7 +68,7 @@ public class VehicleServiceImpl implements VehicleService {
             return getVehicleList();
         }
 
-        List<VehicleEntity> vehicleEntityList = vehicleRepository.findAllByStatusOrderByDateDesc(status);
+        List<VehicleEntity> vehicleEntityList = vehicleRepository.findAllByStatusOrderBySubscriptionDateDesc(status);
         return vehicleEntityList.stream()
                 .map(vehicleDTOAdapter::toDTO)
                 .collect(Collectors.toList());
@@ -104,7 +99,7 @@ public class VehicleServiceImpl implements VehicleService {
         return page;
     }
     public List<VehicleDTO> getVehicleList(){
-        return vehicleRepository.findAllByOrderByDateDesc()
+        return vehicleRepository.findAllByOrderBySubscriptionDateDesc()
                 .stream()
                 .map(vehicleDTOAdapter::toDTO)
                 .collect(Collectors.toList());

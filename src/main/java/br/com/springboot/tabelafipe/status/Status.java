@@ -1,6 +1,9 @@
 package br.com.springboot.tabelafipe.status;
 
 import lombok.Getter;
+import lombok.Setter;
+
+
 
 @Getter
 public enum Status {
@@ -15,7 +18,7 @@ public enum Status {
         this.description = description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description){
         this.description = description;
     }
 

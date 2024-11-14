@@ -58,7 +58,7 @@ public class VehicleController {
     public ModelAndView pageNewVehicle(){
         ModelAndView mv = new ModelAndView("new-vehicle");
         String message = "";
-        return modelAndViewAux(mv, new VehicleDTO(), message);
+        return modelAndViewAux(mv, new VehicleDTO(), new UserDTO(), message);
     }
 
     @PostMapping(value = "/vehicle/add-or-update-vehicle/{cpf}")
@@ -79,7 +79,7 @@ public class VehicleController {
 
         if(bindResult.hasErrors()){
             ModelAndView mv = new ModelAndView("new-vehicle");
-            return modelAndViewAux(mv, vehicle, message);
+            return modelAndViewAux(mv, vehicle, userDTO , message);
         }
 
         if(userDTO.getCpf() != null){
@@ -104,11 +104,12 @@ public class VehicleController {
         return mv;
     }
 
-    public ModelAndView modelAndViewAux(ModelAndView mv, VehicleDTO vehicleDTO, String message){
+    public ModelAndView modelAndViewAux(ModelAndView mv, VehicleDTO vehicleDTO, UserDTO userDTO, String message){
         mv.addObject("vehicleDTO", vehicleDTO);
+        mv.addObject("userDTO", userDTO);
         mv.addObject("models",vehicleService.getModels(vehicleDTO));
         mv.addObject("years",vehicleService.getYears(vehicleDTO));
-        mv.addObject("fuel",vehicleService.getFuel(vehicleDTO));
+        mv.addObject("fuels",vehicleService.getFuel(vehicleDTO));
         mv.addObject("brands",vehicleService.getBrands());
         mv.addObject("statusList", vehicleService.getStatus());
         mv.addObject("alertMessage", message);

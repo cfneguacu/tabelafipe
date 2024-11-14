@@ -1,9 +1,7 @@
 package br.com.springboot.tabelafipe.repository;
 
-import java.util.Arrays;
 import java.util.List;
 
-import br.com.springboot.tabelafipe.dto.VehicleDTO;
 import br.com.springboot.tabelafipe.entity.VehicleEntity;
 import br.com.springboot.tabelafipe.status.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -34,9 +32,9 @@ VehicleEntity findByRenavan(@Param("renavam") String renavam);
 @Lock(LockModeType.PESSIMISTIC_WRITE)
 List<VehicleEntity> findAllByStatus(Status status);
 
-List<VehicleEntity> findAllByStatusOrderByDateDesc(Status status);
+List<VehicleEntity> findAllByStatusOrderBySubscriptionDateDesc(Status status);
 
-List<VehicleEntity> findAllByOrderByDateDesc();
+List<VehicleEntity> findAllByOrderBySubscriptionDateDesc();
 
 //@Query(value = "SELECT COUNT(v) FROM Veiculo v WHERE upper(trim(v.renavam)) like %?1%")
 //List<Veiculo> validaDuplicados(String renavam);

@@ -26,7 +26,7 @@ public class VehicleEntity implements Serializable{
 	@Column(name = "VEHICLE_ID")
 	private Long id;
 
-	private Instant date;
+	private Instant subscriptionDate;
 
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
 	@JoinTable(name="TB_VEHICLE_MODEL",joinColumns =

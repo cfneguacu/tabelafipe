@@ -30,7 +30,7 @@ public class VehicleDTO {
     private String color;
 
     @NotEmpty(message = "Date cannot empty, please inform!")
-    private String date;
+    private String subscriptionDate;
 
     private ModelDTO modelDTO;
 

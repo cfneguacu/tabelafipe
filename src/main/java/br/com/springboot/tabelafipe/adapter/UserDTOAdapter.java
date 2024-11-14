@@ -30,6 +30,7 @@ public class UserDTOAdapter {
                     .collect(Collectors.toList());
 
             return UserDTO.builder()
+                    .id(userEntity.getId())
                     .name(userEntity.getName())
                     .cpf(userEntity.getCpf())
                     .email(userEntity.getEmail())
@@ -39,6 +40,7 @@ public class UserDTOAdapter {
         }else{
 
             return UserDTO.builder()
+                    .id(userEntity.getId())
                     .name(userEntity.getName())
                     .cpf(userEntity.getCpf())
                     .email(userEntity.getEmail())

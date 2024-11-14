@@ -18,14 +18,15 @@ import static br.com.springboot.tabelafipe.utils.VehicleUtils.getActiveRelayTemp
 @Component
 public class VehicleEntityAdapter {
 
-    private InstantConvert instantConvert;
+    private final InstantConvert instantConvert = new InstantConvert();
 
     public VehicleEntity toModel(VehicleDTO vehicleDTO) {
 
         int activeRelayTemp = getActiveRelayTemp(vehicleDTO.getLicensePlate());
 
         return VehicleEntity.builder()
-                .date(instantConvert.convertStringToInstant(vehicleDTO.getDate()))
+                .licensePlate(vehicleDTO.getLicensePlate())
+                .subscriptionDate(instantConvert.convertStringToInstant(vehicleDTO.getSubscriptionDate()))
                 .modelEntity(ModelEntity.builder()
                         .brandEntity(BrandEntity.builder()
                                 .code(vehicleDTO.getModelDTO().getBrandDTO().getCode())
@@ -35,19 +36,12 @@ public class VehicleEntityAdapter {
                 .yearEntity(YearEntity.builder()
                         .code(vehicleDTO.getYearDTO().getCode())
                         .build())
-                .characteristicEntity(CharacteristicEntity.builder()
-                        .model(vehicleDTO.getCharacteristicDTO().getModel())
-                        .brand(vehicleDTO.getCharacteristicDTO().getBrand())
-                        .fuel(vehicleDTO.getCharacteristicDTO().getFuel())
-                        .modelYear(vehicleDTO.getCharacteristicDTO().getModelYear())
-                        .price(vehicleDTO.getCharacteristicDTO().getPrice())
-                        .id(vehicleDTO.getCharacteristicDTO().getId())
-                        .build())
                 .color(vehicleDTO.getColor())
                 .fuel(vehicleDTO.getFuel())
                 .status(Status.PENDING)
                 .activeRelay(activeRelayTemp == LocalDate.now().getDayOfWeek().getValue())
                 .relay(DayOfWeek.of(activeRelayTemp).name())
+                .renavam(vehicleDTO.getRenavam())
                 .build();
     }
 
