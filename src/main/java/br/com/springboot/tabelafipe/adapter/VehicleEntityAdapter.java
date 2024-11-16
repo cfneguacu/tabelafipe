@@ -25,6 +25,7 @@ public class VehicleEntityAdapter {
         int activeRelayTemp = getActiveRelayTemp(vehicleDTO.getLicensePlate());
 
         return VehicleEntity.builder()
+                .id(vehicleDTO.getId())
                 .licensePlate(vehicleDTO.getLicensePlate())
                 .subscriptionDate(instantConvert.convertStringToInstant(vehicleDTO.getSubscriptionDate()))
                 .modelEntity(ModelEntity.builder()

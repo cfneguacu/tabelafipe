@@ -32,7 +32,7 @@
                                             </button>
                                         </form>
                                         <button type="button" class="btn btn-danger btn-delete"
-                                                th:attr="hx-delete=@{/vehicle/delete-vehicle/{id}(id=${vehicleDTO.id})},hx-target=|#task-container|"
+                                                th:attr="hx-delete=@{/vehicle/delete-vehicle/{cpf}/{id}(id=${vehicleDTO.id},cpf=${cpf})},hx-target=|#task-container|"
                                                 hx-trigger="click"
                                                 hx-swap="outerHTML">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"

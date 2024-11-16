@@ -13,6 +13,7 @@ import br.com.springboot.tabelafipe.service.UserService;
 import br.com.springboot.tabelafipe.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -58,7 +59,7 @@ public class VehicleController {
     public ModelAndView pageNewVehicle(){
         ModelAndView mv = new ModelAndView("new-vehicle");
         String message = "";
-        return modelAndViewAux(mv, new VehicleDTO(), new UserDTO(), message);
+        return modelAndViewAux(mv, new VehicleDTO(), "", message);
     }
 
     @PostMapping(value = "/vehicle/add-or-update-vehicle/{cpf}")
@@ -70,23 +71,13 @@ public class VehicleController {
         String message = "Error, please fill the form correctly";
 
 
-        UserDTO userDTO = userService.getUserByCpf(cpf);
-        List<VehicleDTO> vehicles = userDTO.getVehicleDTOList();
-
-        if(vehicles == null){
-            vehicles = new ArrayList<>();
-        }
-
         if(bindResult.hasErrors()){
             ModelAndView mv = new ModelAndView("new-vehicle");
-            return modelAndViewAux(mv, vehicle, userDTO , message);
+            return modelAndViewAux(mv, vehicle, cpf , message);
         }
 
-        if(userDTO.getCpf() != null){
-
-            vehicles.add(vehicle);
-            userDTO.setVehicleDTOList(vehicles);
-            userService.updateUser(userDTO);
+        if(vehicle != null){
+            vehicleService.saveVehicle(cpf, vehicle);
             redirectAttributes.addFlashAttribute("alertMessage","New Task was been successfully saved");
         }
 
@@ -104,9 +95,9 @@ public class VehicleController {
         return mv;
     }
 
-    public ModelAndView modelAndViewAux(ModelAndView mv, VehicleDTO vehicleDTO, UserDTO userDTO, String message){
+    public ModelAndView modelAndViewAux(ModelAndView mv, VehicleDTO vehicleDTO, String cpf, String message){
         mv.addObject("vehicleDTO", vehicleDTO);
-        mv.addObject("userDTO", userDTO);
+        mv.addObject("cpf", cpf);
         mv.addObject("models",vehicleService.getModels(vehicleDTO));
         mv.addObject("years",vehicleService.getYears(vehicleDTO));
         mv.addObject("fuels",vehicleService.getFuel(vehicleDTO));
@@ -116,9 +107,9 @@ public class VehicleController {
         return mv;
     }
 
-    @DeleteMapping("/vehicle/delete-vehicle/{id}")
-    public ModelAndView deleteTask(@PathVariable Long id){
-        vehicleService.deleteVehicle(id);
+    @DeleteMapping("/vehicle/delete-vehicle/{cpf}/{id}")
+    public ModelAndView deleteTask(@PathVariable String cpf, @PathVariable Long id) throws Exception {
+        vehicleService.deleteVehicle(cpf,id);
         ModelAndView mv = new ModelAndView("components/task-vehicle");
         return modelAndViewListAux(SELECTED_PAGE != null ? SELECTED_PAGE : 1, mv);
     }

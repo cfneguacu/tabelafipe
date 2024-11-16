@@ -10,9 +10,9 @@ public interface VehicleService {
 
     Iterable<VehicleEntity> findAll();
 
-    void saveVehicle(VehicleDTO vehicle);
+    void saveVehicle(String cpf, VehicleDTO vehicle);
 
-    void deleteVehicle(Long id);
+    void deleteVehicle(String cpf, Long id) throws Exception;
 
     Page<VehicleDTO> getVehicleListPaginated(int selectedPage, int pageSize, String globalStatus);
 

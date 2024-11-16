@@ -5,6 +5,8 @@ import br.com.springboot.tabelafipe.adapter.VehicleEntityAdapter;
 import br.com.springboot.tabelafipe.convert.StatusConvert;
 import br.com.springboot.tabelafipe.dto.VehicleDTO;
 import br.com.springboot.tabelafipe.entity.*;
+import br.com.springboot.tabelafipe.exceptions.UserNotFoundException;
+import br.com.springboot.tabelafipe.repository.UserRepository;
 import br.com.springboot.tabelafipe.repository.VehicleRepository;
 import br.com.springboot.tabelafipe.service.FipeService;
 import br.com.springboot.tabelafipe.service.VehicleService;
@@ -28,13 +30,16 @@ public class VehicleServiceImpl implements VehicleService {
     private VehicleRepository vehicleRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private FipeService fipeService;
 
-    private StatusConvert statusConvert;
+    private final StatusConvert statusConvert = new StatusConvert();
 
     private VehicleDTOAdapter vehicleDTOAdapter;
 
-    private VehicleEntityAdapter vehicleEntityAdapter;
+    private final VehicleEntityAdapter vehicleEntityAdapter = new VehicleEntityAdapter();
 
     @Override
     public Iterable<VehicleEntity> findAll() {
@@ -42,18 +47,30 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public void saveVehicle(VehicleDTO vehicle) {
-        try {
-            final VehicleEntity vehicleEntity = vehicleEntityAdapter.toModel(vehicle);
-            vehicleRepository.save(vehicleEntity);
-        } catch(RuntimeException re){
+    public void saveVehicle(String cpf, VehicleDTO vehicle) {
+
+        try{
+
+        UserEntity userEntity = userRepository.findByCpf(cpf);
+        List<VehicleEntity> vehicleEntityList = userEntity.getVehicles();
+        VehicleEntity vehicleEntity = vehicleEntityAdapter.toModel(vehicle);
+        vehicleEntityList.add(vehicleEntity);
+        userEntity.setVehicles(vehicleEntityList);
+        userRepository.save(userEntity);
+
+        } catch(UserNotFoundException re){
             throw re;
         }
     }
 
     @Override
-    public void deleteVehicle(Long id) {
-        vehicleRepository.deleteById(id);
+    public void deleteVehicle(String cpf, Long id) throws Exception {
+
+
+        UserEntity userEntity = userRepository.findByCpf(cpf);
+        VehicleEntity vehicleEntity = vehicleRepository.findById(id).orElseThrow(()-> new Exception("Vehicle Not Found"));
+        userEntity.getVehicles().remove(vehicleEntity);
+        userRepository.save(userEntity);
     }
 
 
@@ -87,7 +104,7 @@ public class VehicleServiceImpl implements VehicleService {
             if(vehicleDTOList.size() < pageSize){
                 pageSize = vehicleDTOList.size();
             }
-            Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+            Pageable pageable = PageRequest.of(0, pageSize);
             int start = (int)pageable.getOffset();
             int end = Math.min((start + pageable.getPageSize()), vehicleDTOList.size());
             List<VehicleDTO> subList = vehicleDTOList.subList(start, end);
