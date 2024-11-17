@@ -43,7 +43,7 @@ public class VehicleController {
     private Integer SELECTED_PAGE;
 
     @GetMapping("/vehicle")
-    public ModelAndView findUser(@ModelAttribute("alertMessage") @Nullable String alertMessage , @PathVariable("cpf") String cpf, RedirectAttributes redirectAttributes){
+    public ModelAndView findUser(@ModelAttribute("alertMessage") @Nullable String alertMessage , RedirectAttributes redirectAttributes){
         ModelAndView mv = new ModelAndView("task-vehicle");
         if(SELECTED_PAGE == null){
             SELECTED_PAGE = PAGE_NO;
@@ -79,6 +79,7 @@ public class VehicleController {
         if(vehicle != null){
             vehicleService.saveVehicle(cpf, vehicle);
             redirectAttributes.addFlashAttribute("alertMessage","New Task was been successfully saved");
+
         }
 
         return new ModelAndView("redirect:/vehicle");

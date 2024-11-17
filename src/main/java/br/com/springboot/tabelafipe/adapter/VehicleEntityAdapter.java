@@ -39,7 +39,7 @@ public class VehicleEntityAdapter {
                         .build())
                 .color(vehicleDTO.getColor())
                 .fuel(vehicleDTO.getFuel())
-                .status(Status.PENDING)
+                .status(vehicleDTO.getStatus())
                 .activeRelay(activeRelayTemp == LocalDate.now().getDayOfWeek().getValue())
                 .relay(DayOfWeek.of(activeRelayTemp).name())
                 .renavam(vehicleDTO.getRenavam())

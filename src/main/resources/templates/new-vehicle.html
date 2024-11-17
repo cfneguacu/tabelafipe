@@ -91,6 +91,16 @@
                                                         th:text="${fuel}"></option>
                                             </select>
                                         </div>
+                                        <div class="col-md-4 mb-3 mt-2">
+                                            <label>Combustível</label>
+                                            <!--select class="form-control" name="priority" th:field="*{priority}"-->
+                                            <select class="form-control" name="status"  th:field="*{status}">
+
+                                                <option th:each="status : ${statusList}"
+                                                        th:value="${status}"
+                                                        th:text="${status}"></option>
+                                            </select>
+                                        </div>
 
                                         <div class="col-md-4 mb-3 mt-2">
                                             <label>Cadastrado em</label>
