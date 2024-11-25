@@ -24,8 +24,6 @@ public class VehicleDTO {
 
     private CharacteristicDTO characteristicDTO;
 
-    private String fuel;
-
     @NotEmpty(message = "Cor is mandatory")
     private String color;
 

@@ -1,6 +1,10 @@
 package br.com.springboot.tabelafipe.service;
 
 
+import br.com.springboot.tabelafipe.dto.BrandDTO;
+import br.com.springboot.tabelafipe.dto.CharacteristicDTO;
+import br.com.springboot.tabelafipe.dto.ModelDTO;
+import br.com.springboot.tabelafipe.dto.YearDTO;
 import br.com.springboot.tabelafipe.entity.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,15 +19,15 @@ import java.util.List;
 public interface FipeService {
 
     @RequestMapping(method = RequestMethod.GET, value = "/brands")
-    List<BrandEntity> consultBrands();
+    List<BrandDTO> consultBrands();
 
     @RequestMapping(method = RequestMethod.GET, value = "/brands/{brand}/models")
-    List<ModelEntity> consultModel(@PathVariable("brand") String brand);
+    List<ModelDTO> consultModel(@PathVariable("brand") String brand);
     
     @RequestMapping(method = RequestMethod.GET, value = "/brands/{brand}/models/{model}/years")
-    List<YearEntity> consultVehicleList(@PathVariable("brand") String brand, @PathVariable("model") String model);
+    List<YearDTO> consultVehicleList(@PathVariable("brand") String brand, @PathVariable("model") String model);
 
     @RequestMapping(method = RequestMethod.GET, value = "/brands/{brand}/models/{model}/years/{year}")
-    CharacteristicEntity consultCharacteristic(@PathVariable("brand") String brand, @PathVariable("model") String model, @PathVariable("year") String year);
+    CharacteristicDTO consultCharacteristic(@PathVariable("brand") String brand, @PathVariable("model") String model, @PathVariable("year") String year);
 
 }

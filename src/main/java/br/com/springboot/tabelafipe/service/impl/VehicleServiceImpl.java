@@ -3,7 +3,7 @@ package br.com.springboot.tabelafipe.service.impl;
 import br.com.springboot.tabelafipe.adapter.VehicleDTOAdapter;
 import br.com.springboot.tabelafipe.adapter.VehicleEntityAdapter;
 import br.com.springboot.tabelafipe.convert.StatusConvert;
-import br.com.springboot.tabelafipe.dto.VehicleDTO;
+import br.com.springboot.tabelafipe.dto.*;
 import br.com.springboot.tabelafipe.entity.*;
 import br.com.springboot.tabelafipe.exceptions.UserNotFoundException;
 import br.com.springboot.tabelafipe.repository.UserRepository;
@@ -37,7 +37,7 @@ public class VehicleServiceImpl implements VehicleService {
 
     private final StatusConvert statusConvert = new StatusConvert();
 
-    private VehicleDTOAdapter vehicleDTOAdapter;
+    private final VehicleDTOAdapter vehicleDTOAdapter = new VehicleDTOAdapter();
 
     private final VehicleEntityAdapter vehicleEntityAdapter = new VehicleEntityAdapter();
 
@@ -76,7 +76,7 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public List<String> getStatus(){
-        return Arrays.asList(Status.SUCCESS.toString(),Status.FAILURE.toString(),Status.PENDING.toString(),Status.VEHICLE_ALREADY_EXISTS.toString());
+        return Arrays.asList(Status.SUCCESS.getDescription(),Status.FAILURE.getDescription(),Status.PENDING.getDescription(),Status.VEHICLE_ALREADY_EXISTS.getDescription());
     }
 
     public List<VehicleDTO> getVehicleListByStatus(String strStatus){
@@ -125,9 +125,9 @@ public class VehicleServiceImpl implements VehicleService {
 
     public List<String> getBrands(){
         
-        List<BrandEntity> brandsList = fipeService.consultBrands();
+        List<BrandDTO> brandsList = fipeService.consultBrands();
         List<String> brands = new ArrayList<>();
-        for(BrandEntity brand : brandsList){
+        for(BrandDTO brand : brandsList){
             brands.add(brand.getName());
         }
         
@@ -137,9 +137,9 @@ public class VehicleServiceImpl implements VehicleService {
 
     public List<String> getModels(VehicleDTO vehicle){
         String brand = vehicle.getModelDTO().getBrandDTO().getCode();
-        List<ModelEntity> modelsList = fipeService.consultModel(brand);
+        List<ModelDTO> modelsList = fipeService.consultModel(brand);
         List<String> models = new ArrayList<>();
-        for(ModelEntity model : modelsList){
+        for(ModelDTO model : modelsList){
             models.add(model.getName());
         }
 
@@ -151,9 +151,9 @@ public class VehicleServiceImpl implements VehicleService {
         String model = vehicle.getModelDTO().getCode();
         String brand = vehicle.getModelDTO().getBrandDTO().getCode();
         
-        List<YearEntity> yearsList = fipeService.consultVehicleList(brand, model);
+        List<YearDTO> yearsList = fipeService.consultVehicleList(brand, model);
         List<String> years = new ArrayList<>();
-        for(YearEntity year : yearsList){
+        for(YearDTO year : yearsList){
             years.add(year.getName());
         }
 
@@ -166,7 +166,7 @@ public class VehicleServiceImpl implements VehicleService {
         String brand = vehicle.getModelDTO().getBrandDTO().getCode();
         String year = vehicle.getYearDTO().getCode();
 
-        CharacteristicEntity characteristic = fipeService.consultCharacteristic(brand, model, year);
+        CharacteristicDTO characteristic = fipeService.consultCharacteristic(brand, model, year);
 
         return characteristic.getFuel();
     }

@@ -9,6 +9,7 @@ import br.com.springboot.tabelafipe.adapter.UserDTOAdapter;
 import br.com.springboot.tabelafipe.dto.*;
 import br.com.springboot.tabelafipe.entity.UserEntity;
 import br.com.springboot.tabelafipe.entity.VehicleEntity;
+import br.com.springboot.tabelafipe.service.FipeService;
 import br.com.springboot.tabelafipe.service.UserService;
 import br.com.springboot.tabelafipe.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,16 +36,16 @@ public class VehicleController {
 	private VehicleService vehicleService;
 
     @Autowired
-    private UserService userService;
+    private FipeService fipeService;
     
-    private String globalStatus;
+    private String globalStatus = "Pending";
     private static final int PAGE_SIZE = 10;
     private static final int PAGE_NO = 1;
     private Integer SELECTED_PAGE;
 
     @GetMapping("/vehicle")
     public ModelAndView findUser(@ModelAttribute("alertMessage") @Nullable String alertMessage , RedirectAttributes redirectAttributes){
-        ModelAndView mv = new ModelAndView("task-vehicle");
+        ModelAndView mv = new ModelAndView("/components/task-vehicle");
         if(SELECTED_PAGE == null){
             SELECTED_PAGE = PAGE_NO;
         }
@@ -77,6 +78,11 @@ public class VehicleController {
         }
 
         if(vehicle != null){
+            String model = vehicle.getModelDTO().getCode();
+            String brand = vehicle.getModelDTO().getBrandDTO().getCode();
+            String year = vehicle.getYearDTO().getCode();
+            CharacteristicDTO characteristicDTO = fipeService.consultCharacteristic(brand,model,year);
+            vehicle.setCharacteristicDTO(characteristicDTO);
             vehicleService.saveVehicle(cpf, vehicle);
             redirectAttributes.addFlashAttribute("alertMessage","New Task was been successfully saved");
 
@@ -111,7 +117,7 @@ public class VehicleController {
     @DeleteMapping("/vehicle/delete-vehicle/{cpf}/{id}")
     public ModelAndView deleteTask(@PathVariable String cpf, @PathVariable Long id) throws Exception {
         vehicleService.deleteVehicle(cpf,id);
-        ModelAndView mv = new ModelAndView("components/task-vehicle");
+        ModelAndView mv = new ModelAndView("/components/task-vehicle");
         return modelAndViewListAux(SELECTED_PAGE != null ? SELECTED_PAGE : 1, mv);
     }
 

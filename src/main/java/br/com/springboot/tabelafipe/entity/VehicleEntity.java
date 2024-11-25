@@ -45,8 +45,6 @@ public class VehicleEntity implements Serializable{
 
 	private String color;
 
-	private String fuel;
-
 	@Column(unique = true)
 	private String licensePlate;
 

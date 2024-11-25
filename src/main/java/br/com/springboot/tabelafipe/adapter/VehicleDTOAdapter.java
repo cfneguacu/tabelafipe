@@ -17,7 +17,7 @@ import java.util.Date;
 @Component
 public class VehicleDTOAdapter {
 
-    private InstantConvert instantConvert;
+    private final InstantConvert instantConvert = new InstantConvert();
 
     public VehicleDTO toDTO(VehicleEntity vehicle){
 
@@ -29,7 +29,6 @@ public class VehicleDTOAdapter {
                 .id(vehicle.getId())
                 .color(vehicle.getColor())
                 .licensePlate(vehicle.getLicensePlate())
-                .fuel(vehicle.getFuel())
                 .subscriptionDate(instantConvert.convertInstantToString(vehicle.getSubscriptionDate()))
                 .modelDTO(ModelDTO.builder()
                         .id(vehicle.getModelEntity().getId())
@@ -41,8 +40,16 @@ public class VehicleDTOAdapter {
                                 .name(vehicle.getModelEntity().getBrandEntity().getName())
                                 .build())
                         .build())
+                .characteristicDTO(CharacteristicDTO.builder()
+                        .brand(vehicle.getCharacteristicEntity().getBrand())
+                        .model(vehicle.getCharacteristicEntity().getModel())
+                        .price(vehicle.getCharacteristicEntity().getPrice())
+                        .modelYear(vehicle.getCharacteristicEntity().getModelYear())
+                        .fuel(vehicle.getCharacteristicEntity().getFuel())
+                        .build())
                 .renavam(vehicle.getRenavam())
                 .statusClass(getStatusClass(vehicle.getStatus()))
+                .status(vehicle.getStatus())
                 .build();
 
     }

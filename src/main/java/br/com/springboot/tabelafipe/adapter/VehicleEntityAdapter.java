@@ -1,6 +1,7 @@
 package br.com.springboot.tabelafipe.adapter;
 
 import br.com.springboot.tabelafipe.convert.InstantConvert;
+import br.com.springboot.tabelafipe.dto.CharacteristicDTO;
 import br.com.springboot.tabelafipe.dto.VehicleDTO;
 import br.com.springboot.tabelafipe.entity.*;
 import br.com.springboot.tabelafipe.status.Status;
@@ -31,14 +32,23 @@ public class VehicleEntityAdapter {
                 .modelEntity(ModelEntity.builder()
                         .brandEntity(BrandEntity.builder()
                                 .code(vehicleDTO.getModelDTO().getBrandDTO().getCode())
+                                .name(vehicleDTO.getModelDTO().getBrandDTO().getName())
                                 .build())
                         .code(vehicleDTO.getModelDTO().getCode())
+                        .name(vehicleDTO.getModelDTO().getName())
                         .build())
                 .yearEntity(YearEntity.builder()
                         .code(vehicleDTO.getYearDTO().getCode())
+                        .name(vehicleDTO.getYearDTO().getName())
+                        .build())
+                .characteristicEntity(CharacteristicEntity.builder()
+                        .brand(vehicleDTO.getCharacteristicDTO().getBrand())
+                        .model(vehicleDTO.getCharacteristicDTO().getModel())
+                        .price(vehicleDTO.getCharacteristicDTO().getPrice())
+                        .modelYear(vehicleDTO.getCharacteristicDTO().getModelYear())
+                        .fuel(vehicleDTO.getCharacteristicDTO().getFuel())
                         .build())
                 .color(vehicleDTO.getColor())
-                .fuel(vehicleDTO.getFuel())
                 .status(vehicleDTO.getStatus())
                 .activeRelay(activeRelayTemp == LocalDate.now().getDayOfWeek().getValue())
                 .relay(DayOfWeek.of(activeRelayTemp).name())
