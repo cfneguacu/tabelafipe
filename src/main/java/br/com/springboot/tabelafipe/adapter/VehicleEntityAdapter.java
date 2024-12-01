@@ -1,10 +1,12 @@
 package br.com.springboot.tabelafipe.adapter;
 
 import br.com.springboot.tabelafipe.convert.InstantConvert;
+import br.com.springboot.tabelafipe.convert.StatusConvert;
 import br.com.springboot.tabelafipe.dto.CharacteristicDTO;
 import br.com.springboot.tabelafipe.dto.VehicleDTO;
 import br.com.springboot.tabelafipe.entity.*;
 import br.com.springboot.tabelafipe.status.Status;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
@@ -19,7 +21,9 @@ import static br.com.springboot.tabelafipe.utils.VehicleUtils.getActiveRelayTemp
 @Component
 public class VehicleEntityAdapter {
 
-    private final InstantConvert instantConvert = new InstantConvert();
+    private InstantConvert instantConvert;
+
+    private StatusConvert statusConvert;
 
     public VehicleEntity toModel(VehicleDTO vehicleDTO) {
 
@@ -49,7 +53,7 @@ public class VehicleEntityAdapter {
                         .fuel(vehicleDTO.getCharacteristicDTO().getFuel())
                         .build())
                 .color(vehicleDTO.getColor())
-                .status(vehicleDTO.getStatus())
+                .status(statusConvert.convertStatus(vehicleDTO.getStatus()))
                 .activeRelay(activeRelayTemp == LocalDate.now().getDayOfWeek().getValue())
                 .relay(DayOfWeek.of(activeRelayTemp).name())
                 .renavam(vehicleDTO.getRenavam())

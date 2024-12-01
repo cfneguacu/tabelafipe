@@ -1,11 +1,9 @@
 package br.com.springboot.tabelafipe.service;
 
-
 import br.com.springboot.tabelafipe.dto.BrandDTO;
 import br.com.springboot.tabelafipe.dto.CharacteristicDTO;
 import br.com.springboot.tabelafipe.dto.ModelDTO;
 import br.com.springboot.tabelafipe.dto.YearDTO;
-import br.com.springboot.tabelafipe.entity.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

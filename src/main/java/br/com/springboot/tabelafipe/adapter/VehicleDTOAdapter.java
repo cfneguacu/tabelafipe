@@ -17,7 +17,7 @@ import java.util.Date;
 @Component
 public class VehicleDTOAdapter {
 
-    private final InstantConvert instantConvert = new InstantConvert();
+    private InstantConvert instantConvert;
 
     public VehicleDTO toDTO(VehicleEntity vehicle){
 
@@ -49,7 +49,7 @@ public class VehicleDTOAdapter {
                         .build())
                 .renavam(vehicle.getRenavam())
                 .statusClass(getStatusClass(vehicle.getStatus()))
-                .status(vehicle.getStatus())
+                .status(vehicle.getStatus().getDescription())
                 .build();
 
     }

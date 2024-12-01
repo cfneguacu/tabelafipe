@@ -2,7 +2,7 @@ package br.com.springboot.tabelafipe.entity;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Data

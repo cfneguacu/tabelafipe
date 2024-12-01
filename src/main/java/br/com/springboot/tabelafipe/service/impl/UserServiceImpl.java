@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserService {
 
     private final VehicleEntityAdapter vehicleEntityAdapter;
 
+    @Autowired
     public UserServiceImpl(final UserRepository userRepository, final UserDTOAdapter userDTOAdapter, final UserEntityAdapter userEntityAdapter, final VehicleEntityAdapter vehicleEntityAdapter){
         this.userRepository = userRepository;
         this.vehicleEntityAdapter = vehicleEntityAdapter;
@@ -42,9 +43,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity findById(Long id) {
-        return userRepository.findById(id).get();
+    public UserDTO getUserById(Long id) {
+        final Optional<UserEntity> optionalTaskEntity = userRepository.findById(id);
+        if(optionalTaskEntity.isPresent()){
+            return userDTOAdapter.toDTO(optionalTaskEntity.get());
+        }else{
+            throw new UserNotFoundException(STR."Task with id \{id} not found");
+        }
     }
+
 
     @Override
     public void saveUser(UserDTO userDTO) {
@@ -73,7 +80,7 @@ public class UserServiceImpl implements UserService {
                 userEntity.setVehicles(vehicleEntityList);
                 userRepository.save(userEntity);
             } else {
-                throw new UserNotFoundException("User with id " + userDTO.getId() + " not found");
+                throw new UserNotFoundException(STR."User with id \{userDTO.getId()} not found");
             }
         }catch(final RuntimeException re) {
             throw re;
@@ -97,6 +104,7 @@ public class UserServiceImpl implements UserService {
         
     }
 
+    @Override
     public List<UserDTO> getUserList(){
         return userRepository.findAll()
                 .stream()

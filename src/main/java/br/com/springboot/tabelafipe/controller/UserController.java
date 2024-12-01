@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 
 @Controller("/")
@@ -40,14 +40,14 @@ public class UserController {
     }
 
     @GetMapping("add-new-user")
-    public ModelAndView pageNewTask(){
+    public ModelAndView pageNewUser(){
         ModelAndView mv = new ModelAndView("new-user");
         String message = "";
         return modelAndViewAux(mv, new UserDTO(), message);
     }
 
     @PostMapping("/add-or-update-user")
-    public ModelAndView addOrUpdateTask(final @Valid @RequestBody UserDTO userDTO,
+    public ModelAndView addOrUpdateUser(final @Valid @RequestBody UserDTO userDTO,
                                         final BindingResult bindResult,
                                         final RedirectAttributes redirectAttributes){
 
@@ -61,10 +61,10 @@ public class UserController {
 
         if(userDTO.getId() == null){
             userService.saveUser(userDTO);
-            redirectAttributes.addFlashAttribute("alertMessage","New Task was been successfully saved");
+            redirectAttributes.addFlashAttribute("alertMessage","New User was been successfully saved");
         }else{
             userService.updateUser(userDTO);
-            redirectAttributes.addFlashAttribute("alertMessage","Task was been successfully updated");
+            redirectAttributes.addFlashAttribute("alertMessage","User was been successfully updated");
         }
 
         return new ModelAndView("redirect:/");

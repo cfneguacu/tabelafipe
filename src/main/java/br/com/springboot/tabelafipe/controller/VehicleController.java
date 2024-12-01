@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 
 /**
@@ -84,7 +84,7 @@ public class VehicleController {
             CharacteristicDTO characteristicDTO = fipeService.consultCharacteristic(brand,model,year);
             vehicle.setCharacteristicDTO(characteristicDTO);
             vehicleService.saveVehicle(cpf, vehicle);
-            redirectAttributes.addFlashAttribute("alertMessage","New Task was been successfully saved");
+            redirectAttributes.addFlashAttribute("alertMessage","New Vehicle was been successfully saved");
 
         }
 

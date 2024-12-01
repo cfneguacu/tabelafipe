@@ -4,9 +4,11 @@ import br.com.springboot.tabelafipe.dto.UserDTO;
 import br.com.springboot.tabelafipe.entity.UserEntity;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 public interface UserService {
 
-    UserEntity findById(Long id);
+    UserDTO getUserById(Long id);
 
     void saveUser(UserDTO userDTO);
 
@@ -17,4 +19,6 @@ public interface UserService {
     UserDTO getUserByCpf(String cpf);
 
     Page<UserDTO> getUserListPaginated(int selectedPage, int pageSize);
+
+    List<UserDTO> getUserList();
 }

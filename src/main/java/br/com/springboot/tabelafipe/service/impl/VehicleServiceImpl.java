@@ -6,6 +6,7 @@ import br.com.springboot.tabelafipe.convert.StatusConvert;
 import br.com.springboot.tabelafipe.dto.*;
 import br.com.springboot.tabelafipe.entity.*;
 import br.com.springboot.tabelafipe.exceptions.UserNotFoundException;
+import br.com.springboot.tabelafipe.exceptions.VehicleNotFoundException;
 import br.com.springboot.tabelafipe.repository.UserRepository;
 import br.com.springboot.tabelafipe.repository.VehicleRepository;
 import br.com.springboot.tabelafipe.service.FipeService;
@@ -21,29 +22,48 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class VehicleServiceImpl implements VehicleService {
 
-    @Autowired
-    private VehicleRepository vehicleRepository;
+    private final VehicleRepository vehicleRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private FipeService fipeService;
+    private final FipeService fipeService;
 
-    private final StatusConvert statusConvert = new StatusConvert();
+    private final StatusConvert statusConvert;
 
-    private final VehicleDTOAdapter vehicleDTOAdapter = new VehicleDTOAdapter();
+    private final VehicleDTOAdapter vehicleDTOAdapter;
 
-    private final VehicleEntityAdapter vehicleEntityAdapter = new VehicleEntityAdapter();
+    private final VehicleEntityAdapter vehicleEntityAdapter;
+
+    public VehicleServiceImpl(final StatusConvert statusConvert, final VehicleDTOAdapter vehicleDTOAdapter, final VehicleEntityAdapter vehicleEntityAdapter, final VehicleRepository vehicleRepository, final UserRepository userRepository, final FipeService fipeService) {
+
+        this.statusConvert = statusConvert;
+        this.vehicleDTOAdapter = vehicleDTOAdapter;
+        this.vehicleEntityAdapter = vehicleEntityAdapter;
+        this.vehicleRepository = vehicleRepository;
+        this.userRepository = userRepository;
+        this.fipeService = fipeService;
+    }
 
     @Override
     public Iterable<VehicleEntity> findAll() {
         return vehicleRepository.findAll();
+    }
+
+
+    @Override
+    public VehicleDTO getVehicleById(Long id) {
+        final Optional<VehicleEntity> optionalTaskEntity = vehicleRepository.findById(id);
+        if(optionalTaskEntity.isPresent()){
+            return vehicleDTOAdapter.toDTO(optionalTaskEntity.get());
+        }else{
+            throw new VehicleNotFoundException(STR."Vehicle with id \{id} not found");
+        }
     }
 
     @Override
@@ -115,6 +135,8 @@ public class VehicleServiceImpl implements VehicleService {
 
         return page;
     }
+
+    @Override
     public List<VehicleDTO> getVehicleList(){
         return vehicleRepository.findAllByOrderBySubscriptionDateDesc()
                 .stream()

@@ -1,5 +1,6 @@
 package br.com.springboot.tabelafipe.service;
 
+import br.com.springboot.tabelafipe.dto.UserDTO;
 import br.com.springboot.tabelafipe.dto.VehicleDTO;
 import br.com.springboot.tabelafipe.entity.VehicleEntity;
 import org.springframework.data.domain.Page;
@@ -25,4 +26,8 @@ public interface VehicleService {
     List<String> getYears(VehicleDTO vehicleDTO);
 
     String getFuel(VehicleDTO vehicle);
+
+   VehicleDTO getVehicleById(Long id);
+
+   List<VehicleDTO> getVehicleList();
 }
