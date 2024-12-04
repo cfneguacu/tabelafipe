@@ -12,6 +12,7 @@ import br.com.springboot.tabelafipe.entity.VehicleEntity;
 import br.com.springboot.tabelafipe.service.FipeService;
 import br.com.springboot.tabelafipe.service.UserService;
 import br.com.springboot.tabelafipe.service.VehicleService;
+import br.com.springboot.tabelafipe.service.impl.VehicleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,7 @@ import jakarta.validation.Valid;
 public class VehicleController {
 	
 	@Autowired
-	private VehicleService vehicleService;
+	private VehicleServiceImpl vehicleService;
 
     @Autowired
     private FipeService fipeService;

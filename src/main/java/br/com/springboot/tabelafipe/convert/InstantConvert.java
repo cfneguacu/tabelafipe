@@ -1,10 +1,13 @@
 package br.com.springboot.tabelafipe.convert;
 
+import org.springframework.stereotype.Component;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
+@Component
 public class InstantConvert {
 
     public String convertInstantToString(final Instant dateInstant) {

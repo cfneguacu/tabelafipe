@@ -32,7 +32,8 @@ public class VehicleServiceImpl implements VehicleService {
 
     private final UserRepository userRepository;
 
-    private final FipeService fipeService;
+    @Autowired
+    private FipeService fipeService;
 
     private final StatusConvert statusConvert;
 
@@ -40,14 +41,13 @@ public class VehicleServiceImpl implements VehicleService {
 
     private final VehicleEntityAdapter vehicleEntityAdapter;
 
-    public VehicleServiceImpl(final StatusConvert statusConvert, final VehicleDTOAdapter vehicleDTOAdapter, final VehicleEntityAdapter vehicleEntityAdapter, final VehicleRepository vehicleRepository, final UserRepository userRepository, final FipeService fipeService) {
+    public VehicleServiceImpl(final StatusConvert statusConvert, final VehicleDTOAdapter vehicleDTOAdapter, final VehicleEntityAdapter vehicleEntityAdapter, final VehicleRepository vehicleRepository, final UserRepository userRepository) {
 
         this.statusConvert = statusConvert;
         this.vehicleDTOAdapter = vehicleDTOAdapter;
         this.vehicleEntityAdapter = vehicleEntityAdapter;
         this.vehicleRepository = vehicleRepository;
         this.userRepository = userRepository;
-        this.fipeService = fipeService;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class VehicleServiceImpl implements VehicleService {
         if(optionalTaskEntity.isPresent()){
             return vehicleDTOAdapter.toDTO(optionalTaskEntity.get());
         }else{
-            throw new VehicleNotFoundException(STR."Vehicle with id \{id} not found");
+            throw new VehicleNotFoundException("Vehicle with id"+id+" not found");
         }
     }
 

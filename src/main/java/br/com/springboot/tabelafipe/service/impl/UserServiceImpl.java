@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -48,7 +49,7 @@ public class UserServiceImpl implements UserService {
         if(optionalTaskEntity.isPresent()){
             return userDTOAdapter.toDTO(optionalTaskEntity.get());
         }else{
-            throw new UserNotFoundException(STR."Task with id \{id} not found");
+            throw new UserNotFoundException("Task with id "+id+" not found");
         }
     }
 
@@ -80,7 +81,7 @@ public class UserServiceImpl implements UserService {
                 userEntity.setVehicles(vehicleEntityList);
                 userRepository.save(userEntity);
             } else {
-                throw new UserNotFoundException(STR."User with id \{userDTO.getId()} not found");
+                throw new UserNotFoundException("User with id"+userDTO.getId()+" not found");
             }
         }catch(final RuntimeException re) {
             throw re;
