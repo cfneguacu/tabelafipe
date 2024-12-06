@@ -89,7 +89,7 @@ public class UserController {
 
 
     @DeleteMapping("delete-user/{id}")
-    public ModelAndView deleteUser(@PathVariable Long id){
+    public ModelAndView deleteUser(@PathVariable Long id) throws Exception {
         userService.deleteUser(id);
         ModelAndView mv = new ModelAndView("components/task-user");
         return modelAndViewListAux(SELECTED_PAGE != null ? SELECTED_PAGE : 1, mv);

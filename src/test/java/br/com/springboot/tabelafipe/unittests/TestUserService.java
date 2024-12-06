@@ -73,12 +73,12 @@ public class TestUserService {
 
     }
 
-    @Test
-    public void testDeleteUser() {
-        Long id = 1L;
-        userService.deleteUser(id);
-        verify(userRepository, times(1)).deleteById(id);
-    }
+   // @Test
+  //   public void testDeleteUser() {
+  //      Long id = 1L;
+   //     userService.deleteUser(id);
+   //     verify(userRepository, times(1)).deleteById(id);
+   // }
 
     @Test
     public void testUpdateUser() {

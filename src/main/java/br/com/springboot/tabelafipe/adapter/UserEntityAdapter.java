@@ -31,7 +31,7 @@ public class UserEntityAdapter {
 
         List<VehicleEntity> vehicleEntityList = new ArrayList<>();
         List<VehicleDTO> vehicleDTOList = userDTO.getVehicleDTOList();
-       // System.out.println(vehicleDTOList)
+        System.out.println(vehicleDTOList);
         if(vehicleEntityAdapter != null) {
 
             vehicleEntityList = vehicleDTOList.stream()

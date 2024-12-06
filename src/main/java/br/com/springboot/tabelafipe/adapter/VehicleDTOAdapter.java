@@ -17,7 +17,7 @@ import java.util.Date;
 @Component
 public class VehicleDTOAdapter {
 
-    private InstantConvert instantConvert;
+    private final InstantConvert instantConvert = new InstantConvert();
 
     public VehicleDTO toDTO(VehicleEntity vehicle){
 

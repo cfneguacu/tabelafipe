@@ -89,8 +89,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(Long id) {
-            userRepository.deleteById(id);
+    public void deleteUser(Long id) throws Exception {
+        UserEntity userEntity = userRepository.findById(id).
+                orElseThrow(()-> new Exception("Vehicle Not Found"));
+        userRepository.delete(userEntity);
     }
 
     @Override

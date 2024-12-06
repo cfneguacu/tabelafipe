@@ -88,8 +88,10 @@ public class VehicleServiceImpl implements VehicleService {
 
 
         UserEntity userEntity = userRepository.findByCpf(cpf);
-        VehicleEntity vehicleEntity = vehicleRepository.findById(id).orElseThrow(()-> new Exception("Vehicle Not Found"));
+        VehicleEntity vehicleEntity = vehicleRepository.findById(id).
+                orElseThrow(()-> new Exception("Vehicle Not Found"));
         userEntity.getVehicles().remove(vehicleEntity);
+        vehicleRepository.delete(vehicleEntity);
         userRepository.save(userEntity);
     }
 

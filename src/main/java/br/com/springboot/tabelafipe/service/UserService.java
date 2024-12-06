@@ -14,7 +14,7 @@ public interface UserService {
 
     void updateUser(UserDTO userDTO);
 
-    void deleteUser(Long id);
+    void deleteUser(Long id) throws Exception;
 
     UserDTO getUserByCpf(String cpf);
 

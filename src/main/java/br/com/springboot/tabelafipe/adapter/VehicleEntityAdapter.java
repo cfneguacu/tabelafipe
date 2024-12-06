@@ -21,9 +21,9 @@ import static br.com.springboot.tabelafipe.utils.VehicleUtils.getActiveRelayTemp
 @Component
 public class VehicleEntityAdapter {
 
-    private InstantConvert instantConvert;
+    private final InstantConvert instantConvert = new InstantConvert();
 
-    private StatusConvert statusConvert;
+    private final StatusConvert statusConvert = new StatusConvert();
 
     public VehicleEntity toModel(VehicleDTO vehicleDTO) {
 
@@ -34,6 +34,7 @@ public class VehicleEntityAdapter {
                 .licensePlate(vehicleDTO.getLicensePlate())
                 .subscriptionDate(instantConvert.convertStringToInstant(vehicleDTO.getSubscriptionDate()))
                 .modelEntity(ModelEntity.builder()
+                        .id(vehicleDTO.getModelDTO().getId())
                         .brandEntity(BrandEntity.builder()
                                 .code(vehicleDTO.getModelDTO().getBrandDTO().getCode())
                                 .name(vehicleDTO.getModelDTO().getBrandDTO().getName())
