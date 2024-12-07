@@ -43,4 +43,8 @@ public class VehicleDTO {
 
     private String status;
 
+    private boolean activeRelay;
+
+    private String relay;
+
 }

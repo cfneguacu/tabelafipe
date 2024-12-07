@@ -39,7 +39,7 @@ public class UserController {
 
     }
 
-    @GetMapping("add-new-user")
+    @GetMapping("/add-new-user")
     public ModelAndView pageNewUser(){
         ModelAndView mv = new ModelAndView("new-user");
         String message = "";
@@ -47,7 +47,7 @@ public class UserController {
     }
 
     @PostMapping("/add-or-update-user")
-    public ModelAndView addOrUpdateUser(final @Valid @RequestBody UserDTO userDTO,
+    public ModelAndView addOrUpdateUser(final @Valid UserDTO userDTO,
                                         final BindingResult bindResult,
                                         final RedirectAttributes redirectAttributes){
 
@@ -98,7 +98,7 @@ public class UserController {
     @GetMapping("/page/{pageNo}")
     public ModelAndView findPaginated(@PathVariable(value = "pageNo") int pageNo){
 
-        ModelAndView mv = new ModelAndView("components/task-card");
+        ModelAndView mv = new ModelAndView("components/task-user");
         SELECTED_PAGE = pageNo;
         return modelAndViewListAux(pageNo, mv);
 

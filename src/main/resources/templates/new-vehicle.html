@@ -50,7 +50,6 @@
 
                                         <div class="col-md-4 mb-3 mt-2">
                                             <label>Marca</label>
-                                            <!--select class="form-control" name="priority" th:field="*{priority}"-->
                                             <select class="form-control" name="brand"  th:field="*{modelDTO.brandDTO}">
 
                                                 <option th:each="brand : ${brands}"
@@ -92,7 +91,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-4 mb-3 mt-2">
-                                            <label>Combustível</label>
+                                            <label>Status</label>
                                             <!--select class="form-control" name="priority" th:field="*{priority}"-->
                                             <select class="form-control" name="status"  th:field="*{status}">
 
@@ -105,15 +104,15 @@
                                         <div class="col-md-4 mb-3 mt-2">
                                             <label>Cadastrado em</label>
                                             <input type="date" class="form-control" name="data"
-                                                   th:field="*{date}" placeholder="Data de Cadastro"
+                                                   th:field="*{subscriptionDate}" placeholder="Data de Cadastro"
                                                    id="expireDatePicker"
-                                                   th:classappend="${#fields.hasErrors('date')} ? 'is-invalid' : ''">
+                                                   th:classappend="${#fields.hasErrors('subscriptionDate')} ? 'is-invalid' : ''">
                                             <script>
                                                 var today = new Date().toISOString().split('T')[0];
                                                 //document.getElementById('expireDatePicker').min = today;
 
                                             </script>
-                                            <div th:if="${#fields.hasErrors('date')}" th:errors="*{date}"
+                                            <div th:if="${#fields.hasErrors('subscriptionDate')}" th:errors="*{subscriptionDate}"
                                                  class="invalid-feedback"></div>
                                         </div>
                                     </div>

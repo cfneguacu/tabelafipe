@@ -73,19 +73,18 @@ public class TestUserService {
 
     }
 
-   // @Test
-  //   public void testDeleteUser() {
-  //      Long id = 1L;
-   //     userService.deleteUser(id);
-   //     verify(userRepository, times(1)).deleteById(id);
-   // }
+   @Test
+   public void testDeleteUser() throws Exception {
+        Long id = 1L;
+        userService.deleteUser(id);
+        verify(userRepository, times(1)).deleteById(id);
+    }
 
     @Test
     public void testUpdateUser() {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(1L);
         userDTO.setName("Cláudio");
-        Instant date = Instant.now();
         userDTO.setCpf("29328172802");
         userDTO.setEmail("cfneguacu@hotmail.com");
         UserEntity userEntity = new UserEntity();

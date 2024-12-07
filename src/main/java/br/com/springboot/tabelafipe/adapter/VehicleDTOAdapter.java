@@ -50,6 +50,8 @@ public class VehicleDTOAdapter {
                 .renavam(vehicle.getRenavam())
                 .statusClass(getStatusClass(vehicle.getStatus()))
                 .status(vehicle.getStatus().getDescription())
+                .activeRelay(vehicle.isActiveRelay())
+                .relay(vehicle.getRelay())
                 .build();
 
     }

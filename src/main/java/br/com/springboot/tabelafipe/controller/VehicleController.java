@@ -46,7 +46,7 @@ public class VehicleController {
 
     @GetMapping("/vehicle")
     public ModelAndView findUser(@ModelAttribute("alertMessage") @Nullable String alertMessage , RedirectAttributes redirectAttributes){
-        ModelAndView mv = new ModelAndView("/components/task-vehicle");
+        ModelAndView mv = new ModelAndView("vehicle-index");
         if(SELECTED_PAGE == null){
             SELECTED_PAGE = PAGE_NO;
         }
@@ -57,15 +57,18 @@ public class VehicleController {
         return mvaux;
     }
 
-    @GetMapping("/vehicle/add-new-vehicle")
-    public ModelAndView pageNewVehicle(){
+    @GetMapping("/vehicle/add-new-vehicle/{cpf}")
+    public ModelAndView pageNewVehicle(@PathVariable(value = "cpf") String cpf){
         ModelAndView mv = new ModelAndView("new-vehicle");
         String message = "";
-        return modelAndViewAux(mv, new VehicleDTO(), "", message);
+        mv.addObject("vehicleDTO", new VehicleDTO());
+        mv.addObject("cpf", cpf);
+        mv.addObject("alertMessage", message);
+        return mv;
     }
 
-    @PostMapping(value = "/vehicle/add-or-update-vehicle/{cpf}")
-    public ModelAndView addOrUpdateTask(final @Valid @RequestBody VehicleDTO vehicle,
+    @PostMapping("/vehicle/add-or-update-vehicle/{cpf}")
+    public ModelAndView addOrUpdateTask(final @Valid VehicleDTO vehicle,
                                         final BindingResult bindResult,
                                         final RedirectAttributes redirectAttributes,
                                         @PathVariable(value = "cpf") String cpf){
@@ -122,17 +125,17 @@ public class VehicleController {
         return modelAndViewListAux(SELECTED_PAGE != null ? SELECTED_PAGE : 1, mv);
     }
 
-    @GetMapping("vehicle/vehicle-by-status")
+    @GetMapping("/vehicle/vehicle-by-status")
     public ModelAndView getTaskListByStatus(@RequestParam(name = "status", required = false) String status){
         ModelAndView mv = new ModelAndView("redirect:/vehicle");
         globalStatus = status;
         return mv;
     }
 
-    @GetMapping("vehicle/page/{pageNo}")
+    @GetMapping("/vehicle/page/{pageNo}")
     public ModelAndView findPaginated(@PathVariable(value = "pageNo") int pageNo){
 
-        ModelAndView mv = new ModelAndView("components/task-vehicle");
+        ModelAndView mv = new ModelAndView("/components/task-vehicle");
         SELECTED_PAGE = pageNo;
         return modelAndViewListAux(pageNo, mv);
 
