@@ -35,6 +35,9 @@ public class VehicleServiceImpl implements VehicleService {
     @Autowired
     private FipeService fipeService;
 
+    @Autowired
+    private VehicleService vehicleService;
+
     private final StatusConvert statusConvert;
 
     private final VehicleDTOAdapter vehicleDTOAdapter;
@@ -147,6 +150,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
 
+    @Override
     public List<String> getBrands(){
         
         List<BrandDTO> brandsList = fipeService.consultBrands();
@@ -159,7 +163,9 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
 
+    @Override
     public List<String> getModels(VehicleDTO vehicle){
+
         String brand = vehicle.getModelDTO().getBrandDTO().getCode();
         List<ModelDTO> modelsList = fipeService.consultModel(brand);
         List<String> models = new ArrayList<>();
@@ -170,6 +176,8 @@ public class VehicleServiceImpl implements VehicleService {
         return models;
     }
 
+
+    @Override
     public List<String> getYears(VehicleDTO vehicle){
 
         String model = vehicle.getModelDTO().getCode();
@@ -184,6 +192,7 @@ public class VehicleServiceImpl implements VehicleService {
         return years;
     }
 
+    @Override
     public String getFuel(VehicleDTO vehicle){
 
         String model = vehicle.getModelDTO().getCode();

@@ -3,15 +3,15 @@
  	  		method: "GET",
  	  		url: "brands",
  	  		success: function(response){
- 	  			$('#selecionarMarca > option').remove();
+ 	  			$('#brand > option').remove();
  	  			for (var i = 0; i < response.length; i++){
- 	 				$('#selecionarMarca').append('<option value="'+response[i].code+'">'+response[i].name+'</option>');
- 	 			}
+ 	 				$('#brand').append('<option value="'+response[i].code+'">'+response[i].name+'</option>');
+ 	 			}bra
  	  		}
  	  	});
 
- 	$("#selecionarMarca").click(function () {
-  	        $("#selecionarMarca").each(function () {
+ 	$("#brand).click(function () {
+  	        $("#brand").each(function () {
   	          $(this).find("option").each(function () {
   	            if ($(this).attr("selected")) {
  				    var marca = $(this).val()
@@ -20,7 +20,7 @@
   	            }
   	          });
   	        });
-  	   $("#selecionarMarca").find("option:selected").attr("selected", true);
+  	   $("#brand").find("option:selected").attr("selected", true);
   	})
 
  function selecionaModelo(url, marca){
@@ -31,16 +31,16 @@
  	  				method: "GET",
  	  				url: url,
  	  				success: function(response){
- 	  				$('#selecionarModelo > option').remove();
+ 	  				$('#model > option').remove();
  	  				for (var i = 0; i < response.length; i++){
- 	 				$('#selecionarModelo').append('<option value="'+response[i].code+'">'+response[i].name+'</option>');
+ 	 				$('#model').append('<option value="'+response[i].code+'">'+response[i].name+'</option>');
  	 				}
  	  			}
 
  	  			});
 
- 				$("#selecionarModelo").click(function () {
-  	        		$("#selecionarModelo").each(function () {
+ 				$("#model").click(function () {
+  	        		$("#model").each(function () {
   	         			 $(this).find("option").each(function () {
   	            			if ($(this).attr("selected")) {
  								var modelo = $(this).val();
@@ -49,7 +49,7 @@
   	            }
   	          });
   	        });
-  	       $("#selecionarModelo").find("option:selected").attr("selected", true);
+  	       $("#model").find("option:selected").attr("selected", true);
   		})
  }
 
@@ -62,15 +62,15 @@
  	  		method: "GET",
  	  		url: url,
  	  		success: function(response){
- 	  			$('#selecionarAno > option').remove();
+ 	  			$('#year > option').remove();
  	  			for (var i = 0; i < response.length; i++){
- 	 				$('#selecionarAno').append('<option value="'+response[i].code+'">'+response[i].code+'</option>');
+ 	 				$('#year').append('<option value="'+response[i].code+'">'+response[i].code+'</option>');
  	 			}
  	  		}
  	  	});
 
- 	$("#selecionarAno").click(function () {
-  	        $("#selecionarAno").each(function () {
+ 	$("#year").click(function () {
+  	        $("year").each(function () {
   	          $(this).find("option").each(function () {
   	           if ($(this).attr("selected")) {
   	             var ano = $(this).val();  								//if (modelo!=0){
@@ -79,7 +79,7 @@
   	            }
   	          });
   	        });
-  	      $("#selecionarAno").find("option:selected").attr("selected", true);
+  	      $("#year").find("option:selected").attr("selected", true);
   	})
 
 }
@@ -92,13 +92,13 @@
      	  		method: "GET",
      	  		url: url,
      	  		success: function(response){
-     	  			$('#selecionarCombustivel > option').remove();
-     	 				$('#selecionarCombustivel').append('<option value="'+response.fuel+'">'+response.fuel+'</option>');
+     	  			$('#fuel > option').remove();
+     	 				$('#fuel').append('<option value="'+response.fuel+'">'+response.fuel+'</option>');
      	  		}
      	  	});
 
-     	$("#selecionarCombustivel").click(function () {
-      	        $("#selecionarCombustivel").each(function () {
+     	$("#fuel").click(function () {
+      	        $("#fuel").each(function () {
       	          $(this).find("option").each(function () {
       	           if ($(this).attr("selected")) {
 
@@ -106,7 +106,7 @@
       	            }
       	          });
       	        });
-      	      $("#selecionarCombustivel").find("option:selected").attr("selected", true);
+      	      $("#fuel").find("option:selected").attr("selected", true);
       	})
 
    }

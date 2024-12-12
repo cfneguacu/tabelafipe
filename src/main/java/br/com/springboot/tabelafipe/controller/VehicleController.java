@@ -12,6 +12,7 @@ import br.com.springboot.tabelafipe.entity.VehicleEntity;
 import br.com.springboot.tabelafipe.service.FipeService;
 import br.com.springboot.tabelafipe.service.UserService;
 import br.com.springboot.tabelafipe.service.VehicleService;
+import br.com.springboot.tabelafipe.service.impl.UserServiceImpl;
 import br.com.springboot.tabelafipe.service.impl.VehicleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,6 +36,9 @@ public class VehicleController {
 	
 	@Autowired
 	private VehicleServiceImpl vehicleService;
+
+    @Autowired
+    private UserServiceImpl userService;
 
     @Autowired
     private FipeService fipeService;
@@ -61,10 +65,19 @@ public class VehicleController {
     public ModelAndView pageNewVehicle(@PathVariable(value = "cpf") String cpf){
         ModelAndView mv = new ModelAndView("new-vehicle");
         String message = "";
-        mv.addObject("vehicleDTO", new VehicleDTO());
-        mv.addObject("cpf", cpf);
-        mv.addObject("alertMessage", message);
-        return mv;
+
+        VehicleDTO vehicleDTO = VehicleDTO.builder()
+                        .modelDTO(ModelDTO.builder()
+                                .code("1")
+                                .brandDTO(BrandDTO.builder()
+                                        .code("1")
+                                        .build())
+                                .build())
+                 .yearDTO(YearDTO.builder()
+                         .code("1992-1")
+                         .build())
+              .build();
+        return modelAndViewAux(mv, vehicleDTO, cpf, message);
     }
 
     @PostMapping("/vehicle/add-or-update-vehicle/{cpf}")
@@ -106,7 +119,8 @@ public class VehicleController {
         return mv;
     }
 
-    public ModelAndView modelAndViewAux(ModelAndView mv, VehicleDTO vehicleDTO, String cpf, String message){
+    public ModelAndView modelAndViewAux(ModelAndView mv, @Valid VehicleDTO vehicleDTO, String cpf, String message){
+
         mv.addObject("vehicleDTO", vehicleDTO);
         mv.addObject("cpf", cpf);
         mv.addObject("models",vehicleService.getModels(vehicleDTO));
