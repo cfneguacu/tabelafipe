@@ -5,8 +5,14 @@
       layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>Tabela Fipe</title>
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script th:src="@{/teste.js}" th:fragment = "js"></script>
 </head>
 <section layout:fragment="content" style="min-height: 90vh; background-color: lightgray; margin-top:5%">
+
     <div th:if="${alertMessage != null and alertMessage != ''}" class="panel-heading" th:replace="~{components/alert.html}"></div>
     <div id="taskGet-container" class="card container"
          style="margin-top:1%; margin-bottom:1%; width: 50%; height:60%; border: none; padding-bottom:2%">
@@ -50,7 +56,7 @@
 
                                         <div class="col-md-4 mb-3 mt-2">
                                             <label>Marca</label>
-                                            <select class="form-control" name="brand"  th:field="*{modelDTO.brandDTO}">
+                                            <select class="form-control" id="brand"  th:field="*{modelDTO.brandDTO}">
 
                                                 <!--option th:each="brand : ${brands}"
                                                         th:value="${brand.code}"
@@ -61,7 +67,7 @@
                                         <div class="col-md-4 mb-3 mt-2">
                                             <label>Modelo</label>
                                             <!--select class="form-control" name="priority" th:field="*{priority}"-->
-                                            <select class="form-control" name="model"  th:field="*{modelDTO}">
+                                            <select class="form-control" id="model"  th:field="*{modelDTO}">
 
                                                 <!--option th:each="model : ${models}"
                                                         th:value="${code}"
@@ -72,7 +78,7 @@
                                         <div class="col-md-4 mb-3 mt-2">
                                             <label>Ano</label>
                                             <!--select class="form-control" name="priority" th:field="*{priority}"-->
-                                            <select class="form-control" name="year"  th:field="*{yearDTO}">
+                                            <select class="form-control" id="year"  th:field="*{yearDTO}">
 
                                                 <!--option th:each="year : ${years}"
                                                         th:value="${code}"
@@ -83,7 +89,7 @@
                                         <div class="col-md-4 mb-3 mt-2">
                                             <label>Combustível</label>
                                             <!--select class="form-control" name="priority" th:field="*{priority}"-->
-                                            <select class="form-control" name="fuel"  th:field="*{characteristicDTO}">
+                                            <select class="form-control" id="fuel"  th:field="*{characteristicDTO}">
 
                                                 <!--option th:each="fuel : ${fuels}"
                                                         th:value="${fuel}"
@@ -135,5 +141,4 @@
         </form>
     </div>
 </section>
-<script src = "./teste.js"></script>
 </html>

@@ -1,21 +1,20 @@
-
  	   $.ajax({
  	  		method: "GET",
- 	  		url: "brands",
+ 	  		url: "https://fipe.parallelum.com.br/api/v2/cars/brands",
  	  		success: function(response){
  	  			$('#brand > option').remove();
  	  			for (var i = 0; i < response.length; i++){
  	 				$('#brand').append('<option value="'+response[i].code+'">'+response[i].name+'</option>');
- 	 			}bra
+ 	 			}
  	  		}
  	  	});
 
- 	$("#brand).click(function () {
+ 	$("#brand").click(function () {
   	        $("#brand").each(function () {
   	          $(this).find("option").each(function () {
   	            if ($(this).attr("selected")) {
  				    var marca = $(this).val()
- 					selecionaModelo("brands", marca);
+ 					selecionaModelo("https://fipe.parallelum.com.br/api/v2/cars/brands", marca);
   	             $(this).removeAttr("selected");
   	            }
   	          });
@@ -70,7 +69,7 @@
  	  	});
 
  	$("#year").click(function () {
-  	        $("year").each(function () {
+  	        $("#year").each(function () {
   	          $(this).find("option").each(function () {
   	           if ($(this).attr("selected")) {
   	             var ano = $(this).val();  								//if (modelo!=0){
