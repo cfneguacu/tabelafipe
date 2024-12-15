@@ -104,10 +104,10 @@ public class VehicleServiceImpl implements VehicleService {
         return Arrays.asList(Status.SUCCESS.getDescription(),Status.FAILURE.getDescription(),Status.PENDING.getDescription(),Status.VEHICLE_ALREADY_EXISTS.getDescription());
     }
 
-    public List<VehicleDTO> getVehicleListByStatus(String strStatus){
+    public List<VehicleDTO> getVehicleListByStatus(String strStatus, String cpf){
         Status status = statusConvert.convertStatus(strStatus);
         if(status == null){
-            return getVehicleList();
+            return getVehicleList(cpf);
         }
 
         List<VehicleEntity> vehicleEntityList = vehicleRepository.findAllByStatusOrderBySubscriptionDateDesc(status);
@@ -116,11 +116,11 @@ public class VehicleServiceImpl implements VehicleService {
                 .collect(Collectors.toList());
     }
 
-    public Page<VehicleDTO> getVehicleListPaginated(int pageNo, int pageSize, String status){
+    public Page<VehicleDTO> getVehicleListPaginated(int pageNo, int pageSize, String status, String cpf){
 
         List<VehicleDTO> vehicleDTOList;
         Page<VehicleDTO> page;
-        vehicleDTOList = getVehicleListByStatus(status);
+        vehicleDTOList = getVehicleListByStatus(status, cpf);
         pageNo = 1;
 
 
@@ -142,7 +142,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public List<VehicleDTO> getVehicleList(){
+    public List<VehicleDTO> getVehicleList(String cpf){
         return vehicleRepository.findAllByOrderBySubscriptionDateDesc()
                 .stream()
                 .map(vehicleDTOAdapter::toDTO)

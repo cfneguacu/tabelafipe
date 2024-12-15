@@ -48,13 +48,13 @@ public class VehicleController {
     private static final int PAGE_NO = 1;
     private Integer SELECTED_PAGE;
 
-    @GetMapping("/vehicle")
-    public ModelAndView findUser(@ModelAttribute("alertMessage") @Nullable String alertMessage , RedirectAttributes redirectAttributes){
+    @GetMapping("/vehicle/{cpf}")
+    public ModelAndView findUser(@ModelAttribute("alertMessage") @Nullable String alertMessage , RedirectAttributes redirectAttributes, @PathVariable("cpf") String cpf){
         ModelAndView mv = new ModelAndView("vehicle-index");
         if(SELECTED_PAGE == null){
             SELECTED_PAGE = PAGE_NO;
         }
-        ModelAndView mvaux = modelAndViewListAux(SELECTED_PAGE, mv);
+        ModelAndView mvaux = modelAndViewListAux(SELECTED_PAGE, mv, cpf);
         mvaux.addObject("alertMessage", alertMessage);
         SELECTED_PAGE = null;
         //redirectAttributes.addFlashAttribute("cpf", usuario);
@@ -96,9 +96,9 @@ public class VehicleController {
         return new ModelAndView("redirect:/vehicle");
     }
 
-    public ModelAndView modelAndViewListAux(int selectedPage, ModelAndView mv){
+    public ModelAndView modelAndViewListAux(int selectedPage, ModelAndView mv, String cpf ){
 
-        Page<VehicleDTO> page = vehicleService.getVehicleListPaginated(selectedPage, PAGE_SIZE, globalStatus);
+        Page<VehicleDTO> page = vehicleService.getVehicleListPaginated(selectedPage, PAGE_SIZE, globalStatus, cpf);
         List<VehicleDTO> vehicleList = page.getContent();
         mv.addObject("vehicleDTOList", vehicleList);
         mv.addObject("currentPage", selectedPage);
@@ -111,10 +111,6 @@ public class VehicleController {
 
         mv.addObject("vehicleDTO", vehicleDTO);
         mv.addObject("cpf", cpf);
-       // mv.addObject("models",vehicleService.getModels(vehicleDTO));
-        // mv.addObject("years",vehicleService.getYears(vehicleDTO));
-       // mv.addObject("fuels",vehicleService.getFuel(vehicleDTO));
-       // mv.addObject("brands",vehicleService.getBrands());
         mv.addObject("statusList", vehicleService.getStatus());
         mv.addObject("alertMessage", message);
         return mv;
@@ -124,7 +120,7 @@ public class VehicleController {
     public ModelAndView deleteTask(@PathVariable String cpf, @PathVariable Long id) throws Exception {
         vehicleService.deleteVehicle(cpf,id);
         ModelAndView mv = new ModelAndView("/components/task-vehicle");
-        return modelAndViewListAux(SELECTED_PAGE != null ? SELECTED_PAGE : 1, mv);
+        return modelAndViewListAux(SELECTED_PAGE != null ? SELECTED_PAGE : 1, mv, cpf);
     }
 
     @GetMapping("/vehicle/vehicle-by-status")
@@ -134,12 +130,12 @@ public class VehicleController {
         return mv;
     }
 
-    @GetMapping("/vehicle/page/{pageNo}")
-    public ModelAndView findPaginated(@PathVariable(value = "pageNo") int pageNo){
+    @GetMapping("/vehicle/{cpf}/page/{pageNo}")
+    public ModelAndView findPaginated(@PathVariable(value="cpf") String cpf, @PathVariable(value = "pageNo") int pageNo){
 
         ModelAndView mv = new ModelAndView("/components/task-vehicle");
         SELECTED_PAGE = pageNo;
-        return modelAndViewListAux(pageNo, mv);
+        return modelAndViewListAux(pageNo, mv, cpf);
 
     }
 

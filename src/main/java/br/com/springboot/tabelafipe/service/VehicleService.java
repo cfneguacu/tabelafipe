@@ -15,7 +15,7 @@ public interface VehicleService {
 
     void deleteVehicle(String cpf, Long id) throws Exception;
 
-    Page<VehicleDTO> getVehicleListPaginated(int selectedPage, int pageSize, String globalStatus);
+    Page<VehicleDTO> getVehicleListPaginated(int selectedPage, int pageSize, String globalStatus, String cpf);
 
     List<String> getStatus();
 
@@ -29,5 +29,5 @@ public interface VehicleService {
 
    VehicleDTO getVehicleById(Long id);
 
-   List<VehicleDTO> getVehicleList();
+   List<VehicleDTO> getVehicleList(String cpf);
 }

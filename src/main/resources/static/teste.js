@@ -6,21 +6,22 @@
  	  			for (var i = 0; i < response.length; i++){
  	 				$('#brand').append('<option value="'+response[i].code+'">'+response[i].name+'</option>');
  	 			}
+ 	 			$("#brand").click(function () {
+                  	        $("#brand").each(function () {
+                  	          $(this).find("option").each(function () {
+                  	            if ($(this).attr("selected")) {
+                 				    var marca = $(this).val();
+                 					selecionaModelo("https://fipe.parallelum.com.br/api/v2/cars/brands", marca);
+                  	             $(this).removeAttr("selected");
+                  	            }
+                  	          });
+                  	        });
+                  	   $("#brand").find("option:selected").attr("selected", true);
+                  	})
  	  		}
  	  	});
 
- 	$("#brand").click(function () {
-  	        $("#brand").each(function () {
-  	          $(this).find("option").each(function () {
-  	            if ($(this).attr("selected")) {
- 				    var marca = $(this).val()
- 					selecionaModelo("https://fipe.parallelum.com.br/api/v2/cars/brands", marca);
-  	             $(this).removeAttr("selected");
-  	            }
-  	          });
-  	        });
-  	   $("#brand").find("option:selected").attr("selected", true);
-  	})
+
 
  function selecionaModelo(url, marca){
 

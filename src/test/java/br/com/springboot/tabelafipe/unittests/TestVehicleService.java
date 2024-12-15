@@ -291,7 +291,7 @@ public class TestVehicleService {
 
         when(vehicleDTOAdapter.toDTO(vehicleEntity)).thenReturn(vehicleDTO);
 
-        List<VehicleDTO> vehicleDTOList = vehicleService.getVehicleList();
+        List<VehicleDTO> vehicleDTOList = vehicleService.getVehicleList("293281722802");
 
         assertNotNull(vehicleDTOList);
         assertEquals(3, vehicleDTOList.size());

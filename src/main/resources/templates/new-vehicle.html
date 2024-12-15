@@ -56,7 +56,7 @@
 
                                         <div class="col-md-4 mb-3 mt-2">
                                             <label>Marca</label>
-                                            <select class="form-control" id="brand"  th:field="*{modelDTO.brandDTO}">
+                                            <select class="form-control" id="brand"  th:field="*{modelDTO.brandDTO.code}">
 
                                                 <!--option th:each="brand : ${brands}"
                                                         th:value="${brand.code}"
@@ -67,7 +67,7 @@
                                         <div class="col-md-4 mb-3 mt-2">
                                             <label>Modelo</label>
                                             <!--select class="form-control" name="priority" th:field="*{priority}"-->
-                                            <select class="form-control" id="model"  th:field="*{modelDTO}">
+                                            <select class="form-control" id="model"  th:field="*{modelDTO.code}">
 
                                                 <!--option th:each="model : ${models}"
                                                         th:value="${code}"
@@ -78,7 +78,7 @@
                                         <div class="col-md-4 mb-3 mt-2">
                                             <label>Ano</label>
                                             <!--select class="form-control" name="priority" th:field="*{priority}"-->
-                                            <select class="form-control" id="year"  th:field="*{yearDTO}">
+                                            <select class="form-control" id="year"  th:field="*{yearDTO.code}">
 
                                                 <!--option th:each="year : ${years}"
                                                         th:value="${code}"
@@ -89,7 +89,7 @@
                                         <div class="col-md-4 mb-3 mt-2">
                                             <label>Combustível</label>
                                             <!--select class="form-control" name="priority" th:field="*{priority}"-->
-                                            <select class="form-control" id="fuel"  th:field="*{characteristicDTO}">
+                                            <select class="form-control" id="fuel"  th:field="*{characteristicDTO.fuel}">
 
                                                 <!--option th:each="fuel : ${fuels}"
                                                         th:value="${fuel}"
