@@ -14,6 +14,7 @@ import br.com.springboot.tabelafipe.service.UserService;
 import br.com.springboot.tabelafipe.service.VehicleService;
 import br.com.springboot.tabelafipe.service.impl.UserServiceImpl;
 import br.com.springboot.tabelafipe.service.impl.VehicleServiceImpl;
+import ch.qos.logback.core.model.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +48,13 @@ public class VehicleController {
     private static final int PAGE_SIZE = 10;
     private static final int PAGE_NO = 1;
     private Integer SELECTED_PAGE;
+
+    @GetMapping("/vehicle")
+    public ModelAndView index(@ModelAttribute("alertMessage") @Nullable String alertMessage){
+        ModelAndView mv = new ModelAndView("vehicle-index");
+        mv.addObject("alertMessage", alertMessage);
+        return mv;
+    }
 
     @GetMapping("/vehicle/{cpf}")
     public ModelAndView findUser(@ModelAttribute("alertMessage") @Nullable String alertMessage , RedirectAttributes redirectAttributes, @PathVariable("cpf") String cpf){
@@ -121,6 +129,20 @@ public class VehicleController {
         vehicleService.deleteVehicle(cpf,id);
         ModelAndView mv = new ModelAndView("/components/task-vehicle");
         return modelAndViewListAux(SELECTED_PAGE != null ? SELECTED_PAGE : 1, mv, cpf);
+    }
+
+    @GetMapping("/vehicle/edit-vehicle/{id}")
+    public ModelAndView editUser(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
+        VehicleDTO vehicleDTO = vehicleService.getVehicleById(id);
+        redirectAttributes.addFlashAttribute("vehicleDTO", vehicleDTO);
+        return new ModelAndView("redirect:/edit-vehicle");
+    }
+
+    @GetMapping("/vehicle/edit-vehicle")
+    public ModelAndView editUserRedirect(@ModelAttribute("vehicleDTO") VehicleDTO vehicleDTO){
+        ModelAndView mv = new ModelAndView("new-vehicle");
+        String message = "";
+        return modelAndViewAux(mv, vehicleDTO,"", message);
     }
 
     @GetMapping("/vehicle/vehicle-by-status")

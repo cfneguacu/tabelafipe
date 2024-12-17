@@ -110,18 +110,18 @@
                                 </li>
                                 <li class="page-item" style="padding-right: 20px;"
                                     th:each="i: ${#numbers.sequence(1, totalPages)}">
-                                    <a th:if="${currentPage != i}" th:href="@{'/vehicle/page/' + ${i}}"
-                                       th:attr="hx-get=@{'/vehicle/page/' + ${i}}, hx-trigger='click', hx-swap='outerHTML', hx-target='#task-container'">[[${i}]]</a>
+                                    <a th:if="${currentPage != i}" th:href="@{'/vehicle/{cpf}/page/' + ${i}(cpf=${cpf})}"
+                                       th:attr="hx-get=@{'/vehicle/{cpf}/page/' + ${i}(cpf=${cpf})}, hx-trigger='click', hx-swap='outerHTML', hx-target='#task-container'">[[${i}]]</a>
                                     <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
                                 </li>
                                 <li class="page-item" style="padding-right: 20px;">
-                                    <a th:if="${currentPage < totalPages}" th:href="@{'/vehicle/page/' + ${currentPage + 1}}"
-                                       th:attr="hx-get=@{'/vehicle/page/' + ${currentPage + 1}}, hx-trigger='click', hx-swap='outerHTML', hx-target='#task-container'">Próximo</a>
+                                    <a th:if="${currentPage < totalPages}" th:href="@{'/vehicle/{cpf}/page/' + ${currentPage + 1}(cpf=${cpf})}"
+                                       th:attr="hx-get=@{'/vehicle/{cpf}/page/' + ${currentPage + 1}(cpf=${cpf})}, hx-trigger='click', hx-swap='outerHTML', hx-target='#task-container'">Próximo</a>
                                     <span th:unless="${currentPage < totalPages}">Próximo</span>
                                 </li>
                                 <li class="page-item" style="padding-right: 20px;">
-                                    <a th:if="${currentPage < totalPages}" th:href="@{'/vehicle/page/' + ${totalPages}}"
-                                       th:attr="hx-get=@{'/vehicle/page/' + ${totalPages}}, hx-trigger='click', hx-swap='outerHTML', hx-target='#task-container'">Último</a>
+                                    <a th:if="${currentPage < totalPages}" th:href="@{'/vehicle/{cpf}/page/' + ${totalPages}(cpf=${cpf})}"
+                                       th:attr="hx-get=@{'/vehicle/{cpf}/page/' + ${totalPages}(cpf=${cpf})}, hx-trigger='click', hx-swap='outerHTML', hx-target='#task-container'">Último</a>
                                     <span th:unless="${currentPage < totalPages}">Último</span>
                                 </li>
                             </ul>

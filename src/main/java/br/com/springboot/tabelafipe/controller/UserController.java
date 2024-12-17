@@ -4,6 +4,7 @@ import br.com.springboot.tabelafipe.dto.UserDTO;
 import br.com.springboot.tabelafipe.dto.VehicleDTO;
 import br.com.springboot.tabelafipe.entity.UserEntity;
 import br.com.springboot.tabelafipe.service.UserService;
+import ch.qos.logback.core.model.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.lang.Nullable;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @Controller("/")
 public class UserController {
@@ -93,6 +95,20 @@ public class UserController {
         userService.deleteUser(id);
         ModelAndView mv = new ModelAndView("components/task-user");
         return modelAndViewListAux(SELECTED_PAGE != null ? SELECTED_PAGE : 1, mv);
+    }
+
+    @GetMapping("/edit-user/{id}")
+    public ModelAndView editUser(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
+        UserDTO userDto = userService.getUserById(id);
+        redirectAttributes.addFlashAttribute("userDTO", userDto);
+        return new ModelAndView("redirect:/edit-user");
+    }
+
+    @GetMapping("/edit-task")
+    public ModelAndView editUserRedirect(Model model, @ModelAttribute("userDTO") UserDTO userDto){
+        ModelAndView mv = new ModelAndView("new-user");
+        String message = "";
+        return modelAndViewAux(mv, userDto, message);
     }
 
     @GetMapping("/page/{pageNo}")
