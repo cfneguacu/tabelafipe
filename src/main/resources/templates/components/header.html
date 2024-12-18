@@ -18,7 +18,7 @@
                        style="font-weight: bold; font-size: 90%; color: white;">Add Novo Usuario</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll" href="/vehicle/add-new-vehicle" style="font-weight: bold; font-size: 90%; color: white;">Add Novo Veiculo</a>
+                    <a class="nav-link js-scroll" th:href="@{/vehicle/add-new-vehicle/{cpf}(cpf=${cpf})}" style="font-weight: bold; font-size: 90%; color: white;">Add Novo Veiculo</a>
                 </li>
             </ul>
         </div>

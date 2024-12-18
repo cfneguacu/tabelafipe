@@ -10,7 +10,7 @@
                              style="display: flex; justify-content: space-between; text-align: left;">
                             <div class="col-sm">
                                 <h5 class="mb-0">
-                                    <form th:action="@{/vehicle/add-new-vehicle/{cpf}(cpf=${userDTO.cpf})}" method="get" style="display:inline;">
+                                    <form th:action="@{/vehicle/{cpf}(cpf=${userDTO.cpf})}" method="get" style="display:inline;">
                                     <button class="btn btn-link" data-toggle="collapse"
                                             th:data-target="'#collapse' + ${iterStat.index}"
                                             aria-expanded="false" aria-controls="'collapse' + ${iterStat.index}">

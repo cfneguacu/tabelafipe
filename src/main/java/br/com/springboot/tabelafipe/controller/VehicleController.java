@@ -44,17 +44,17 @@ public class VehicleController {
     @Autowired
     private FipeService fipeService;
     
-    private String globalStatus = "Pending";
+    private String globalStatus = "Success";
     private static final int PAGE_SIZE = 10;
     private static final int PAGE_NO = 1;
     private Integer SELECTED_PAGE;
 
-    @GetMapping("/vehicle")
+    /*@GetMapping("/vehicle")
     public ModelAndView index(@ModelAttribute("alertMessage") @Nullable String alertMessage){
         ModelAndView mv = new ModelAndView("vehicle-index");
         mv.addObject("alertMessage", alertMessage);
         return mv;
-    }
+    }*/
 
     @GetMapping("/vehicle/{cpf}")
     public ModelAndView findUser(@ModelAttribute("alertMessage") @Nullable String alertMessage , RedirectAttributes redirectAttributes, @PathVariable("cpf") String cpf){
@@ -65,7 +65,7 @@ public class VehicleController {
         ModelAndView mvaux = modelAndViewListAux(SELECTED_PAGE, mv, cpf);
         mvaux.addObject("alertMessage", alertMessage);
         SELECTED_PAGE = null;
-        //redirectAttributes.addFlashAttribute("cpf", usuario);
+        redirectAttributes.addFlashAttribute("cpf", cpf);
         return mvaux;
     }
 
@@ -101,7 +101,7 @@ public class VehicleController {
 
         }
 
-        return new ModelAndView("redirect:/vehicle");
+        return new ModelAndView("redirect:/vehicle/{cpf}");
     }
 
     public ModelAndView modelAndViewListAux(int selectedPage, ModelAndView mv, String cpf ){
