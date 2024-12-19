@@ -2,6 +2,7 @@ package br.com.springboot.tabelafipe.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 //import javax.validation.Valid;
@@ -48,13 +49,6 @@ public class VehicleController {
     private static final int PAGE_SIZE = 10;
     private static final int PAGE_NO = 1;
     private Integer SELECTED_PAGE;
-
-    /*@GetMapping("/vehicle")
-    public ModelAndView index(@ModelAttribute("alertMessage") @Nullable String alertMessage){
-        ModelAndView mv = new ModelAndView("vehicle-index");
-        mv.addObject("alertMessage", alertMessage);
-        return mv;
-    }*/
 
     @GetMapping("/vehicle/{cpf}")
     public ModelAndView findUser(@ModelAttribute("alertMessage") @Nullable String alertMessage , RedirectAttributes redirectAttributes, @PathVariable("cpf") String cpf){
@@ -106,7 +100,7 @@ public class VehicleController {
 
     public ModelAndView modelAndViewListAux(int selectedPage, ModelAndView mv, String cpf ){
 
-        Page<VehicleDTO> page = vehicleService.getVehicleListPaginated(selectedPage, PAGE_SIZE, globalStatus, cpf);
+        Page<VehicleDTO> page = vehicleService.getVehicleListPaginated(selectedPage, PAGE_SIZE, cpf);
         List<VehicleDTO> vehicleList = page.getContent();
         mv.addObject("vehicleDTOList", vehicleList);
         mv.addObject("currentPage", selectedPage);
@@ -131,25 +125,21 @@ public class VehicleController {
         return modelAndViewListAux(SELECTED_PAGE != null ? SELECTED_PAGE : 1, mv, cpf);
     }
 
-    @GetMapping("/vehicle/edit-vehicle/{id}")
-    public ModelAndView editUser(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
+    @GetMapping("/vehicle/edit-vehicle/{cpf}/{id}")
+    public ModelAndView editUser(@PathVariable("id") Long id, @PathVariable("cpf") String cpf, RedirectAttributes redirectAttributes){
+
         VehicleDTO vehicleDTO = vehicleService.getVehicleById(id);
+
+
         redirectAttributes.addFlashAttribute("vehicleDTO", vehicleDTO);
-        return new ModelAndView("redirect:/edit-vehicle");
+        return new ModelAndView("redirect:/vehicle/hnedit-vehicle/{cpf}");
     }
 
-    @GetMapping("/vehicle/edit-vehicle")
-    public ModelAndView editUserRedirect(@ModelAttribute("vehicleDTO") VehicleDTO vehicleDTO){
+    @GetMapping("/vehicle/edit-vehicle/{cpf}")
+    public ModelAndView editUserRedirect(@ModelAttribute("vehicleDTO") VehicleDTO vehicleDTO, @PathVariable("cpf") String cpf){
         ModelAndView mv = new ModelAndView("new-vehicle");
         String message = "";
-        return modelAndViewAux(mv, vehicleDTO,"", message);
-    }
-
-    @GetMapping("/vehicle/vehicle-by-status")
-    public ModelAndView getTaskListByStatus(@RequestParam(name = "status", required = false) String status){
-        ModelAndView mv = new ModelAndView("redirect:/vehicle");
-        globalStatus = status;
-        return mv;
+        return modelAndViewAux(mv, vehicleDTO, cpf, message);
     }
 
     @GetMapping("/vehicle/{cpf}/page/{pageNo}")

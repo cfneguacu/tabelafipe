@@ -104,7 +104,7 @@ public class UserController {
         return new ModelAndView("redirect:/edit-user");
     }
 
-    @GetMapping("/edit-task")
+    @GetMapping("/edit-user")
     public ModelAndView editUserRedirect(Model model, @ModelAttribute("userDTO") UserDTO userDto){
         ModelAndView mv = new ModelAndView("new-user");
         String message = "";

@@ -74,11 +74,11 @@ public class UserServiceImpl implements UserService {
                 userEntity.setName(userDTO.getName());
                 userEntity.setCpf(userDTO.getCpf());
                 userEntity.setEmail(userDTO.getEmail());
-                List<VehicleEntity> vehicleEntityList = userDTO.getVehicleDTOList()
+                /*List<VehicleEntity> vehicleEntityList = userDTO.getVehicleDTOList()
                         .stream()
                         .map(vehicleEntityAdapter::toModel)
                         .collect(Collectors.toList());
-                userEntity.setVehicles(vehicleEntityList);
+                userEntity.setVehicles(vehicleEntityList);*/
                 userRepository.save(userEntity);
             } else {
                 throw new UserNotFoundException("User with id"+userDTO.getId()+" not found");

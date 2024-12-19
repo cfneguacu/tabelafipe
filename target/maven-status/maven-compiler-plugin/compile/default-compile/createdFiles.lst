@@ -1,8 +1,0 @@
-br/com/springboot/tabelafipe/controller/CadastroController.class
-br/com/springboot/tabelafipe/status/Status.class
-br/com/springboot/tabelafipe/TabelafipeApplication.class
-br/com/springboot/tabelafipe/repository/VeiculosRepository.class
-br/com/springboot/tabelafipe/controller/VeiculosController.class
-br/com/springboot/tabelafipe/repository/CadastroRepository.class
-br/com/springboot/tabelafipe/model/Veiculos.class
-br/com/springboot/tabelafipe/model/Cadastro.class
