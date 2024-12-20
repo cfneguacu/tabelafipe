@@ -10,8 +10,8 @@
                   	        $("#brand").each(function () {
                   	          $(this).find("option").each(function () {
                   	            if ($(this).attr("selected")) {
-                 				    var marca = $(this).val();
-                 					selecionaModelo("https://fipe.parallelum.com.br/api/v2/cars/brands", marca);
+                 				    var brand = $(this).val();
+                 					getModel("https://fipe.parallelum.com.br/api/v2/cars/brands", brand);
                   	             $(this).removeAttr("selected");
                   	            }
                   	          });
@@ -23,9 +23,9 @@
 
 
 
- function selecionaModelo(url, marca){
+ function getModel(url, brand){
 
- 	 var url = url+"/"+marca+"/models";
+ 	 var url = url+"/"+brand+"/models";
 
  		$.ajax({
  	  				method: "GET",
@@ -43,8 +43,8 @@
   	        		$("#model").each(function () {
   	         			 $(this).find("option").each(function () {
   	            			if ($(this).attr("selected")) {
- 								var modelo = $(this).val();
- 								selecionaAno(url, modelo);
+ 								var model = $(this).val();
+ 								getYear(url, model);
   	            	 $(this).removeAttr("selected");
   	            }
   	          });
@@ -53,9 +53,9 @@
   		})
  }
 
- function selecionaAno(url, modelo){
+ function getYear(url, model){
 
- 	var url = url+"/"+modelo+"/years";
+ 	var url = url+"/"+model+"/years";
  	//}
 
  	$.ajax({
@@ -73,8 +73,8 @@
   	        $("#year").each(function () {
   	          $(this).find("option").each(function () {
   	           if ($(this).attr("selected")) {
-  	             var ano = $(this).val();  								//if (modelo!=0){
-                selecionaCombustivel(url, ano);
+  	             var year = $(this).val();  								//if (modelo!=0){
+                 getFuel(url, year);
   	            $(this).removeAttr("selected");
   	            }
   	          });
@@ -84,9 +84,9 @@
 
 }
 
-    function selecionaCombustivel(url, ano){
+    function getFuel(url, year){
 
-     	var url = url+"/"+ano;
+     	var url = url+"/"+year;
 
      	$.ajax({
      	  		method: "GET",
