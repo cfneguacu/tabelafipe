@@ -11,6 +11,8 @@ public interface VehicleService {
 
     Iterable<VehicleEntity> findAll();
 
+    void updateVehicle(VehicleDTO vehicleDTO);
+
     void saveVehicle(String cpf, VehicleDTO vehicle);
 
     void deleteVehicle(String cpf, Long id) throws Exception;

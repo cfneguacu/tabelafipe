@@ -84,14 +84,22 @@ public class VehicleController {
             return modelAndViewAux(mv, vehicle, cpf , message);
         }
 
-        if(vehicle != null){
+        if(vehicle.getId() == null) {
             String model = vehicle.getModelDTO().getCode();
             String brand = vehicle.getModelDTO().getBrandDTO().getCode();
             String year = vehicle.getYearDTO().getCode();
-            CharacteristicDTO characteristicDTO = fipeService.consultCharacteristic(brand,model,year);
+            CharacteristicDTO characteristicDTO = fipeService.consultCharacteristic(brand, model, year);
             vehicle.setCharacteristicDTO(characteristicDTO);
             vehicleService.saveVehicle(cpf, vehicle);
-            redirectAttributes.addFlashAttribute("alertMessage","New Vehicle was been successfully saved");
+            redirectAttributes.addFlashAttribute("alertMessage", "Vehicle was been successfully updated");
+        }else{
+            String model = vehicle.getModelDTO().getCode();
+            String brand = vehicle.getModelDTO().getBrandDTO().getCode();
+            String year = vehicle.getYearDTO().getCode();
+            CharacteristicDTO characteristicDTO = fipeService.consultCharacteristic(brand, model, year);
+            vehicle.setCharacteristicDTO(characteristicDTO);
+            vehicleService.updateVehicle(vehicle);
+            redirectAttributes.addFlashAttribute("alertMessage", "Vehicle was been successfully updated");
 
         }
 
@@ -129,10 +137,8 @@ public class VehicleController {
     public ModelAndView editUser(@PathVariable("id") Long id, @PathVariable("cpf") String cpf, RedirectAttributes redirectAttributes){
 
         VehicleDTO vehicleDTO = vehicleService.getVehicleById(id);
-
-
         redirectAttributes.addFlashAttribute("vehicleDTO", vehicleDTO);
-        return new ModelAndView("redirect:/vehicle/hnedit-vehicle/{cpf}");
+        return new ModelAndView("redirect:/vehicle/edit-vehicle/{cpf}");
     }
 
     @GetMapping("/vehicle/edit-vehicle/{cpf}")

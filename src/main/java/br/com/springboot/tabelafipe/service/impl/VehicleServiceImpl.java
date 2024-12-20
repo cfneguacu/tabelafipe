@@ -2,6 +2,7 @@ package br.com.springboot.tabelafipe.service.impl;
 
 import br.com.springboot.tabelafipe.adapter.VehicleDTOAdapter;
 import br.com.springboot.tabelafipe.adapter.VehicleEntityAdapter;
+import br.com.springboot.tabelafipe.convert.InstantConvert;
 import br.com.springboot.tabelafipe.convert.StatusConvert;
 import br.com.springboot.tabelafipe.dto.*;
 import br.com.springboot.tabelafipe.entity.*;
@@ -19,6 +20,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,17 +43,20 @@ public class VehicleServiceImpl implements VehicleService {
 
     private final StatusConvert statusConvert;
 
+    private final InstantConvert instantConvert;
+
     private final VehicleDTOAdapter vehicleDTOAdapter;
 
     private final VehicleEntityAdapter vehicleEntityAdapter;
 
-    public VehicleServiceImpl(final StatusConvert statusConvert, final VehicleDTOAdapter vehicleDTOAdapter, final VehicleEntityAdapter vehicleEntityAdapter, final VehicleRepository vehicleRepository, final UserRepository userRepository) {
+    public VehicleServiceImpl(final StatusConvert statusConvert, final VehicleDTOAdapter vehicleDTOAdapter, final VehicleEntityAdapter vehicleEntityAdapter, final VehicleRepository vehicleRepository, final UserRepository userRepository, InstantConvert instantConvert) {
 
         this.statusConvert = statusConvert;
         this.vehicleDTOAdapter = vehicleDTOAdapter;
         this.vehicleEntityAdapter = vehicleEntityAdapter;
         this.vehicleRepository = vehicleRepository;
         this.userRepository = userRepository;
+        this.instantConvert = instantConvert;
     }
 
     @Override
@@ -66,6 +72,50 @@ public class VehicleServiceImpl implements VehicleService {
             return vehicleDTOAdapter.toDTO(optionalTaskEntity.get());
         }else{
             throw new VehicleNotFoundException("Vehicle with id"+id+" not found");
+        }
+    }
+
+    @Override
+    public void updateVehicle(VehicleDTO vehicleDTO) {
+
+        try {
+
+            final Optional<VehicleEntity> optionalVehicleEntity = vehicleRepository.findById(vehicleDTO.getId());
+            if (optionalVehicleEntity.isPresent()) {
+                VehicleEntity vehicleEntity = optionalVehicleEntity.get();
+                        vehicleEntity.setLicensePlate(vehicleDTO.getLicensePlate());
+                        vehicleEntity.setSubscriptionDate(instantConvert.convertStringToInstant(vehicleDTO.getSubscriptionDate()));
+                        vehicleEntity.setModelEntity(ModelEntity.builder()
+                                .id(vehicleDTO.getModelDTO().getId())
+                                .brandEntity(BrandEntity.builder()
+                                        .code(vehicleDTO.getModelDTO().getBrandDTO().getCode())
+                                        .name(vehicleDTO.getModelDTO().getBrandDTO().getName())
+                                        .build())
+                                .code(vehicleDTO.getModelDTO().getCode())
+                                .name(vehicleDTO.getModelDTO().getName())
+                                .build());
+                        vehicleEntity.setYearEntity(YearEntity.builder()
+                                .code(vehicleDTO.getYearDTO().getCode())
+                                .name(vehicleDTO.getYearDTO().getName())
+                                .build());
+                        vehicleEntity.setCharacteristicEntity(CharacteristicEntity.builder()
+                                .brand(vehicleDTO.getCharacteristicDTO().getBrand())
+                                .model(vehicleDTO.getCharacteristicDTO().getModel())
+                                .price(vehicleDTO.getCharacteristicDTO().getPrice())
+                                .modelYear(vehicleDTO.getCharacteristicDTO().getModelYear())
+                                .fuel(vehicleDTO.getCharacteristicDTO().getFuel())
+                                .build());
+                        vehicleEntity.setColor(vehicleDTO.getColor());
+                        vehicleEntity.setStatus(statusConvert.convertStatus(vehicleDTO.getStatus()));
+                        vehicleEntity.setActiveRelay(vehicleDTO.isActiveRelay());
+                        vehicleEntity.setRelay(vehicleDTO.getRelay());
+                        vehicleEntity.setRenavam(vehicleDTO.getRenavam());
+                vehicleRepository.save(vehicleEntity);
+            } else {
+                throw new VehicleNotFoundException("Vehicle with id"+vehicleDTO.getId()+" not found");
+            }
+        }catch(final RuntimeException re) {
+            throw re;
         }
     }
 

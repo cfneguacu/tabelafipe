@@ -30,7 +30,7 @@
                                             <input type="text" class="form-control" name="renavam" placeholder="Renavam"
                                                    th:field="*{renavam}"
                                                    th:classappend="${#fields.hasErrors('renavam')} ? 'is-invalid' : ''">
-                                            <!--input type="hidden" name="id" th:value="${id}" th:field="*{id}"/-->
+                                            <input type="hidden" name="id" th:value="${id}" th:field="*{id}">
                                             <div th:if="${#fields.hasErrors('renavam')}" th:errors="*{renavam}"
                                                  class="invalid-feedback"></div>
                                         </div>
